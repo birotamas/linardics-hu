@@ -89,15 +89,25 @@
 
     /* Service slider animáció */
     .svc-slide {
-      transition: opacity 0.5s ease, transform 0.5s ease;
+      transition: opacity 0.6s ease, transform 0.6s ease;
     }
     .svc-slide.active {
       opacity: 1 !important;
-      transform: translateY(0) !important;
+      transform: scale(1) !important;
     }
     .svc-slide.leaving {
       opacity: 0 !important;
-      transform: translateY(-10px) !important;
+      transform: scale(1.06) !important;
+    }
+
+    /* Hero kártyák – felúszó (float-up) hover animáció */
+    .hero-card {
+      transform: translateY(0);
+      transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+    }
+    .hero-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 48px rgba(0,0,0,0.6);
     }
 
     /* Levágott sarok gomb stílus (bal alsó + jobb felső) */
@@ -203,114 +213,80 @@
 
     </div>
 
-    <!-- RIGHT: 3 preview box – abszolút, hero közép-jobb -->
-    <div class="hidden lg:flex flex-col gap-3 absolute z-20" style="right: 40px; top: 50%; transform: translateY(-50%);">
+    <!-- RIGHT: Aker-stílusú kártyák – background image + szöveg overlay -->
+    <div class="hidden lg:flex flex-col gap-2.5 absolute z-20" style="right: 40px; top: 50%; transform: translateY(-50%); width: 320px;">
 
-      <!-- 1. sor: Animált szolgáltatás box -->
-      <div class="overflow-hidden shadow-2xl relative" style="background: rgba(0,0,0,0.58); width: 340px; height: 96px;">
-        <div id="svc-slider" class="relative w-full h-full">
-          <div class="svc-slide absolute inset-0 flex items-center" style="opacity:0;transform:translateY(12px);">
-            <div class="h-full flex-shrink-0 overflow-hidden" style="width:120px;">
-              <img src="assets/images/laser-cutting.jpg" alt="Lézervágás" class="w-full h-full object-cover">
-            </div>
-            <div class="px-5 flex-1">
-              <p class="text-white/50 text-xs uppercase tracking-widest mb-1">Szolgáltatás</p>
-              <p class="text-white font-heading font-bold text-base uppercase tracking-widest leading-none">Lézervágás</p>
-              <p class="text-white/45 text-xs mt-1.5">CNC lemezmegmunkálás</p>
-            </div>
+      <!-- 1. kártya: Animált szolgáltatás slider – teljes bg kép -->
+      <a href="szolgaltatasok/index.html" class="hero-card group relative overflow-hidden shadow-2xl block" style="height: 190px;">
+        <!-- Slide képek – bg image -->
+        <div id="svc-slider" class="absolute inset-0">
+          <div class="svc-slide absolute inset-0" style="opacity:0;transform:scale(1.04);">
+            <img src="assets/images/laser-cutting.jpg" alt="" class="w-full h-full object-cover" style="transition: transform 0.6s ease;">
           </div>
-          <div class="svc-slide absolute inset-0 flex items-center" style="opacity:0;transform:translateY(12px);">
-            <div class="h-full flex-shrink-0 overflow-hidden" style="width:120px;">
-              <img src="assets/images/lemezhajlitas.jpg" alt="Lemezhajlítás" class="w-full h-full object-cover">
-            </div>
-            <div class="px-5 flex-1">
-              <p class="text-white/50 text-xs uppercase tracking-widest mb-1">Szolgáltatás</p>
-              <p class="text-white font-heading font-bold text-base uppercase tracking-widest leading-none">Lemezhajlítás</p>
-              <p class="text-white/45 text-xs mt-1.5">Élhajlítás & préselés</p>
-            </div>
+          <div class="svc-slide absolute inset-0" style="opacity:0;transform:scale(1.04);">
+            <img src="assets/images/lemezhajlitas.jpg" alt="" class="w-full h-full object-cover" style="transition: transform 0.6s ease;">
           </div>
-          <div class="svc-slide absolute inset-0 flex items-center" style="opacity:0;transform:translateY(12px);">
-            <div class="h-full flex-shrink-0 overflow-hidden" style="width:120px;">
-              <img src="assets/images/csohajlitas.jpg" alt="Csőhajlítás" class="w-full h-full object-cover">
-            </div>
-            <div class="px-5 flex-1">
-              <p class="text-white/50 text-xs uppercase tracking-widest mb-1">Szolgáltatás</p>
-              <p class="text-white font-heading font-bold text-base uppercase tracking-widest leading-none">Csőhajlítás</p>
-              <p class="text-white/45 text-xs mt-1.5">CNC csőmegmunkálás</p>
-            </div>
+          <div class="svc-slide absolute inset-0" style="opacity:0;transform:scale(1.04);">
+            <img src="assets/images/csohajlitas.jpg" alt="" class="w-full h-full object-cover" style="transition: transform 0.6s ease;">
           </div>
-          <div class="svc-slide absolute inset-0 flex items-center" style="opacity:0;transform:translateY(12px);">
-            <div class="h-full flex-shrink-0 overflow-hidden" style="width:120px;">
-              <img src="assets/images/porfestes.jpg" alt="Porfestés" class="w-full h-full object-cover">
-            </div>
-            <div class="px-5 flex-1">
-              <p class="text-white/50 text-xs uppercase tracking-widest mb-1">Szolgáltatás</p>
-              <p class="text-white font-heading font-bold text-base uppercase tracking-widest leading-none">Porfestés</p>
-              <p class="text-white/45 text-xs mt-1.5">Felületkezelés</p>
-            </div>
+          <div class="svc-slide absolute inset-0" style="opacity:0;transform:scale(1.04);">
+            <img src="assets/images/porfestes.jpg" alt="" class="w-full h-full object-cover" style="transition: transform 0.6s ease;">
           </div>
-          <div class="svc-slide absolute inset-0 flex items-center" style="opacity:0;transform:translateY(12px);">
-            <div class="h-full flex-shrink-0 overflow-hidden" style="width:120px;">
-              <img src="assets/images/komplex-projektek.webp" alt="Komplex projektek" class="w-full h-full object-cover">
-            </div>
-            <div class="px-5 flex-1">
-              <p class="text-white/50 text-xs uppercase tracking-widest mb-1">Szolgáltatás</p>
-              <p class="text-white font-heading font-bold text-base uppercase tracking-widest leading-none">Komplex projektek</p>
-              <p class="text-white/45 text-xs mt-1.5">Teljes gyártási lánc</p>
-            </div>
+          <div class="svc-slide absolute inset-0" style="opacity:0;transform:scale(1.04);">
+            <img src="assets/images/komplex-projektek.webp" alt="" class="w-full h-full object-cover" style="transition: transform 0.6s ease;">
           </div>
         </div>
-        <div class="absolute bottom-0 left-0 h-0.5 bg-[#cc2222]" id="svc-progress" style="width:0%;transition:width linear;"></div>
-      </div>
-
-      <!-- 2. sor: Kapcsolat box (széles) -->
-      <div class="overflow-hidden shadow-2xl" style="background: rgba(0,0,0,0.58); width: 340px;">
-        <div class="flex">
-          <!-- Bal: mérnök kép -->
-          <div class="flex-shrink-0 overflow-hidden" style="width:100px; height:130px;">
-            <img src="assets/images/engineer.jpg" alt="Kapcsolat" class="w-full h-full object-cover object-top">
+        <!-- Gradient overlay -->
+        <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(6,15,26,0.92) 0%, rgba(6,15,26,0.3) 50%, transparent 100%);"></div>
+        <!-- Szöveg alul -->
+        <div class="absolute bottom-0 left-0 right-0 p-4 flex items-end justify-between">
+          <div>
+            <p class="text-white/55 text-xs uppercase tracking-widest mb-1">Szolgáltatásaink</p>
+            <p id="svc-title" class="text-white font-heading font-black text-lg uppercase tracking-wide leading-none">Lézervágás</p>
           </div>
-          <!-- Jobb: elérhetőségek -->
-          <div class="flex-1 px-5 py-4 flex flex-col justify-between">
+          <!-- Nyíl ikon – hover-on elmozdul -->
+          <div class="w-8 h-8 border border-white/30 flex items-center justify-center group-hover:bg-[#cc2222] group-hover:border-[#cc2222] transition-all duration-300">
+            <svg class="w-4 h-4 text-white group-hover:translate-x-0.5 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </div>
+        <!-- Progress bar -->
+        <div class="absolute bottom-0 left-0 h-0.5 bg-[#cc2222]" id="svc-progress" style="width:0%;transition:width linear;"></div>
+      </a>
+
+      <!-- 2. sor: 2 kisebb kártya -->
+      <div class="flex gap-2.5">
+
+        <!-- Kapcsolat kártya – engineer bg -->
+        <a href="kapcsolat.html" class="hero-card group relative overflow-hidden shadow-2xl flex-1" style="height: 150px;">
+          <img src="assets/images/engineer.jpg" alt="" class="absolute inset-0 w-full h-full object-cover object-top group-hover:scale-105 transition-transform duration-500">
+          <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(6,15,26,0.95) 0%, rgba(6,15,26,0.4) 60%, transparent 100%);"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-3.5 flex items-end justify-between">
             <div>
-              <p class="text-white/50 text-xs uppercase tracking-widest mb-2">Elérhetőség</p>
-              <!-- Telefon -->
-              <a href="tel:+3622503865" class="flex items-center gap-2 mb-2 group">
-                <svg class="w-3.5 h-3.5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
-                <span class="text-white text-xs font-medium group-hover:text-[#cc2222] transition-colors">+36 22 503 865</span>
-              </a>
-              <!-- Email -->
-              <a href="mailto:linardicskft@linardics.hu" class="flex items-center gap-2 mb-2 group">
-                <svg class="w-3.5 h-3.5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
-                <span class="text-white text-xs font-medium group-hover:text-[#cc2222] transition-colors truncate">linardicskft@linardics.hu</span>
-              </a>
-              <!-- Cím -->
-              <div class="flex items-start gap-2">
-                <svg class="w-3.5 h-3.5 text-[#cc2222] flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
-                <span class="text-white/55 text-xs leading-relaxed">8000 Székesfehérvár,<br>Sóstói Ipari Park</span>
+              <p class="text-white/50 text-xs uppercase tracking-widest mb-0.5">Kapcsolat</p>
+              <p class="text-white font-heading font-bold text-sm uppercase tracking-wide leading-none">Írjon nekünk</p>
+              <div class="mt-2 space-y-0.5">
+                <p class="text-white/60 text-xs">+36 22 503 865</p>
+                <p class="text-white/60 text-xs truncate">linardicskft@linardics.hu</p>
               </div>
             </div>
           </div>
-        </div>
-        <!-- Ajánlatkérés gomb -->
-        <a href="kapcsolat.html" class="flex items-center justify-between px-5 py-3 bg-[#cc2222] hover:bg-[#a01818] transition-colors group">
-          <span class="text-white text-xs font-heading font-bold uppercase tracking-widest">Ajánlatot kérek</span>
-          <svg class="w-4 h-4 text-white group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          <div class="absolute top-3 right-3 w-7 h-7 border border-white/20 flex items-center justify-center group-hover:bg-[#cc2222] group-hover:border-[#cc2222] transition-all duration-300">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
         </a>
-      </div>
 
-      <!-- 3. sor: ISO badge -->
-      <div class="flex items-center gap-4 overflow-hidden shadow-2xl px-6 py-4" style="background: rgba(0,0,0,0.58); width: 340px;">
-        <div class="w-10 h-10 bg-[#cc2222] flex items-center justify-center flex-shrink-0">
-          <span class="text-white font-heading font-black text-sm leading-none">ISO</span>
-        </div>
-        <div>
-          <p class="text-white font-heading font-bold text-sm uppercase tracking-widest leading-none">ISO 9001:2015</p>
-          <p class="text-white/45 text-xs mt-1">Tanúsított minőségirányítás · 2004 óta</p>
-        </div>
-        <div class="ml-auto">
-          <svg class="w-5 h-5 text-[#cc2222]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
-        </div>
+        <!-- ISO kártya – sötét bg -->
+        <a href="rolunk.html" class="hero-card group relative overflow-hidden shadow-2xl flex-shrink-0 flex flex-col items-center justify-center" style="width: 110px; height: 150px; background: rgba(6,15,26,0.88); border: 1px solid rgba(204,34,34,0.25);">
+          <div class="w-12 h-12 bg-[#cc2222] flex items-center justify-center mb-3">
+            <span class="text-white font-heading font-black text-base leading-none">ISO</span>
+          </div>
+          <p class="text-white font-heading font-bold text-sm text-center leading-tight">9001<br><span class="text-xs font-normal text-white/50">:2015</span></p>
+          <p class="text-white/35 text-xs mt-2 text-center leading-tight">2004<br>óta</p>
+          <div class="absolute top-2.5 right-2.5 w-6 h-6 border border-white/15 flex items-center justify-center group-hover:bg-[#cc2222] group-hover:border-[#cc2222] transition-all duration-300">
+            <svg class="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+          </div>
+        </a>
+
       </div>
 
     </div>
@@ -633,19 +609,31 @@
     (function() {
       const slides = document.querySelectorAll('.svc-slide');
       const progress = document.getElementById('svc-progress');
-      const interval = 3000;
+      const titleEl = document.getElementById('svc-title');
+      const titles = ['Lézervágás', 'Lemezhajlítás', 'Csőhajlítás', 'Porfestés', 'Komplex projektek'];
+      const interval = 3200;
       let current = 0;
       let timer = null;
-      let progTimer = null;
 
       slides[0].classList.add('active');
 
       function showSlide(next) {
         slides[current].classList.remove('active');
         slides[current].classList.add('leaving');
-        setTimeout(() => slides[current].classList.remove('leaving'), 500);
+        setTimeout(() => slides[current].classList.remove('leaving'), 600);
         current = next;
         slides[current].classList.add('active');
+        // Cím frissítése fade-del
+        if (titleEl) {
+          titleEl.style.opacity = '0';
+          titleEl.style.transform = 'translateY(6px)';
+          setTimeout(() => {
+            titleEl.textContent = titles[current];
+            titleEl.style.transition = 'opacity 0.4s ease, transform 0.4s ease';
+            titleEl.style.opacity = '1';
+            titleEl.style.transform = 'translateY(0)';
+          }, 200);
+        }
       }
 
       function startProgress() {
