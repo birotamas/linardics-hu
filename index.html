@@ -100,14 +100,25 @@
       transform: scale(1.06) !important;
     }
 
-    /* Hero kártyák – felúszó (float-up) hover animáció */
+    /* Hero kártyák – belépési animáció (alulról felúszás) */
     .hero-card {
-      transform: translateY(0);
+      opacity: 0;
+      transform: translateY(60px);
       transition: transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
     }
-    .hero-card:hover {
+    .hero-card.card-visible {
+      opacity: 1;
+      transform: translateY(0);
+      /* Az egyedi animáció felülírja, hover ezután működik */
+      animation: cardFloatIn 0.7s cubic-bezier(0.22, 1, 0.36, 1) forwards;
+    }
+    .hero-card.card-visible:hover {
       transform: translateY(-6px);
       box-shadow: 0 24px 48px rgba(0,0,0,0.6);
+    }
+    @keyframes cardFloatIn {
+      from { opacity: 0; transform: translateY(60px); }
+      to   { opacity: 1; transform: translateY(0); }
     }
 
     /* Levágott sarok gomb stílus (bal alsó + jobb felső) */
@@ -604,6 +615,16 @@
       menu.classList.toggle('open');
       document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
     }
+
+    // Hero kártyák belépési animáció – alulról felúszás
+    (function() {
+      const cards = document.querySelectorAll('.hero-card');
+      const delays = [0.3, 0.55, 0.75]; // mp – top, bal alsó, jobb alsó
+      cards.forEach((card, i) => {
+        card.style.animationDelay = delays[i] + 's';
+        setTimeout(() => card.classList.add('card-visible'), delays[i] * 1000);
+      });
+    })();
 
     // Service slider
     (function() {
