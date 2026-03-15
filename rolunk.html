@@ -1,0 +1,496 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Rólunk – Linardics Kft.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0d1b2a',
+            'navy-dark': '#060f1a',
+            'navy-card': '#122135',
+            brand: '#cc2222',
+            'brand-dark': '#a01818',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .font-heading, h1, h2, h3 { font-family: 'Barlow Condensed', sans-serif; }
+    .navbar-scrolled {
+      background: rgba(6, 15, 26, 0.88) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    html { scroll-behavior: smooth; }
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+    .btn-clipped {
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      border-radius: 0 !important;
+    }
+    .timeline-item:not(:last-child)::after {
+      content: '';
+      position: absolute;
+      left: 19px;
+      top: 40px;
+      width: 2px;
+      height: calc(100% + 1rem);
+      background: linear-gradient(to bottom, #cc2222, rgba(204,34,34,0.1));
+    }
+  </style>
+</head>
+<body class="bg-[#060f1a] text-white overflow-x-hidden">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 px-6 md:px-12 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 flex-shrink-0">
+      <img src="assets/images/linardics-logo.png" alt="Linardics Kft." class="h-9 w-auto">
+      <span class="font-heading font-bold text-white text-base tracking-widest hidden sm:block">LINARDICS KFT.</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-xs font-medium tracking-widest text-white/85">
+      <a href="szolgaltatasok/index.html" class="hover:text-white transition-colors uppercase">Szolgáltatásaink</a>
+      <a href="geppark.html" class="hover:text-white transition-colors uppercase">Géppark</a>
+      <a href="referenciak.html" class="hover:text-white transition-colors uppercase">Referenciák</a>
+      <a href="rolunk.html" class="text-white uppercase border-b border-[#cc2222] pb-0.5">Rólunk</a>
+      <a href="kapcsolat.html" class="hover:text-white transition-colors uppercase">Kapcsolat</a>
+    </div>
+    <div class="flex items-center gap-4 ml-auto md:ml-0">
+      <a href="kapcsolat.html" class="btn-clipped hidden sm:block bg-[#cc2222] hover:bg-[#a01818] text-white text-xs font-semibold px-5 py-2.5 tracking-wider uppercase transition-colors">
+        Ajánlatkérés
+      </a>
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" onclick="toggleMenu()">
+        <span class="w-6 h-0.5 bg-white block"></span>
+        <span class="w-6 h-0.5 bg-white block"></span>
+        <span class="w-6 h-0.5 bg-white block"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="fixed top-0 left-0 right-0 bottom-0 z-40 bg-[#060f1a] flex-col items-center justify-center gap-8 text-center">
+    <a href="szolgaltatasok/index.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Szolgáltatásaink</a>
+    <a href="geppark.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Géppark</a>
+    <a href="referenciak.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Referenciák</a>
+    <a href="rolunk.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-[#cc2222]" onclick="toggleMenu()">Rólunk</a>
+    <a href="kapcsolat.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Kapcsolat</a>
+    <a href="kapcsolat.html" class="mt-4 btn-clipped bg-[#cc2222] text-white font-heading font-bold text-xl uppercase tracking-widest px-10 py-4">Ajánlatkérés</a>
+  </div>
+
+  <!-- HERO SECTION -->
+  <div class="relative pt-32 pb-0 overflow-hidden" style="background: linear-gradient(180deg, #060f1a 0%, #0d1b2a 100%);">
+    <div class="max-w-7xl mx-auto px-6 md:px-12 pb-16">
+      <div class="flex flex-col lg:flex-row gap-12 items-start">
+        <!-- Bal oldal: szöveg -->
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-3">
+            <div class="w-1 h-6 bg-[#cc2222]"></div>
+            <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">30 év tapasztalat</span>
+          </div>
+          <h1 class="font-heading font-black text-6xl md:text-8xl uppercase tracking-wide text-white leading-none mb-6">Rólunk</h1>
+          <p class="text-white/60 text-base leading-relaxed max-w-lg mb-8">
+            A Linardics Kft. 1994-ben alapított, 100%-ban magyar tulajdonú, családi vállalkozás. Három évtized alatt az ország egyik meghatározó precíziós lemezmegmunkálójává nőttük ki magunkat – ISO 9001 tanúsítvánnyal, TRUMPF és AMADA gépparkkal, Székesfehérváron.
+          </p>
+          <!-- Stat bar -->
+          <div class="grid grid-cols-2 md:grid-cols-4 gap-px bg-white/8">
+            <div class="bg-[#060f1a] px-5 py-5">
+              <div class="font-heading font-black text-3xl md:text-4xl text-[#cc2222] leading-none mb-1">1994</div>
+              <div class="text-white/40 text-xs uppercase tracking-widest">Alapítás éve</div>
+            </div>
+            <div class="bg-[#060f1a] px-5 py-5">
+              <div class="font-heading font-black text-3xl md:text-4xl text-[#cc2222] leading-none mb-1">30+</div>
+              <div class="text-white/40 text-xs uppercase tracking-widest">Év tapasztalat</div>
+            </div>
+            <div class="bg-[#060f1a] px-5 py-5">
+              <div class="font-heading font-black text-3xl md:text-4xl text-[#cc2222] leading-none mb-1">8500 m²</div>
+              <div class="text-white/40 text-xs uppercase tracking-widest">Gyártóterület</div>
+            </div>
+            <div class="bg-[#060f1a] px-5 py-5">
+              <div class="font-heading font-black text-3xl md:text-4xl text-[#cc2222] leading-none mb-1">ISO</div>
+              <div class="text-white/40 text-xs uppercase tracking-widest">9001 · 2004 óta</div>
+            </div>
+          </div>
+        </div>
+        <!-- Jobb oldal: kép -->
+        <div class="lg:w-96 shrink-0 relative">
+          <img src="assets/images/engineer.jpg" alt="Linardics mérnök" class="w-full h-80 lg:h-96 object-cover object-center">
+          <!-- Overlay badge -->
+          <div class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-[#060f1a] to-transparent h-24"></div>
+          <div class="absolute bottom-4 left-4 right-4 flex gap-3">
+            <div class="bg-[#cc2222] px-3 py-2">
+              <div class="text-white text-xs font-bold tracking-widest uppercase">ISO 9001</div>
+              <div class="text-white/70 text-xs">Tanúsított 2004 óta</div>
+            </div>
+            <div class="bg-[#122135] border border-white/10 px-3 py-2">
+              <div class="text-white text-xs font-bold tracking-widest uppercase">Magyar tulajdon</div>
+              <div class="text-white/70 text-xs">100% családi vállalat</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ÉRTÉKEINK -->
+  <section class="bg-[#0d1b2a] py-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-1 h-6 bg-[#cc2222]"></div>
+        <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Ami minket vezérel</span>
+      </div>
+      <h2 class="font-heading font-black text-4xl md:text-5xl uppercase tracking-wide text-white mb-10 leading-tight">Értékeink</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="bg-[#122135] border border-white/8 p-7">
+          <div class="w-12 h-12 bg-[#cc2222]/10 border border-[#cc2222]/20 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-[#cc2222]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-xl uppercase tracking-widest text-white mb-3">Precizitás</h3>
+          <p class="text-white/45 text-sm leading-relaxed">
+            Minden alkatrész ugyanolyan fontosságú. ±0,05 mm-es tűrés nem elvárás – ez a minimumunk. Gépparkunk és folyamataink ezt garantálják prototípustól nagysorozatig.
+          </p>
+        </div>
+        <div class="bg-[#122135] border border-white/8 p-7">
+          <div class="w-12 h-12 bg-[#cc2222]/10 border border-[#cc2222]/20 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-[#cc2222]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-xl uppercase tracking-widests text-white mb-3">Megbízhatóság</h3>
+          <p class="text-white/45 text-sm leading-relaxed">
+            30 év alatt egyetlen nagyvállalati partnerünket sem veszítettük el minőségi hiba miatt. A határidők és ígéretek tartása számunkra alap – nem előny.
+          </p>
+        </div>
+        <div class="bg-[#122135] border border-white/8 p-7">
+          <div class="w-12 h-12 bg-[#cc2222]/10 border border-[#cc2222]/20 flex items-center justify-center mb-5">
+            <svg class="w-6 h-6 text-[#cc2222]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <h3 class="font-heading font-bold text-xl uppercase tracking-widests text-white mb-3">Fejlődés</h3>
+          <p class="text-white/45 text-sm leading-relaxed">
+            Gépparkunk, folyamataink és tudásunk folyamatosan fejlődik. Az ISO 9001 rendszer nemcsak tanúsítvány – egy folytonos fejlesztési kötelezettség, amit 2004 óta komolyan veszünk.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TIMELINE -->
+  <section class="bg-[#060f1a] py-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col lg:flex-row gap-12">
+        <!-- Bal: cím -->
+        <div class="lg:w-72 shrink-0">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-1 h-6 bg-[#cc2222]"></div>
+            <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Történetünk</span>
+          </div>
+          <h2 class="font-heading font-black text-4xl uppercase tracking-wide text-white mb-4 leading-tight">30 év mérföldkövei</h2>
+          <p class="text-white/40 text-sm leading-relaxed">
+            Kis megmunkálóból az ország egyik meghatározó lemezmegmunkáló vállalatává váltunk – fokozatosan, megbízható munkával.
+          </p>
+        </div>
+        <!-- Jobb: timeline -->
+        <div class="flex-1">
+          <div class="space-y-4">
+
+            <!-- 1994 -->
+            <div class="timeline-item relative flex gap-6 pb-4">
+              <div class="shrink-0 w-10 h-10 bg-[#cc2222] flex items-center justify-center z-10">
+                <div class="w-2 h-2 bg-white"></div>
+              </div>
+              <div class="flex-1 pt-1.5">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <span class="font-heading font-black text-2xl text-[#cc2222]">1994</span>
+                  <span class="text-white/30 text-xs uppercase tracking-widest">Alapítás</span>
+                </div>
+                <p class="text-white/55 text-sm leading-relaxed">Linardics Kft. megalakulása Székesfehérváron. Alapítónk, Linardics Ferenc, 2 munkással és 1 géppel kezdte a vállalkozást – a minőség iránti szenvedéllyel.</p>
+              </div>
+            </div>
+
+            <!-- 1998 -->
+            <div class="timeline-item relative flex gap-6 pb-4">
+              <div class="shrink-0 w-10 h-10 bg-[#122135] border border-[#cc2222]/40 flex items-center justify-center z-10">
+                <div class="w-2 h-2 bg-[#cc2222]"></div>
+              </div>
+              <div class="flex-1 pt-1.5">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <span class="font-heading font-black text-2xl text-[#cc2222]">1998</span>
+                  <span class="text-white/30 text-xs uppercase tracking-widest">Bővítés</span>
+                </div>
+                <p class="text-white/55 text-sm leading-relaxed">Első saját gyártócsarnok megvásárlása a Sóstói Ipari Parkban. Az alapterület megduplázódott, az első CNC megmunkálógépek üzembe helyezése.</p>
+              </div>
+            </div>
+
+            <!-- 2004 -->
+            <div class="timeline-item relative flex gap-6 pb-4">
+              <div class="shrink-0 w-10 h-10 bg-[#cc2222] flex items-center justify-center z-10">
+                <div class="w-2 h-2 bg-white"></div>
+              </div>
+              <div class="flex-1 pt-1.5">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <span class="font-heading font-black text-2xl text-[#cc2222]">2004</span>
+                  <span class="text-white/30 text-xs uppercase tracking-widest">ISO 9001 tanúsítvány</span>
+                </div>
+                <p class="text-white/55 text-sm leading-relaxed">Megszerzés és azóta folyamatosan megújított ISO 9001 minőségirányítási tanúsítvány. Ez volt a belépő a nagyvállalati beszállítói piacra.</p>
+              </div>
+            </div>
+
+            <!-- 2008 -->
+            <div class="timeline-item relative flex gap-6 pb-4">
+              <div class="shrink-0 w-10 h-10 bg-[#122135] border border-[#cc2222]/40 flex items-center justify-center z-10">
+                <div class="w-2 h-2 bg-[#cc2222]"></div>
+              </div>
+              <div class="flex-1 pt-1.5">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <span class="font-heading font-black text-2xl text-[#cc2222]">2008</span>
+                  <span class="text-white/30 text-xs uppercase tracking-widest">TRUMPF technológia</span>
+                </div>
+                <p class="text-white/55 text-sm leading-relaxed">Első TRUMPF lézervágó gép üzembe helyezése. A precíziós vágási kapacitás ugrásszerű növekedése, autóipari és gépipar beszállítói szerződések.</p>
+              </div>
+            </div>
+
+            <!-- 2012 -->
+            <div class="timeline-item relative flex gap-6 pb-4">
+              <div class="shrink-0 w-10 h-10 bg-[#122135] border border-[#cc2222]/40 flex items-center justify-center z-10">
+                <div class="w-2 h-2 bg-[#cc2222]"></div>
+              </div>
+              <div class="flex-1 pt-1.5">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <span class="font-heading font-black text-2xl text-[#cc2222]">2012</span>
+                  <span class="text-white/30 text-xs uppercase tracking-widest">Porfestő sor</span>
+                </div>
+                <p class="text-white/55 text-sm leading-relaxed">Saját porfestő kapacitás kiépítése. Ettől kezdve komplett, egy kézből nyújtott megmunkálási és felületkezelési szolgáltatások elérhetők.</p>
+              </div>
+            </div>
+
+            <!-- 2016 -->
+            <div class="timeline-item relative flex gap-6 pb-4">
+              <div class="shrink-0 w-10 h-10 bg-[#122135] border border-[#cc2222]/40 flex items-center justify-center z-10">
+                <div class="w-2 h-2 bg-[#cc2222]"></div>
+              </div>
+              <div class="flex-1 pt-1.5">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <span class="font-heading font-black text-2xl text-[#cc2222]">2016</span>
+                  <span class="text-white/30 text-xs uppercase tracking-widest">Telep bővítés</span>
+                </div>
+                <p class="text-white/55 text-sm leading-relaxed">Szomszédos üzemcsarnok megvásárlása, a gyártóterület 8500 m²-re bővül. AMADA hajlítógépek integrálása a gépparkba.</p>
+              </div>
+            </div>
+
+            <!-- 2020 -->
+            <div class="timeline-item relative flex gap-6 pb-4">
+              <div class="shrink-0 w-10 h-10 bg-[#122135] border border-[#cc2222]/40 flex items-center justify-center z-10">
+                <div class="w-2 h-2 bg-[#cc2222]"></div>
+              </div>
+              <div class="flex-1 pt-1.5">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <span class="font-heading font-black text-2xl text-[#cc2222]">2020</span>
+                  <span class="text-white/30 text-xs uppercase tracking-widest">Fiber lézer</span>
+                </div>
+                <p class="text-white/55 text-sm leading-relaxed">TruLaser 3030 Fiber üzembe helyezése – 5 kW-os fiber lézerforrással, amely az alacsony és közepes vastagságú anyagok vágását forradalmian felgyorsította.</p>
+              </div>
+            </div>
+
+            <!-- 2024 -->
+            <div class="timeline-item relative flex gap-6 pb-4">
+              <div class="shrink-0 w-10 h-10 bg-[#cc2222] flex items-center justify-center z-10">
+                <div class="w-2 h-2 bg-white"></div>
+              </div>
+              <div class="flex-1 pt-1.5">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <span class="font-heading font-black text-2xl text-[#cc2222]">2024</span>
+                  <span class="text-white/30 text-xs uppercase tracking-widest">TruBend Center 7030</span>
+                </div>
+                <p class="text-white/55 text-sm leading-relaxed">Automata hajlítócella üzembe helyezése. Robot által vezérelt anyagkezeléssel a nagysorozatú hajlítás hatékonysága megsokszorozódott.</p>
+              </div>
+            </div>
+
+            <!-- Ma -->
+            <div class="relative flex gap-6">
+              <div class="shrink-0 w-10 h-10 bg-[#cc2222] flex items-center justify-center z-10">
+                <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/></svg>
+              </div>
+              <div class="flex-1 pt-1.5">
+                <div class="flex items-baseline gap-3 mb-1">
+                  <span class="font-heading font-black text-2xl text-[#cc2222]">2026</span>
+                  <span class="text-white/30 text-xs uppercase tracking-widest">Ma</span>
+                </div>
+                <p class="text-white/55 text-sm leading-relaxed">15+ gép, 8500 m² gyártóterület, 3 műszakos termelés. ISO 9001 tanúsítással, TRUMPF és AMADA gépparkkal – továbblépünk.</p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INGATLAN / TELEPHELYEK -->
+  <section class="bg-[#0d1b2a] py-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col lg:flex-row gap-10 items-start">
+        <!-- Kép -->
+        <div class="lg:w-1/2 relative">
+          <img src="assets/images/hero-building.jpg" alt="Linardics telephely" class="w-full h-72 lg:h-96 object-cover object-center">
+          <div class="absolute inset-0 bg-gradient-to-r from-transparent to-[#0d1b2a]/50"></div>
+        </div>
+        <!-- Szöveg -->
+        <div class="flex-1">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="w-1 h-6 bg-[#cc2222]"></div>
+            <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Saját telephely</span>
+          </div>
+          <h2 class="font-heading font-black text-3xl md:text-4xl uppercase tracking-wide text-white mb-5 leading-tight">Székesfehérvár,<br>Sóstói Ipari Park</h2>
+          <p class="text-white/55 text-sm leading-relaxed mb-6">
+            A vállalkozás teljes ingatlanállománya saját tulajdon. A Sóstói Ipari Parkban elhelyezkedő telephelyünk ideális lokációt biztosít: M7-es autópálya-csomóponthoz közel, kiváló logisztikai hozzáféréssel.
+          </p>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-[#122135] border border-white/8 p-5">
+              <div class="font-heading font-black text-3xl text-[#cc2222] mb-1">26 000 m²</div>
+              <div class="text-white/40 text-xs uppercase tracking-widest">Saját ingatlan</div>
+            </div>
+            <div class="bg-[#122135] border border-white/8 p-5">
+              <div class="font-heading font-black text-3xl text-[#cc2222] mb-1">8 500 m²</div>
+              <div class="text-white/40 text-xs uppercase tracking-widests">Gyártócsarnok</div>
+            </div>
+            <div class="bg-[#122135] border border-white/8 p-5">
+              <div class="font-heading font-black text-3xl text-[#cc2222] mb-1">3</div>
+              <div class="text-white/40 text-xs uppercase tracking-widests">Gyártócsarnok</div>
+            </div>
+            <div class="bg-[#122135] border border-white/8 p-5">
+              <div class="font-heading font-black text-3xl text-[#cc2222] mb-1">15+</div>
+              <div class="text-white/40 text-xs uppercase tracking-widests">CNC gép</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TANÚSÍTVÁNYOK -->
+  <section class="bg-[#060f1a] py-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-1 h-6 bg-[#cc2222]"></div>
+        <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Minőségbiztosítás</span>
+      </div>
+      <h2 class="font-heading font-black text-4xl md:text-5xl uppercase tracking-wide text-white mb-10 leading-tight">Tanúsítványok &amp; minőség</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- ISO 9001 -->
+        <div class="bg-[#122135] border border-[#cc2222]/20 p-8 flex gap-6">
+          <div class="shrink-0">
+            <div class="w-16 h-16 bg-[#cc2222]/10 border border-[#cc2222]/30 flex items-center justify-center">
+              <span class="font-heading font-black text-lg text-[#cc2222]">ISO</span>
+            </div>
+          </div>
+          <div>
+            <h3 class="font-heading font-bold text-xl uppercase tracking-widest text-white mb-2">ISO 9001:2015</h3>
+            <p class="text-white/45 text-sm leading-relaxed mb-3">
+              Minőségirányítási rendszerünk 2004 óta tanúsított. A tanúsítványt évente auditáljuk, és a folyamatos fejlesztés a rendszer alapelve.
+            </p>
+            <div class="flex gap-3 flex-wrap">
+              <span class="text-xs bg-[#cc2222]/10 border border-[#cc2222]/20 text-[#cc2222] px-3 py-1 font-medium tracking-wide uppercase">Tanúsított 2004 óta</span>
+              <span class="text-xs bg-white/5 border border-white/10 text-white/50 px-3 py-1 font-medium tracking-wide uppercase">Éves audit</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Minőség-ellenőrzés -->
+        <div class="bg-[#122135] border border-white/8 p-8 flex gap-6">
+          <div class="shrink-0">
+            <div class="w-16 h-16 bg-[#122135] border border-white/15 flex items-center justify-center">
+              <svg class="w-8 h-8 text-white/60" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+            </div>
+          </div>
+          <div>
+            <h3 class="font-heading font-bold text-xl uppercase tracking-widests text-white mb-2">Minőség-ellenőrzés</h3>
+            <p class="text-white/45 text-sm leading-relaxed mb-3">
+              Minden gyártási folyamat dokumentált ellenőrzési pontokkal rendelkezik. Digitális mérési protokollok, visszakövethetőség batch-szinten.
+            </p>
+            <div class="flex gap-3 flex-wrap">
+              <span class="text-xs bg-white/5 border border-white/10 text-white/50 px-3 py-1 font-medium tracking-wide uppercase">CMM mérés</span>
+              <span class="text-xs bg-white/5 border border-white/10 text-white/50 px-3 py-1 font-medium tracking-wide uppercase">100% SPC</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="bg-[#cc2222] py-16 px-6 md:px-10">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+      <div>
+        <h2 class="font-heading font-black text-4xl md:text-6xl uppercase tracking-wide text-white leading-tight mb-3">
+          Kész az ajánlatra?<br>Írjon nekünk.
+        </h2>
+        <p class="text-white/75 text-sm md:text-base leading-relaxed max-w-xl">
+          Töltse ki rövid igényfelmérő űrlapunkat, és 24 órán belül visszajelzünk pontos árajánlattal.
+        </p>
+      </div>
+      <a href="kapcsolat.html" class="btn-clipped flex-shrink-0 bg-white text-[#cc2222] font-heading font-black text-lg uppercase tracking-widest px-12 py-4 hover:bg-white/90 transition-colors whitespace-nowrap">
+        Ajánlatot kérek →
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#060f1a] py-10 px-6 md:px-10 border-t border-white/8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <img src="assets/images/linardics-logo.png" alt="Linardics Kft." class="h-8 w-auto">
+            <span class="font-heading font-bold text-white text-base tracking-widest">LINARDICS KFT.</span>
+          </div>
+          <p class="text-white/35 text-xs leading-relaxed">
+            8000 Székesfehérvár, Sóstói Ipari Park<br>
+            +36 22 503 865 · linardicskft@linardics.hu
+          </p>
+        </div>
+        <nav class="flex flex-wrap gap-x-8 gap-y-2 text-xs text-white/40 tracking-widest uppercase">
+          <a href="szolgaltatasok/index.html" class="hover:text-white transition-colors">Szolgáltatásaink</a>
+          <a href="geppark.html" class="hover:text-white transition-colors">Géppark</a>
+          <a href="referenciak.html" class="hover:text-white transition-colors">Referenciák</a>
+          <a href="rolunk.html" class="hover:text-white transition-colors">Rólunk</a>
+          <a href="kapcsolat.html" class="hover:text-white transition-colors">Kapcsolat</a>
+        </nav>
+      </div>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-2 pt-6 border-t border-white/8">
+        <p class="text-white/25 text-xs">© 2026 Linardics Kft. – Minden jog fenntartva.</p>
+        <p class="text-white/25 text-xs">ISO 9001 tanúsított lemezmegmunkálás – Székesfehérvár</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('navbar-scrolled');
+        navbar.classList.remove('py-5');
+        navbar.classList.add('py-3');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+        navbar.classList.remove('py-3');
+        navbar.classList.add('py-5');
+      }
+    });
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>
