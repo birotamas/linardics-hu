@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Szolgáltatásaink – Linardics Kft.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0d1b2a',
+            'navy-dark': '#060f1a',
+            'navy-card': '#122135',
+            brand: '#cc2222',
+            'brand-dark': '#a01818',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .font-heading, h1, h2, h3 { font-family: 'Barlow Condensed', sans-serif; }
+    .navbar-scrolled {
+      background: rgba(6, 15, 26, 0.88) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    html { scroll-behavior: smooth; }
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+    .btn-clipped {
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      border-radius: 0 !important;
+    }
+    .service-card img {
+      transition: transform 0.5s ease, opacity 0.3s ease;
+    }
+    .service-card:hover img {
+      transform: scale(1.06);
+      opacity: 0.9;
+    }
+  </style>
+</head>
+<body class="bg-[#060f1a] text-white overflow-x-hidden">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 px-6 md:px-12 flex items-center justify-between">
+    <a href="../index.html" class="flex items-center gap-3 flex-shrink-0">
+      <img src="../assets/images/linardics-logo.png" alt="Linardics Kft." class="h-9 w-auto">
+      <span class="font-heading font-bold text-white text-base tracking-widest hidden sm:block">LINARDICS KFT.</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-xs font-medium tracking-widest text-white/85">
+      <a href="index.html" class="text-white uppercase border-b border-[#cc2222] pb-0.5">Szolgáltatásaink</a>
+      <a href="../geppark.html" class="hover:text-white transition-colors uppercase">Géppark</a>
+      <a href="../referenciak.html" class="hover:text-white transition-colors uppercase">Referenciák</a>
+      <a href="../rolunk.html" class="hover:text-white transition-colors uppercase">Rólunk</a>
+      <a href="../kapcsolat.html" class="hover:text-white transition-colors uppercase">Kapcsolat</a>
+    </div>
+    <div class="flex items-center gap-4 ml-auto md:ml-0">
+      <a href="../kapcsolat.html" class="btn-clipped hidden sm:block bg-[#cc2222] hover:bg-[#a01818] text-white text-xs font-semibold px-5 py-2.5 tracking-wider uppercase transition-colors">
+        Ajánlatkérés
+      </a>
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" onclick="toggleMenu()">
+        <span class="w-6 h-0.5 bg-white block"></span>
+        <span class="w-6 h-0.5 bg-white block"></span>
+        <span class="w-6 h-0.5 bg-white block"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="fixed top-0 left-0 right-0 bottom-0 z-40 bg-[#060f1a] flex-col items-center justify-center gap-8 text-center">
+    <a href="index.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-[#cc2222]" onclick="toggleMenu()">Szolgáltatásaink</a>
+    <a href="../geppark.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Géppark</a>
+    <a href="../referenciak.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Referenciák</a>
+    <a href="../rolunk.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Rólunk</a>
+    <a href="../kapcsolat.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Kapcsolat</a>
+    <a href="../kapcsolat.html" class="mt-4 btn-clipped bg-[#cc2222] text-white font-heading font-bold text-xl uppercase tracking-widest px-10 py-4">Ajánlatkérés</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="pt-36 pb-16 px-6 md:px-12 bg-[#060f1a]">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-1 h-6 bg-[#cc2222]"></div>
+        <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Komplex megoldások</span>
+      </div>
+      <h1 class="font-heading font-black text-6xl md:text-8xl uppercase tracking-wide text-white leading-none mb-6">Egykézből</h1>
+      <p class="text-white/55 text-base leading-relaxed max-w-xl">
+        CNC lemezmegmunkálástól a porfestésig – teljes gyártási folyamat egyetlen megbízható partnernél.
+      </p>
+    </div>
+  </div>
+
+  <!-- SERVICES GRID -->
+  <div class="px-6 md:px-12 py-16 bg-[#0d1b2a]">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-4">
+
+        <!-- 1. CNC Lemezmegmunkálás -->
+        <a href="cnc-lemezmegmunkalas.html" class="service-card group bg-[#122135] overflow-hidden flex flex-col cursor-pointer hover:shadow-xl hover:shadow-black/40 transition-shadow">
+          <div class="h-44 overflow-hidden relative">
+            <img src="../assets/images/laser-cutting.jpg" alt="CNC Lemezmegmunkálás" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0" style="background: linear-gradient(to top, #122135 0%, transparent 60%);"></div>
+          </div>
+          <div class="p-4 flex flex-col flex-1">
+            <h2 class="font-heading font-bold text-base md:text-lg uppercase tracking-wide text-white leading-tight mb-2">CNC Lemez&shy;megmunkálás</h2>
+            <p class="text-white/45 text-xs leading-relaxed flex-1">Nagyprecizitású megmunkálás prémium gépparkkal, bármilyen sorozatnagyságban.</p>
+            <div class="mt-4 flex items-center gap-1 text-[#cc2222] text-xs font-semibold tracking-wide group-hover:gap-2 transition-all">
+              <span>Részletek</span>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- 2. Lemezhajlítás -->
+        <a href="lemezhajlitas.html" class="service-card group bg-[#122135] overflow-hidden flex flex-col cursor-pointer hover:shadow-xl hover:shadow-black/40 transition-shadow">
+          <div class="h-44 overflow-hidden relative">
+            <img src="../assets/images/lemezhajlitas.jpg" alt="Lemezhajlítás" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0" style="background: linear-gradient(to top, #122135 0%, transparent 60%);"></div>
+          </div>
+          <div class="p-4 flex flex-col flex-1">
+            <h2 class="font-heading font-bold text-base md:text-lg uppercase tracking-wide text-white leading-tight mb-2">Lemez&shy;hajlítás & Él&shy;hajlítás</h2>
+            <p class="text-white/45 text-xs leading-relaxed flex-1">Pontos és ismételhető hajlítás, széles anyagválasztékban, acéltól alumíniumig.</p>
+            <div class="mt-4 flex items-center gap-1 text-[#cc2222] text-xs font-semibold tracking-wide group-hover:gap-2 transition-all">
+              <span>Részletek</span>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- 3. Csőhajlítás -->
+        <a href="csohajlitas.html" class="service-card group bg-[#122135] overflow-hidden flex flex-col cursor-pointer hover:shadow-xl hover:shadow-black/40 transition-shadow">
+          <div class="h-44 overflow-hidden relative">
+            <img src="../assets/images/csohajlitas.jpg" alt="Csőhajlítás" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0" style="background: linear-gradient(to top, #122135 0%, transparent 60%);"></div>
+          </div>
+          <div class="p-4 flex flex-col flex-1">
+            <h2 class="font-heading font-bold text-base md:text-lg uppercase tracking-wide text-white leading-tight mb-2">Cső&shy;hajlítás</h2>
+            <p class="text-white/45 text-xs leading-relaxed flex-1">Komplex csőhajlítás ipari és egyedi alkalmazásokhoz, szoros tűréshatárokkal.</p>
+            <div class="mt-4 flex items-center gap-1 text-[#cc2222] text-xs font-semibold tracking-wide group-hover:gap-2 transition-all">
+              <span>Részletek</span>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- 4. Porfestés -->
+        <a href="porfestes.html" class="service-card group bg-[#122135] overflow-hidden flex flex-col cursor-pointer hover:shadow-xl hover:shadow-black/40 transition-shadow">
+          <div class="h-44 overflow-hidden relative">
+            <img src="../assets/images/porfestes.jpg" alt="Porfestés" class="w-full h-full object-cover opacity-60">
+            <div class="absolute inset-0" style="background: linear-gradient(to top, #122135 0%, transparent 60%);"></div>
+          </div>
+          <div class="p-4 flex flex-col flex-1">
+            <h2 class="font-heading font-bold text-base md:text-lg uppercase tracking-wide text-white leading-tight mb-2">Porfestés</h2>
+            <p class="text-white/45 text-xs leading-relaxed flex-1">Időálló, tartós felületkezelés, RAL színskála teljes körű lefedésével.</p>
+            <div class="mt-4 flex items-center gap-1 text-[#cc2222] text-xs font-semibold tracking-wide group-hover:gap-2 transition-all">
+              <span>Részletek</span>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+
+        <!-- 5. Komplex projektek -->
+        <a href="komplex-projektek.html" class="service-card group bg-[#cc2222] hover:bg-[#a01818] overflow-hidden flex flex-col cursor-pointer transition-colors col-span-2 md:col-span-1">
+          <div class="h-44 overflow-hidden relative">
+            <img src="../assets/images/komplex-projektek.webp" alt="Komplex Projektek" class="w-full h-full object-cover opacity-50">
+            <div class="absolute inset-0" style="background: linear-gradient(to top, rgba(140,10,10,0.8) 0%, rgba(180,20,20,0.3) 100%);"></div>
+          </div>
+          <div class="p-4 flex flex-col flex-1">
+            <h2 class="font-heading font-bold text-base md:text-lg uppercase tracking-wide text-white leading-tight mb-2">Komplex Projektek</h2>
+            <p class="text-white/75 text-xs leading-relaxed flex-1">Tervezéstől a kész alkatrészig – teljes gyártási folyamat egyetlen partnerrel.</p>
+            <div class="mt-4 flex items-center gap-1 text-white text-xs font-semibold tracking-wide group-hover:gap-2 transition-all">
+              <span>Részletek</span>
+              <svg class="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+            </div>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA SECTION -->
+  <section class="bg-[#cc2222] py-16 px-6 md:px-10">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+      <div>
+        <h2 class="font-heading font-black text-4xl md:text-6xl uppercase tracking-wide text-white leading-tight mb-3">
+          Kész az ajánlatra?<br>Írjon nekünk.
+        </h2>
+        <p class="text-white/75 text-sm md:text-base leading-relaxed max-w-xl">
+          Töltse ki rövid igényfelmérő űrlapunkat, és 24 órán belül visszajelzünk pontos árajánlattal.
+        </p>
+      </div>
+      <a href="../kapcsolat.html" class="btn-clipped flex-shrink-0 bg-white text-[#cc2222] font-heading font-black text-lg uppercase tracking-widest px-12 py-4 hover:bg-white/90 transition-colors whitespace-nowrap">
+        Ajánlatot kérek →
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#060f1a] py-10 px-6 md:px-10 border-t border-white/8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
+        <div>
+          <img src="../assets/images/linardics-logo.png" alt="Linardics Kft." class="h-8 w-auto mb-2">
+          <p class="text-white/35 text-xs leading-relaxed">
+            8000 Székesfehérvár, Sóstói Ipari Park<br>
+            +36 22 503 865 · linardicskft@linardics.hu
+          </p>
+        </div>
+        <nav class="flex flex-wrap gap-x-8 gap-y-2 text-xs text-white/40 tracking-widest uppercase">
+          <a href="index.html" class="hover:text-white transition-colors">Szolgáltatásaink</a>
+          <a href="../geppark.html" class="hover:text-white transition-colors">Géppark</a>
+          <a href="../referenciak.html" class="hover:text-white transition-colors">Referenciák</a>
+          <a href="../rolunk.html" class="hover:text-white transition-colors">Rólunk</a>
+          <a href="../kapcsolat.html" class="hover:text-white transition-colors">Kapcsolat</a>
+        </nav>
+      </div>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-2 pt-6 border-t border-white/8">
+        <p class="text-white/25 text-xs">© 2026 Linardics Kft. – Minden jog fenntartva.</p>
+        <p class="text-white/25 text-xs">ISO 9001 tanúsított lemezmegmunkálás – Székesfehérvár</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('navbar-scrolled');
+        navbar.classList.remove('py-5');
+        navbar.classList.add('py-3');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+        navbar.classList.remove('py-3');
+        navbar.classList.add('py-5');
+      }
+    });
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>
