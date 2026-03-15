@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Géppark – Linardics Kft.</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            navy: '#0d1b2a',
+            'navy-dark': '#060f1a',
+            'navy-card': '#122135',
+            brand: '#cc2222',
+            'brand-dark': '#a01818',
+          }
+        }
+      }
+    }
+  </script>
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .font-heading, h1, h2, h3 { font-family: 'Barlow Condensed', sans-serif; }
+    .navbar-scrolled {
+      background: rgba(6, 15, 26, 0.88) !important;
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid rgba(255,255,255,0.06);
+    }
+    html { scroll-behavior: smooth; }
+    #mobile-menu { display: none; }
+    #mobile-menu.open { display: flex; }
+    .btn-clipped {
+      clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
+      border-radius: 0 !important;
+    }
+    .machine-card { transition: transform 0.2s, border-color 0.2s; }
+    .machine-card:hover { transform: translateY(-2px); border-color: rgba(204,34,34,0.4) !important; }
+    .spec-table td, .spec-table th { padding: 0.5rem 1rem; }
+    .spec-table tr:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.06); }
+    .spec-table th { color: rgba(255,255,255,0.4); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
+  </style>
+</head>
+<body class="bg-[#060f1a] text-white overflow-x-hidden">
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 px-6 md:px-12 flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 flex-shrink-0">
+      <img src="assets/images/linardics-logo.png" alt="Linardics Kft." class="h-9 w-auto">
+      <span class="font-heading font-bold text-white text-base tracking-widest hidden sm:block">LINARDICS KFT.</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-xs font-medium tracking-widest text-white/85">
+      <a href="szolgaltatasok/index.html" class="hover:text-white transition-colors uppercase">Szolgáltatásaink</a>
+      <a href="geppark.html" class="text-white uppercase border-b border-[#cc2222] pb-0.5">Géppark</a>
+      <a href="referenciak.html" class="hover:text-white transition-colors uppercase">Referenciák</a>
+      <a href="rolunk.html" class="hover:text-white transition-colors uppercase">Rólunk</a>
+      <a href="kapcsolat.html" class="hover:text-white transition-colors uppercase">Kapcsolat</a>
+    </div>
+    <div class="flex items-center gap-4 ml-auto md:ml-0">
+      <a href="kapcsolat.html" class="btn-clipped hidden sm:block bg-[#cc2222] hover:bg-[#a01818] text-white text-xs font-semibold px-5 py-2.5 tracking-wider uppercase transition-colors">
+        Ajánlatkérés
+      </a>
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" onclick="toggleMenu()">
+        <span class="w-6 h-0.5 bg-white block"></span>
+        <span class="w-6 h-0.5 bg-white block"></span>
+        <span class="w-6 h-0.5 bg-white block"></span>
+      </button>
+    </div>
+  </nav>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="fixed top-0 left-0 right-0 bottom-0 z-40 bg-[#060f1a] flex-col items-center justify-center gap-8 text-center">
+    <a href="szolgaltatasok/index.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Szolgáltatásaink</a>
+    <a href="geppark.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-[#cc2222]" onclick="toggleMenu()">Géppark</a>
+    <a href="referenciak.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Referenciák</a>
+    <a href="rolunk.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Rólunk</a>
+    <a href="kapcsolat.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Kapcsolat</a>
+    <a href="kapcsolat.html" class="mt-4 btn-clipped bg-[#cc2222] text-white font-heading font-bold text-xl uppercase tracking-widest px-10 py-4">Ajánlatkérés</a>
+  </div>
+
+  <!-- PAGE HEADER -->
+  <div class="pt-36 pb-16 px-6 md:px-12" style="background: linear-gradient(180deg, #060f1a 0%, #0d1b2a 100%);">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-1 h-6 bg-[#cc2222]"></div>
+        <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Prémium technológia</span>
+      </div>
+      <h1 class="font-heading font-black text-6xl md:text-8xl uppercase tracking-wide text-white leading-none mb-6">Géppark</h1>
+      <p class="text-white/55 text-base leading-relaxed max-w-2xl mb-8">
+        TRUMPF és AMADA gépek – a világ vezető ipari márkái garantálják a pontosságot és ismételhetőséget minden alkatrészen. 15+ géppel, 3 gyártócsarnokban, folyamatosan bővülő kapacitással.
+      </p>
+      <!-- Summary badges -->
+      <div class="flex flex-wrap gap-3">
+        <div class="flex items-center gap-2 bg-[#122135] border border-white/8 px-4 py-2">
+          <div class="w-2 h-2 bg-[#cc2222]"></div>
+          <span class="text-xs text-white/70 font-medium tracking-wide uppercase">TRUMPF lézervágók – 4 gép</span>
+        </div>
+        <div class="flex items-center gap-2 bg-[#122135] border border-white/8 px-4 py-2">
+          <div class="w-2 h-2 bg-[#cc2222]"></div>
+          <span class="text-xs text-white/70 font-medium tracking-wide uppercase">TRUMPF hajlítók – 6 gép</span>
+        </div>
+        <div class="flex items-center gap-2 bg-[#122135] border border-white/8 px-4 py-2">
+          <div class="w-2 h-2 bg-[#cc2222]"></div>
+          <span class="text-xs text-white/70 font-medium tracking-wide uppercase">AMADA hajlítók – 4 gép</span>
+        </div>
+        <div class="flex items-center gap-2 bg-[#122135] border border-white/8 px-4 py-2">
+          <div class="w-2 h-2 bg-[#cc2222]"></div>
+          <span class="text-xs text-white/70 font-medium tracking-wide uppercase">Porfestés + csőhajlítás</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- TRUMPF LÉZERVÁGÓK -->
+  <section class="bg-[#0d1b2a] py-16 px-6 md:px-12" id="trulaser">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-1 h-6 bg-[#cc2222]"></div>
+        <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Lézervágás</span>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <h2 class="font-heading font-black text-4xl md:text-5xl uppercase tracking-wide text-white leading-tight">TRUMPF Lézervágók</h2>
+        <a href="szolgaltatasok/cnc-lemezmegmunkalas.html" class="text-[#cc2222] text-xs font-medium tracking-widest uppercase hover:text-white transition-colors whitespace-nowrap">CNC szolgáltatás →</a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <!-- TruLaser 3030 Fiber -->
+        <div class="machine-card bg-[#122135] border border-white/8 p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Fő gép · Fiber lézer</div>
+              <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white">TruLaser 3030 Fiber</h3>
+            </div>
+            <div class="bg-[#cc2222]/10 border border-[#cc2222]/30 px-2 py-1">
+              <span class="text-[#cc2222] text-xs font-bold tracking-wider">5 kW</span>
+            </div>
+          </div>
+          <p class="text-white/45 text-sm leading-relaxed mb-5">
+            Nagy teljesítményű fiber lézervágó alacsony és közepes vastagságú lemezekhez. Kiváló vágásfény és szélsebesség acél, rozsdamentes és alumínium anyagokon.
+          </p>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Munkaterület</th><td class="text-right text-white/70">3000 × 1500 mm</td></tr>
+              <tr><th class="text-left">Lézerforrás</th><td class="text-right text-white/70">Fiber, 5000 W</td></tr>
+              <tr><th class="text-left">Max. vastagság (acél)</th><td class="text-right text-white/70">25 mm</td></tr>
+              <tr><th class="text-left">Max. vastagság (Al)</th><td class="text-right text-white/70">20 mm</td></tr>
+              <tr><th class="text-left">Max. vastagság (rozsd.)</th><td class="text-right text-white/70">20 mm</td></tr>
+              <tr><th class="text-left">Pozicionálási pontosság</th><td class="text-right text-white/70">±0,05 mm</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- TruLaser 5030 TLF -->
+        <div class="machine-card bg-[#122135] border border-white/8 p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">CO₂ lézer</div>
+              <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white">TruLaser 5030 TLF</h3>
+            </div>
+            <div class="bg-[#cc2222]/10 border border-[#cc2222]/30 px-2 py-1">
+              <span class="text-[#cc2222] text-xs font-bold tracking-wider">6 kW</span>
+            </div>
+          </div>
+          <p class="text-white/45 text-sm leading-relaxed mb-5">
+            Nagyteljesítményű CO₂ lézervágó vastagabb lemezekhez és különleges anyagokhoz. Kivételesen sima vágófelület, kiváló minőség vastag acélokon.
+          </p>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Munkaterület</th><td class="text-right text-white/70">3000 × 1500 mm</td></tr>
+              <tr><th class="text-left">Lézerforrás</th><td class="text-right text-white/70">CO₂, 6000 W TLF</td></tr>
+              <tr><th class="text-left">Max. vastagság (acél)</th><td class="text-right text-white/70">32 mm</td></tr>
+              <tr><th class="text-left">Max. vastagság (Al)</th><td class="text-right text-white/70">25 mm</td></tr>
+              <tr><th class="text-left">Max. vastagság (rozsd.)</th><td class="text-right text-white/70">25 mm</td></tr>
+              <tr><th class="text-left">Pozicionálási pontosság</th><td class="text-right text-white/70">±0,05 mm</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- TruMatic 7000 -->
+        <div class="machine-card bg-[#122135] border border-white/8 p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Kombigép · Vágás + Lyukasztás</div>
+              <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white">TruMatic 7000</h3>
+            </div>
+            <div class="bg-[#cc2222]/10 border border-[#cc2222]/30 px-2 py-1">
+              <span class="text-[#cc2222] text-xs font-bold tracking-wider">Kombi</span>
+            </div>
+          </div>
+          <p class="text-white/45 text-sm leading-relaxed mb-5">
+            Lézervágás és lyukasztás egyetlen gépen. Komplex lemezalkatrészek gyártásához ideális – kombinált megmunkálással csökkentett átfutási idő, kevesebb átállás.
+          </p>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Munkaterület</th><td class="text-right text-white/70">2500 × 1250 mm</td></tr>
+              <tr><th class="text-left">Lézerforrás</th><td class="text-right text-white/70">CO₂, 4000 W</td></tr>
+              <tr><th class="text-left">Lyukasztóerő</th><td class="text-right text-white/70">220 kN</td></tr>
+              <tr><th class="text-left">Max. vastagság</th><td class="text-right text-white/70">6,4 mm (acél)</td></tr>
+              <tr><th class="text-left">Szerszámtár</th><td class="text-right text-white/70">automata, 25 állás</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- TruLaser Tube 5000 -->
+        <div class="machine-card bg-[#122135] border border-white/8 p-6">
+          <div class="flex items-start justify-between mb-4">
+            <div>
+              <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Cső- és profillézer</div>
+              <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white">TruLaser Tube 5000</h3>
+            </div>
+            <div class="bg-[#cc2222]/10 border border-[#cc2222]/30 px-2 py-1">
+              <span class="text-[#cc2222] text-xs font-bold tracking-wider">Cső</span>
+            </div>
+          </div>
+          <p class="text-white/45 text-sm leading-relaxed mb-5">
+            Csövek és profilok precíziós lézervágása. Kör-, szögletes és nyitott profilok megmunkálása rövid átfutási idővel, minimális utómunkával.
+          </p>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Max. csőátmérő</th><td class="text-right text-white/70">Ø152 mm</td></tr>
+              <tr><th class="text-left">Max. hossz</th><td class="text-right text-white/70">6500 mm</td></tr>
+              <tr><th class="text-left">Lézerforrás</th><td class="text-right text-white/70">Fiber, 3000 W</td></tr>
+              <tr><th class="text-left">Falvastagság</th><td class="text-right text-white/70">max. 8 mm (acél)</td></tr>
+              <tr><th class="text-left">Forgatási tengely</th><td class="text-right text-white/70">NC vezérelt, 360°</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUMPF HAJLÍTÓK -->
+  <section class="bg-[#060f1a] py-16 px-6 md:px-12" id="trubend">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-1 h-6 bg-[#cc2222]"></div>
+        <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Lemezhajlítás</span>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <h2 class="font-heading font-black text-4xl md:text-5xl uppercase tracking-wide text-white leading-tight">TRUMPF Hajlítók</h2>
+        <a href="szolgaltatasok/lemezhajlitas.html" class="text-[#cc2222] text-xs font-medium tracking-widest uppercase hover:text-white transition-colors whitespace-nowrap">Lemezhajlítás →</a>
+      </div>
+
+      <!-- TruBend Center 7030 – kiemelt -->
+      <div class="machine-card bg-[#122135] border border-[#cc2222]/20 p-6 mb-6">
+        <div class="flex flex-col md:flex-row gap-6">
+          <div class="flex-1">
+            <div class="flex items-center gap-3 mb-2">
+              <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase">Automatizált hajlítócella · Kiemelt gép</div>
+              <div class="h-px flex-1 bg-[#cc2222]/20"></div>
+            </div>
+            <h3 class="font-heading font-black text-3xl uppercase tracking-wide text-white mb-3">TruBend Center 7030</h3>
+            <p class="text-white/45 text-sm leading-relaxed">
+              Automatizált hajlítócella robotos anyagkezeléssel. Nagy sorozatok hatékony gyártásához – minimális operátori beavatkozással, maximális ismételhetőséggel. Az üzem zászlósgépe.
+            </p>
+          </div>
+          <div class="md:w-64 shrink-0">
+            <table class="spec-table w-full text-sm">
+              <tbody>
+                <tr><th class="text-left">Hajlítóhossz</th><td class="text-right text-white/70">3000 mm</td></tr>
+                <tr><th class="text-left">Hajlítóerő</th><td class="text-right text-white/70">100 t</td></tr>
+                <tr><th class="text-left">Tengelyek</th><td class="text-right text-white/70">7 tengely (CNC)</td></tr>
+                <tr><th class="text-left">Max. vastagság</th><td class="text-right text-white/70">6 mm acél</td></tr>
+                <tr><th class="text-left">Robot</th><td class="text-right text-white/70">automata adagoló</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <!-- Többi TruBend -->
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+
+        <div class="machine-card bg-[#122135] border border-white/8 p-5">
+          <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Élhajlítóprés</div>
+          <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white mb-3">TruBend 5130 <span class="text-white/30 text-sm">×2</span></h3>
+          <table class="spec-table w-full text-xs">
+            <tbody>
+              <tr><th class="text-left">Hajlítóhossz</th><td class="text-right text-white/60">3000 mm</td></tr>
+              <tr><th class="text-left">Hajlítóerő</th><td class="text-right text-white/60">130 t</td></tr>
+              <tr><th class="text-left">Tengelyek</th><td class="text-right text-white/60">6+1 CNC</td></tr>
+              <tr><th class="text-left">Szögismétlés</th><td class="text-right text-white/60">±0,1°</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="machine-card bg-[#122135] border border-white/8 p-5">
+          <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Élhajlítóprés</div>
+          <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white mb-3">TruBend 3100 <span class="text-white/30 text-sm">×2</span></h3>
+          <table class="spec-table w-full text-xs">
+            <tbody>
+              <tr><th class="text-left">Hajlítóhossz</th><td class="text-right text-white/60">3100 mm</td></tr>
+              <tr><th class="text-left">Hajlítóerő</th><td class="text-right text-white/60">100 t</td></tr>
+              <tr><th class="text-left">Tengelyek</th><td class="text-right text-white/60">4 CNC</td></tr>
+              <tr><th class="text-left">Szögismétlés</th><td class="text-right text-white/60">±0,2°</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="machine-card bg-[#122135] border border-white/8 p-5">
+          <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Robusztus élhajlítóprés</div>
+          <h3 class="font-heading font-black text-xl uppercase tracking-wide text-white mb-3">TruBend 7036</h3>
+          <table class="spec-table w-full text-xs">
+            <tbody>
+              <tr><th class="text-left">Hajlítóhossz</th><td class="text-right text-white/60">3600 mm</td></tr>
+              <tr><th class="text-left">Hajlítóerő</th><td class="text-right text-white/60">360 t</td></tr>
+              <tr><th class="text-left">Tengelyek</th><td class="text-right text-white/60">6 CNC</td></tr>
+              <tr><th class="text-left">Max. vastagság</th><td class="text-right text-white/60">25 mm acél</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- AMADA HAJLÍTÓK -->
+  <section class="bg-[#0d1b2a] py-16 px-6 md:px-12" id="amada">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-1 h-6 bg-[#cc2222]"></div>
+        <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Élhajlítás</span>
+      </div>
+      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
+        <h2 class="font-heading font-black text-4xl md:text-5xl uppercase tracking-wide text-white leading-tight">AMADA Hajlítók</h2>
+        <a href="szolgaltatasok/lemezhajlitas.html" class="text-[#cc2222] text-xs font-medium tracking-widest uppercase hover:text-white transition-colors whitespace-nowrap">Lemezhajlítás →</a>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+
+        <div class="machine-card bg-[#122135] border border-white/8 p-6">
+          <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Elektromos szervó prés</div>
+          <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white mb-4">AMADA IT 1250/20t</h3>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Hajlítóhossz</th><td class="text-right text-white/70">1250 mm</td></tr>
+              <tr><th class="text-left">Hajlítóerő</th><td class="text-right text-white/70">20 t</td></tr>
+              <tr><th class="text-left">Tengelyek</th><td class="text-right text-white/70">4 CNC tengely</td></tr>
+              <tr><th class="text-left">Szögpontosság</th><td class="text-right text-white/70">±0,1°</td></tr>
+              <tr><th class="text-left">Max. vastagság</th><td class="text-right text-white/70">3 mm acél</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="machine-card bg-[#122135] border border-white/8 p-6">
+          <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Szinkronprés</div>
+          <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white mb-4">AMADA HFE 3000/100t</h3>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Hajlítóhossz</th><td class="text-right text-white/70">3000 mm</td></tr>
+              <tr><th class="text-left">Hajlítóerő</th><td class="text-right text-white/70">100 t</td></tr>
+              <tr><th class="text-left">Tengelyek</th><td class="text-right text-white/70">7 CNC tengely</td></tr>
+              <tr><th class="text-left">Szögpontosság</th><td class="text-right text-white/70">±0,2°</td></tr>
+              <tr><th class="text-left">Max. vastagság</th><td class="text-right text-white/70">10 mm acél</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="machine-card bg-[#122135] border border-white/8 p-6">
+          <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Nagy teljesítményű szinkronprés</div>
+          <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white mb-4">AMADA HFE 3000/130Lt</h3>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Hajlítóhossz</th><td class="text-right text-white/70">3000 mm</td></tr>
+              <tr><th class="text-left">Hajlítóerő</th><td class="text-right text-white/70">130 t</td></tr>
+              <tr><th class="text-left">Tengelyek</th><td class="text-right text-white/70">7 CNC tengely</td></tr>
+              <tr><th class="text-left">Szögpontosság</th><td class="text-right text-white/70">±0,2°</td></tr>
+              <tr><th class="text-left">Hajtás</th><td class="text-right text-white/70">hibrid szervó</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="machine-card bg-[#122135] border border-white/8 p-6">
+          <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Nehézipari prés · 4 méteres</div>
+          <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white mb-4">AMADA HFP 4000/220t</h3>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Hajlítóhossz</th><td class="text-right text-white/70">4000 mm</td></tr>
+              <tr><th class="text-left">Hajlítóerő</th><td class="text-right text-white/70">220 t</td></tr>
+              <tr><th class="text-left">Tengelyek</th><td class="text-right text-white/70">7 CNC tengely</td></tr>
+              <tr><th class="text-left">Max. vastagság</th><td class="text-right text-white/70">20 mm acél</td></tr>
+              <tr><th class="text-left">Különlegesség</th><td class="text-right text-white/70">4000 mm géphossz</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- CSŐHAJLÍTÁS + EGYÉB -->
+  <section class="bg-[#060f1a] py-16 px-6 md:px-12" id="egyeb">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex items-center gap-3 mb-2">
+        <div class="w-1 h-6 bg-[#cc2222]"></div>
+        <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Kiegészítő technológiák</span>
+      </div>
+      <h2 class="font-heading font-black text-4xl md:text-5xl uppercase tracking-wide text-white mb-10 leading-tight">Csőhajlítás &amp; Felületkezelés</h2>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+
+        <!-- SOCO csőhajlító -->
+        <div class="machine-card bg-[#122135] border border-white/8 p-6 lg:col-span-1">
+          <div class="flex items-center gap-2 mb-1">
+            <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase">CNC Csőhajlító</div>
+            <a href="szolgaltatasok/csohajlitas.html" class="ml-auto text-white/25 text-xs hover:text-[#cc2222] transition-colors">→</a>
+          </div>
+          <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white mb-4">SOCO SB-52X10A</h3>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Max. csőátmérő</th><td class="text-right text-white/70">Ø50,8 mm</td></tr>
+              <tr><th class="text-left">Max. csőhossz</th><td class="text-right text-white/70">4500 mm</td></tr>
+              <tr><th class="text-left">Hajlítás iránya</th><td class="text-right text-white/70">kétirányú CNC</td></tr>
+              <tr><th class="text-left">Max. hajlítási szög</th><td class="text-right text-white/70">190°</td></tr>
+              <tr><th class="text-left">Anyagok</th><td class="text-right text-white/70">acél, rozsd., Al, réz</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Porfestés -->
+        <div class="machine-card bg-[#122135] border border-white/8 p-6">
+          <div class="flex items-center gap-2 mb-1">
+            <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase">Porfestő sor</div>
+            <a href="szolgaltatasok/porfestes.html" class="ml-auto text-white/25 text-xs hover:text-[#cc2222] transition-colors">→</a>
+          </div>
+          <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white mb-4">Gema rendszer</h3>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Kemence hossz</th><td class="text-right text-white/70">7500 mm</td></tr>
+              <tr><th class="text-left">Max. alkatrész</th><td class="text-right text-white/70">800×1600×2200 mm</td></tr>
+              <tr><th class="text-left">Fülkék száma</th><td class="text-right text-white/70">3 db</td></tr>
+              <tr><th class="text-left">Előkezelés</th><td class="text-right text-white/70">foszfátozás</td></tr>
+              <tr><th class="text-left">Szín</th><td class="text-right text-white/70">teljes RAL paletta</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Wagner porfestés -->
+        <div class="machine-card bg-[#122135] border border-white/8 p-6">
+          <div class="flex items-center gap-2 mb-1">
+            <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase">Porfestő sor 2</div>
+            <a href="szolgaltatasok/porfestes.html" class="ml-auto text-white/25 text-xs hover:text-[#cc2222] transition-colors">→</a>
+          </div>
+          <h3 class="font-heading font-black text-2xl uppercase tracking-wide text-white mb-4">Wagner rendszer</h3>
+          <table class="spec-table w-full text-sm">
+            <tbody>
+              <tr><th class="text-left">Kemence hossz</th><td class="text-right text-white/70">3500 mm</td></tr>
+              <tr><th class="text-left">Fülkék száma</th><td class="text-right text-white/70">2 db</td></tr>
+              <tr><th class="text-left">Típus</th><td class="text-right text-white/70">kis- és közepes részek</td></tr>
+              <tr><th class="text-left">Hőmérséklet</th><td class="text-right text-white/70">180–200 °C</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+      </div>
+
+      <!-- Kötéstechnika -->
+      <div class="mt-6">
+        <h3 class="font-heading font-bold text-lg uppercase tracking-widest text-white/55 mb-4">Kötéstechnika &amp; Szerelés</h3>
+        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
+          <div class="bg-[#122135] border border-white/8 p-4">
+            <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Sávcsiszoló</div>
+            <div class="font-heading font-bold text-base text-white uppercase">STEELINE BSM1100</div>
+            <div class="text-white/40 text-xs mt-1">1100 mm munkalemez-szél</div>
+          </div>
+          <div class="bg-[#122135] border border-white/8 p-4">
+            <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Hegesztő ×2</div>
+            <div class="font-heading font-bold text-base text-white uppercase">VS-W ECO-I</div>
+            <div class="text-white/40 text-xs mt-1">MIG/MAG hegesztés</div>
+          </div>
+          <div class="bg-[#122135] border border-white/8 p-4">
+            <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Kondenzátoros hegesztő</div>
+            <div class="font-heading font-bold text-base text-white uppercase">SOYER BMS9</div>
+            <div class="text-white/40 text-xs mt-1">csavaranyás hegesztés</div>
+          </div>
+          <div class="bg-[#122135] border border-white/8 p-4">
+            <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1">Beültetőgép</div>
+            <div class="font-heading font-bold text-base text-white uppercase">PEMSERTER Series 4</div>
+            <div class="text-white/40 text-xs mt-1">menetbetét beültetés</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- WHY SECTION -->
+  <section class="bg-[#0d1b2a] py-16 px-6 md:px-12">
+    <div class="max-w-7xl mx-auto">
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        <div class="flex gap-4">
+          <div class="w-10 h-10 bg-[#cc2222]/10 border border-[#cc2222]/20 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5 text-[#cc2222]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"/></svg>
+          </div>
+          <div>
+            <h3 class="font-heading font-bold text-lg uppercase tracking-widest text-white mb-2">Folyamatos fejlesztés</h3>
+            <p class="text-white/45 text-sm leading-relaxed">Gépparkunk folyamatosan bővül. Az elmúlt 5 évben 3 új TRUMPF gépet helyeztünk üzembe a növekvő kapacitásigény kiszolgálásához.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="w-10 h-10 bg-[#cc2222]/10 border border-[#cc2222]/20 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5 text-[#cc2222]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <div>
+            <h3 class="font-heading font-bold text-lg uppercase tracking-widest text-white mb-2">Teljes kapacitás</h3>
+            <p class="text-white/45 text-sm leading-relaxed">3 műszakos termelés, 8500 m² gyártóterületen. Prototípustól 100 000+ darabos sorozatig rugalmasan kiszolgálható igények.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <div class="w-10 h-10 bg-[#cc2222]/10 border border-[#cc2222]/20 flex items-center justify-center shrink-0 mt-0.5">
+            <svg class="w-5 h-5 text-[#cc2222]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><circle cx="12" cy="12" r="3"/></svg>
+          </div>
+          <div>
+            <h3 class="font-heading font-bold text-lg uppercase tracking-widest text-white mb-2">Szervizelt gépek</h3>
+            <p class="text-white/45 text-sm leading-relaxed">Minden gépünk gyári szervizszerződés alatt van. Az állásidő minimális, a gyártási minőség stabil és ellenőrzött.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="bg-[#cc2222] py-16 px-6 md:px-10">
+    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
+      <div>
+        <h2 class="font-heading font-black text-4xl md:text-6xl uppercase tracking-wide text-white leading-tight mb-3">
+          Kész az ajánlatra?<br>Írjon nekünk.
+        </h2>
+        <p class="text-white/75 text-sm md:text-base leading-relaxed max-w-xl">
+          Töltse ki rövid igényfelmérő űrlapunkat, és 24 órán belül visszajelzünk pontos árajánlattal.
+        </p>
+      </div>
+      <a href="kapcsolat.html" class="btn-clipped flex-shrink-0 bg-white text-[#cc2222] font-heading font-black text-lg uppercase tracking-widest px-12 py-4 hover:bg-white/90 transition-colors whitespace-nowrap">
+        Ajánlatot kérek →
+      </a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#060f1a] py-10 px-6 md:px-10 border-t border-white/8">
+    <div class="max-w-7xl mx-auto">
+      <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
+        <div>
+          <div class="flex items-center gap-3 mb-2">
+            <img src="assets/images/linardics-logo.png" alt="Linardics Kft." class="h-8 w-auto">
+            <span class="font-heading font-bold text-white text-base tracking-widest">LINARDICS KFT.</span>
+          </div>
+          <p class="text-white/35 text-xs leading-relaxed">
+            8000 Székesfehérvár, Sóstói Ipari Park<br>
+            +36 22 503 865 · linardicskft@linardics.hu
+          </p>
+        </div>
+        <nav class="flex flex-wrap gap-x-8 gap-y-2 text-xs text-white/40 tracking-widest uppercase">
+          <a href="szolgaltatasok/index.html" class="hover:text-white transition-colors">Szolgáltatásaink</a>
+          <a href="geppark.html" class="hover:text-white transition-colors">Géppark</a>
+          <a href="referenciak.html" class="hover:text-white transition-colors">Referenciák</a>
+          <a href="rolunk.html" class="hover:text-white transition-colors">Rólunk</a>
+          <a href="kapcsolat.html" class="hover:text-white transition-colors">Kapcsolat</a>
+        </nav>
+      </div>
+      <div class="flex flex-col md:flex-row items-center justify-between gap-2 pt-6 border-t border-white/8">
+        <p class="text-white/25 text-xs">© 2026 Linardics Kft. – Minden jog fenntartva.</p>
+        <p class="text-white/25 text-xs">ISO 9001 tanúsított lemezmegmunkálás – Székesfehérvár</p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('navbar-scrolled');
+        navbar.classList.remove('py-5');
+        navbar.classList.add('py-3');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+        navbar.classList.remove('py-3');
+        navbar.classList.add('py-5');
+      }
+    });
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      menu.classList.toggle('open');
+      document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
+    }
+  </script>
+</body>
+</html>
