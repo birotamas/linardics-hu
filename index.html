@@ -86,6 +86,19 @@
     }
     .scroll-arrow { animation: scrollDown 1.5s ease infinite; }
 
+    /* Service slider animáció */
+    .svc-slide {
+      transition: opacity 0.5s ease, transform 0.5s ease;
+    }
+    .svc-slide.active {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+    .svc-slide.leaving {
+      opacity: 0 !important;
+      transform: translateY(-10px) !important;
+    }
+
     /* Levágott sarok gomb stílus (bal alsó + jobb felső) */
     .btn-clipped {
       clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px));
@@ -192,15 +205,58 @@
     <!-- RIGHT: 3 preview box – abszolút, hero közép-jobb -->
     <div class="hidden lg:flex flex-col gap-2 absolute z-20" style="right: 40px; top: 50%; transform: translateY(-50%);">
 
-      <!-- 1. sor: Szolgáltatások – széles, kép bal + szöveg jobb -->
-      <div class="flex items-center overflow-hidden shadow-2xl" style="background: rgba(0,0,0,0.52); width: 280px; height: 72px;">
-        <div class="w-28 h-full flex-shrink-0 overflow-hidden">
-          <img src="assets/images/laser-cutting.jpg" alt="Lézervágás" class="w-full h-full object-cover">
+      <!-- 1. sor: Animált szolgáltatás box -->
+      <div class="overflow-hidden shadow-2xl relative" style="background: rgba(0,0,0,0.52); width: 280px; height: 72px;">
+        <!-- Slideok -->
+        <div id="svc-slider" class="relative w-full h-full">
+          <div class="svc-slide absolute inset-0 flex items-center" style="opacity:0;transform:translateY(12px);">
+            <div class="w-28 h-full flex-shrink-0 overflow-hidden">
+              <img src="assets/images/laser-cutting.jpg" alt="Lézervágás" class="w-full h-full object-cover">
+            </div>
+            <div class="px-4 flex-1">
+              <p class="text-white font-heading font-bold text-sm uppercase tracking-widest leading-none">Lézervágás</p>
+              <p class="text-white/45 text-xs mt-1.5">CNC lemezmegmunkálás</p>
+            </div>
+          </div>
+          <div class="svc-slide absolute inset-0 flex items-center" style="opacity:0;transform:translateY(12px);">
+            <div class="w-28 h-full flex-shrink-0 overflow-hidden">
+              <img src="assets/images/lemezhajlitas.jpg" alt="Lemezhajlítás" class="w-full h-full object-cover">
+            </div>
+            <div class="px-4 flex-1">
+              <p class="text-white font-heading font-bold text-sm uppercase tracking-widest leading-none">Lemezhajlítás</p>
+              <p class="text-white/45 text-xs mt-1.5">Élhajlítás & préselés</p>
+            </div>
+          </div>
+          <div class="svc-slide absolute inset-0 flex items-center" style="opacity:0;transform:translateY(12px);">
+            <div class="w-28 h-full flex-shrink-0 overflow-hidden">
+              <img src="assets/images/csohajlitas.jpg" alt="Csőhajlítás" class="w-full h-full object-cover">
+            </div>
+            <div class="px-4 flex-1">
+              <p class="text-white font-heading font-bold text-sm uppercase tracking-widest leading-none">Csőhajlítás</p>
+              <p class="text-white/45 text-xs mt-1.5">CNC csőmegmunkálás</p>
+            </div>
+          </div>
+          <div class="svc-slide absolute inset-0 flex items-center" style="opacity:0;transform:translateY(12px);">
+            <div class="w-28 h-full flex-shrink-0 overflow-hidden">
+              <img src="assets/images/porfestes.jpg" alt="Porfestés" class="w-full h-full object-cover">
+            </div>
+            <div class="px-4 flex-1">
+              <p class="text-white font-heading font-bold text-sm uppercase tracking-widest leading-none">Porfestés</p>
+              <p class="text-white/45 text-xs mt-1.5">Felületkezelés</p>
+            </div>
+          </div>
+          <div class="svc-slide absolute inset-0 flex items-center" style="opacity:0;transform:translateY(12px);">
+            <div class="w-28 h-full flex-shrink-0 overflow-hidden">
+              <img src="assets/images/komplex-projektek.webp" alt="Komplex projektek" class="w-full h-full object-cover">
+            </div>
+            <div class="px-4 flex-1">
+              <p class="text-white font-heading font-bold text-sm uppercase tracking-widest leading-none">Komplex projektek</p>
+              <p class="text-white/45 text-xs mt-1.5">Teljes gyártási lánc</p>
+            </div>
+          </div>
         </div>
-        <div class="px-4 flex-1">
-          <p class="text-white font-heading font-bold text-sm uppercase tracking-widest leading-none">Lézervágás</p>
-          <p class="text-white/45 text-xs mt-1.5">Szolgáltatásaink</p>
-        </div>
+        <!-- Progress bar -->
+        <div class="absolute bottom-0 left-0 h-0.5 bg-[#cc2222]" id="svc-progress" style="width:0%;transition:width linear;"></div>
       </div>
 
       <!-- 2. sor: 2 box egymás mellett -->
@@ -514,6 +570,45 @@
       menu.classList.toggle('open');
       document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
     }
+
+    // Service slider
+    (function() {
+      const slides = document.querySelectorAll('.svc-slide');
+      const progress = document.getElementById('svc-progress');
+      const interval = 3000;
+      let current = 0;
+      let timer = null;
+      let progTimer = null;
+
+      slides[0].classList.add('active');
+
+      function showSlide(next) {
+        slides[current].classList.remove('active');
+        slides[current].classList.add('leaving');
+        setTimeout(() => slides[current].classList.remove('leaving'), 500);
+        current = next;
+        slides[current].classList.add('active');
+      }
+
+      function startProgress() {
+        progress.style.transition = 'none';
+        progress.style.width = '0%';
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => {
+            progress.style.transition = 'width ' + interval + 'ms linear';
+            progress.style.width = '100%';
+          });
+        });
+      }
+
+      function next() {
+        showSlide((current + 1) % slides.length);
+        startProgress();
+      }
+
+      startProgress();
+      timer = setInterval(next, interval);
+    })();
   </script>
 </body>
 </html>
