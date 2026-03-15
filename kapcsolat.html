@@ -32,19 +32,26 @@
 <body class="bg-[#060f1a] text-white">
 
   <!-- NAVBAR -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 bg-[#060f1a]/95 backdrop-blur py-4 px-6 md:px-10 flex items-center justify-between border-b border-white/8">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 px-6 md:px-12 flex items-center justify-between">
     <a href="index.html" class="flex items-center gap-3 flex-shrink-0">
       <img src="assets/images/linardics-logo.png" alt="Linardics Kft." class="h-9 w-auto">
       <span class="font-heading font-bold text-white text-base tracking-widest hidden sm:block">LINARDICS KFT.</span>
     </a>
-    <div class="hidden md:flex items-center gap-8 text-sm font-medium tracking-widest text-white/70">
+    <div class="hidden md:flex items-center gap-8 text-xs font-medium tracking-widest text-white/85">
       <a href="szolgaltatasok/index.html" class="hover:text-white transition-colors uppercase">Szolgáltatásaink</a>
       <a href="geppark.html" class="hover:text-white transition-colors uppercase">Géppark</a>
       <a href="referenciak.html" class="hover:text-white transition-colors uppercase">Referenciák</a>
       <a href="rolunk.html" class="hover:text-white transition-colors uppercase">Rólunk</a>
       <a href="kapcsolat.html" class="text-white uppercase border-b border-[#cc2222] pb-0.5">Kapcsolat</a>
     </div>
-    <a href="kapcsolat.html" class="btn-clipped bg-[#cc2222] text-white text-xs font-semibold px-5 py-2.5 tracking-widest uppercase">Ajánlatkérés</a>
+    <div class="flex items-center gap-4 ml-auto md:ml-0">
+      <a href="kapcsolat.html" class="btn-clipped hidden sm:block bg-[#cc2222] hover:bg-[#a01818] text-white text-xs font-semibold px-5 py-2.5 tracking-wider uppercase transition-colors">Ajánlatkérés</a>
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" onclick="toggleMenu()">
+        <span class="w-6 h-0.5 bg-white block"></span>
+        <span class="w-6 h-0.5 bg-white block"></span>
+        <span class="w-6 h-0.5 bg-white block"></span>
+      </button>
+    </div>
   </nav>
 
 
@@ -261,5 +268,35 @@
     </div>
   </footer>
 
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="fixed top-0 left-0 right-0 bottom-0 z-40 bg-[#060f1a] flex-col items-center justify-center gap-8 text-center" style="display:none;">
+    <a href="szolgaltatasok/index.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Szolgáltatásaink</a>
+    <a href="geppark.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Géppark</a>
+    <a href="referenciak.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Referenciák</a>
+    <a href="rolunk.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Rólunk</a>
+    <a href="kapcsolat.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-[#cc2222]" onclick="toggleMenu()">Kapcsolat</a>
+    <a href="kapcsolat.html" class="mt-4 btn-clipped bg-[#cc2222] text-white font-heading font-bold text-xl uppercase tracking-widest px-10 py-4">Ajánlatkérés</a>
+  </div>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('navbar-scrolled');
+        navbar.classList.remove('py-5');
+        navbar.classList.add('py-3');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+        navbar.classList.remove('py-3');
+        navbar.classList.add('py-5');
+      }
+    });
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const isOpen = menu.style.display === 'flex';
+      menu.style.display = isOpen ? 'none' : 'flex';
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
+  </script>
 </body>
 </html>
