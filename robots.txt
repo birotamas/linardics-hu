@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://linardics.hu/sitemap.xml
+
+# Block admin / internal paths (when backend is added)
+Disallow: /admin/
+Disallow: /api/

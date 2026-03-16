@@ -3,8 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Csőhajlítás – Linardics Kft.</title>
+  <title>Csőhajlítás | Linardics Kft.</title>
   <link rel="icon" type="image/png" href="../assets/images/favicon.png">
+  <meta name="description" content="CNC csőhajlítás SOCO SB-52X10A géppel. Kör, négyzet, téglalap keresztmetszetű csövek 1–3D sugarú ívvel. Acél, rozsdamentes, alumínium anyagokból.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://linardics.hu/szolgaltatasok/csohajlitas.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://linardics.hu/szolgaltatasok/csohajlitas.html">
+  <meta property="og:title" content="Csőhajlítás – CNC csőhajlítás | Linardics Kft. Székesfehérvár">
+  <meta property="og:description" content="CNC csőhajlítás SOCO SB-52X10A géppel. Kör, négyzet, téglalap keresztmetszetű csövek 1–3D sugarú ívvel. Acél, rozsdamentes, alumínium anyagokból.">
+  <meta property="og:image" content="https://linardics.hu/assets/images/og-image.jpg">
+  <meta property="og:locale" content="hu_HU">
+  <meta property="og:site_name" content="Linardics Kft.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Csőhajlítás – CNC csőhajlítás | Linardics Kft. Székesfehérvár">
+  <meta name="twitter:description" content="CNC csőhajlítás SOCO SB-52X10A géppel. Kör, négyzet, téglalap keresztmetszetű csövek 1–3D sugarú ívvel. Acél, rozsdamentes, alumínium anyagokból.">
+  <meta name="twitter:image" content="https://linardics.hu/assets/images/og-image.jpg">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -21,16 +35,79 @@
     html { scroll-behavior: smooth; }
     #mobile-menu { display: none; }
     #mobile-menu.open { display: flex; }
+    .container { width: min(90vw, 96.875rem); margin-left: auto; margin-right: auto; padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
     .btn-clipped { clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); border-radius: 0 !important; }
+
+    /* btn-clipped arrow hover animation */
+    .btn-clipped { position: relative; }
+    .btn-label { display: inline-block; transition: transform 0.25s ease; }
+    .btn-clipped:hover .btn-label { transform: translateX(-8px); }
+    .btn-arrow-icon {
+      position: absolute; right: -20px; top: 50%;
+      transform: translateY(-50%);
+      transition: right 0.25s ease, opacity 0.15s ease;
+      opacity: 0; pointer-events: none;
+    }
+    .btn-clipped:hover .btn-arrow-icon { right: 12px; opacity: 1; }
   </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Service",
+        "name": "CNC Csőhajlítás",
+        "description": "CNC csőhajlítás SOCO SB-52X10A géppel. Kör, négyzet és téglalap keresztmetszetű csövek 1–3D sugarú ívvel, anyagpazarlás nélkül.",
+        "provider": { "@id": "https://linardics.hu/#business" },
+        "serviceType": "Csőhajlítás",
+        "url": "https://linardics.hu/szolgaltatasok/csohajlitas.html"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Főoldal", "item": "https://linardics.hu/" },
+          { "@type": "ListItem", "position": 2, "name": "Szolgáltatások", "item": "https://linardics.hu/szolgaltatasok/" },
+          { "@type": "ListItem", "position": 3, "name": "Csőhajlítás", "item": "https://linardics.hu/szolgaltatasok/csohajlitas.html" }
+        ]
+      }
+    ]
+  }
+  </script>
 </head>
 <body class="bg-[#060f1a] text-white overflow-x-hidden">
+  <!-- PRELOADER -->
+  <div id="preloader" style="position:fixed;inset:0;z-index:9999;background:#060f1a;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.5s ease, visibility 0.5s ease;">
+    <img src="../assets/images/linardics-logo.png" alt="Linardics Kft." style="width:72px;height:72px;object-fit:contain;animation:preloader-pulse 1.4s ease-in-out infinite;">
+    <div style="margin-top:20px;width:48px;height:2px;background:rgba(255,255,255,0.1);overflow:hidden;position:relative;">
+      <div id="preloader-bar" style="position:absolute;left:-100%;top:0;width:100%;height:100%;background:#cc2222;animation:preloader-slide 1.2s ease-in-out infinite;"></div>
+    </div>
+  </div>
+  <style>
+    @keyframes preloader-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.75;transform:scale(0.95)} }
+    @keyframes preloader-slide { 0%{left:-100%} 100%{left:100%} }
+    #preloader.hidden { opacity:0; visibility:hidden; }
+    body.preloading { overflow:hidden; }
+  </style>
+  <script>
+    document.body.classList.add('preloading');
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var pl = document.getElementById('preloader');
+        pl.classList.add('hidden');
+        document.body.classList.remove('preloading');
+        setTimeout(function(){ pl.style.display='none'; }, 550);
+      }, 350);
+    });
+  </script>
+
+
 
   <!-- NAVBAR -->
-  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5 px-6 md:px-12 flex items-center justify-between">
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5">
+    <div class="container flex items-center justify-between">
     <a href="../index.html" class="flex items-center gap-3 flex-shrink-0">
-      <img src="../assets/images/linardics-logo.png" alt="Linardics Kft." class="h-9 w-auto">
-      <span class="font-heading font-bold text-white text-base tracking-widest hidden sm:block">LINARDICS KFT.</span>
+      <img src="../assets/images/linardics-logo.png" alt="Linardics Kft." class="h-9 w-auto" style="filter: brightness(0) invert(1);">
+      <span class="font-heading font-bold text-white text-base tracking-widest">LINARDICS KFT.</span>
     </a>
     <div class="hidden md:flex items-center gap-8 text-xs font-medium tracking-widest text-white/85">
       <a href="index.html" class="text-white uppercase border-b border-[#cc2222] pb-0.5">Szolgáltatásaink</a>
@@ -40,12 +117,13 @@
       <a href="../kapcsolat.html" class="hover:text-white transition-colors uppercase">Kapcsolat</a>
     </div>
     <div class="flex items-center gap-4 ml-auto md:ml-0">
-      <a href="../kapcsolat.html" class="btn-clipped hidden sm:block bg-[#cc2222] hover:bg-[#a01818] text-white text-xs font-semibold px-5 py-2.5 tracking-wider uppercase transition-colors">Ajánlatkérés</a>
+      <a href="../kapcsolat.html" class="btn-clipped hidden sm:block bg-[#cc2222] hover:bg-[#a01818] text-white text-xs font-semibold px-5 py-2.5 tracking-wider uppercase transition-colors"><span class="btn-label">Ajánlatkérés</span><svg class="btn-arrow-icon" width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></a>
       <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" onclick="toggleMenu()">
         <span class="w-6 h-0.5 bg-white block"></span>
         <span class="w-6 h-0.5 bg-white block"></span>
         <span class="w-6 h-0.5 bg-white block"></span>
       </button>
+    </div>
     </div>
   </nav>
 
@@ -55,19 +133,19 @@
     <a href="../referenciak.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Referenciák</a>
     <a href="../rolunk.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Rólunk</a>
     <a href="../kapcsolat.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Kapcsolat</a>
-    <a href="../kapcsolat.html" class="mt-4 btn-clipped bg-[#cc2222] text-white font-heading font-bold text-xl uppercase tracking-widest px-10 py-4">Ajánlatkérés</a>
+    <a href="../kapcsolat.html" class="mt-4 btn-clipped bg-[#cc2222] text-white font-heading font-bold text-xl uppercase tracking-widest px-10 py-4"><span class="btn-label">Ajánlatkérés</span><svg class="btn-arrow-icon" width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></a>
   </div>
 
   <!-- HERO -->
-  <section class="relative flex items-end" style="min-height: 60vh; background-image: url('../assets/images/csohajlitas.jpg'); background-size: cover; background-position: center;">
+  <section class="relative flex items-end" style="min-height: 60vh; background-image: url('../assets/images/csohajlitas.webp'); background-size: cover; background-position: center;">
     <div class="absolute inset-0" style="background: linear-gradient(to right, rgba(6,15,26,0.90) 0%, rgba(6,15,26,0.65) 55%, rgba(6,15,26,0.35) 100%);"></div>
     <div class="absolute bottom-0 left-0 right-0 h-24" style="background: linear-gradient(to top, #060f1a, transparent);"></div>
-    <div class="relative z-10 max-w-7xl mx-auto w-full px-6 md:px-12 pb-16 pt-36">
+    <div class="relative z-10 container w-full px-6 md:px-12 pb-16 pt-36">
       <div class="flex items-center gap-3 mb-3">
         <div class="w-1 h-6 bg-[#cc2222]"></div>
-        <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">CNC csőalakítás</span>
+        <span class="font-heading font-semibold text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">CNC csőalakítás</span>
       </div>
-      <h1 class="font-heading font-black text-5xl md:text-7xl uppercase tracking-wide text-white leading-none mb-4">Cső&shy;hajlítás</h1>
+      <h1 class="font-heading font-semibold text-5xl md:text-7xl uppercase tracking-wide text-white leading-none mb-4">Cső&shy;hajlítás</h1>
       <p class="text-white/70 text-sm md:text-base leading-relaxed max-w-xl mb-8">
         SOCO CNC csőhajlító gépünkkel max. 50,8 mm átmérőjű csöveket hajlítunk, 4500 mm hosszig, kétirányú hajlítási képességgel.
       </p>
@@ -77,12 +155,12 @@
 
   <!-- SPECIFIKÁCIÓ -->
   <section class="bg-[#0d1b2a] py-16 px-6 md:px-12">
-    <div class="max-w-7xl mx-auto">
+    <div class="container">
       <div class="flex items-center gap-3 mb-3">
         <div class="w-1 h-6 bg-[#cc2222]"></div>
-        <span class="font-heading font-black text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Műszaki adatok</span>
+        <span class="font-heading font-semibold text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Műszaki adatok</span>
       </div>
-      <h2 class="font-heading font-black text-4xl md:text-5xl uppercase tracking-wide text-white leading-none mb-10">Gép & Képességek</h2>
+      <h2 class="font-heading font-semibold text-4xl md:text-5xl uppercase tracking-wide text-white leading-none mb-10">Gép & Képességek</h2>
 
       <!-- Gép adatok -->
       <div class="bg-[#122135] border border-white/8 p-8 mb-12">
@@ -138,19 +216,19 @@
         <h3 class="font-heading font-bold text-2xl uppercase tracking-wide text-white mb-6">Jellemző alkalmazások</h3>
         <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
           <div class="bg-[#122135] border border-white/8 p-5 text-center">
-            <div class="text-[#cc2222] font-heading font-black text-lg uppercase mb-1">Autóipar</div>
+            <div class="text-[#cc2222] font-heading font-semibold text-lg uppercase mb-1">Autóipar</div>
             <p class="text-white/45 text-xs">Kipufogócsövek, hűtési rendszerek, keretszerkezetek</p>
           </div>
           <div class="bg-[#122135] border border-white/8 p-5 text-center">
-            <div class="text-[#cc2222] font-heading font-black text-lg uppercase mb-1">Gépipar</div>
+            <div class="text-[#cc2222] font-heading font-semibold text-lg uppercase mb-1">Gépipar</div>
             <p class="text-white/45 text-xs">Hidraulika és pneumatika csővezetékek</p>
           </div>
           <div class="bg-[#122135] border border-white/8 p-5 text-center">
-            <div class="text-[#cc2222] font-heading font-black text-lg uppercase mb-1">Bútoripari</div>
+            <div class="text-[#cc2222] font-heading font-semibold text-lg uppercase mb-1">Bútoripari</div>
             <p class="text-white/45 text-xs">Fém vázelemek, kapaszkodók, korlátok</p>
           </div>
           <div class="bg-[#122135] border border-white/8 p-5 text-center">
-            <div class="text-[#cc2222] font-heading font-black text-lg uppercase mb-1">Egyedi</div>
+            <div class="text-[#cc2222] font-heading font-semibold text-lg uppercase mb-1">Egyedi</div>
             <p class="text-white/45 text-xs">Ipari berendezések, speciális konstrukciók</p>
           </div>
         </div>
@@ -159,17 +237,17 @@
       <!-- Sorozatnagyság -->
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 pt-10 border-t border-white/8">
         <div class="border-l-2 border-[#cc2222] pl-6">
-          <div class="font-heading font-black text-3xl text-[#cc2222] mb-2">Prototípus</div>
+          <div class="font-heading font-semibold text-3xl text-[#cc2222] mb-2">Prototípus</div>
           <div class="text-white font-semibold text-sm mb-1">1–20 db</div>
           <div class="text-white/45 text-xs leading-relaxed">Minta- és prototípuskészítés. Átfutás: 3–5 munkanap.</div>
         </div>
         <div class="border-l-2 border-[#cc2222] pl-6">
-          <div class="font-heading font-black text-3xl text-[#cc2222] mb-2">Kissorozat</div>
+          <div class="font-heading font-semibold text-3xl text-[#cc2222] mb-2">Kissorozat</div>
           <div class="text-white font-semibold text-sm mb-1">20–500 db</div>
           <div class="text-white/45 text-xs leading-relaxed">Rugalmas gyártás. Átfutás: 5–8 munkanap.</div>
         </div>
         <div class="border-l-2 border-[#cc2222] pl-6">
-          <div class="font-heading font-black text-3xl text-[#cc2222] mb-2">Nagysorozat</div>
+          <div class="font-heading font-semibold text-3xl text-[#cc2222] mb-2">Nagysorozat</div>
           <div class="text-white font-semibold text-sm mb-1">500+ db</div>
           <div class="text-white/45 text-xs leading-relaxed">Folyamatos szállítás, kapacitástervezéssel.</div>
         </div>
@@ -179,7 +257,7 @@
 
   <!-- KAPCSOLÓDÓ -->
   <section class="bg-[#060f1a] py-12 px-6 md:px-12">
-    <div class="max-w-7xl mx-auto">
+    <div class="container">
       <h2 class="font-heading font-bold text-2xl uppercase tracking-widest text-white/60 mb-6">Kapcsolódó szolgáltatások</h2>
       <div class="flex flex-wrap gap-3">
         <a href="cnc-lemezmegmunkalas.html" class="btn-clipped border border-white/20 hover:border-white text-white text-xs font-semibold uppercase tracking-widest px-6 py-2.5 transition-colors hover:bg-white/5">CNC Lemezmegmunkálás →</a>
@@ -191,19 +269,39 @@
   </section>
 
   <!-- CTA -->
-  <section class="bg-[#cc2222] py-16 px-6 md:px-10">
-    <div class="max-w-7xl mx-auto flex flex-col lg:flex-row items-start lg:items-center justify-between gap-8">
-      <div>
-        <h2 class="font-heading font-black text-4xl md:text-6xl uppercase tracking-wide text-white leading-tight mb-3">Kész az ajánlatra?<br>Írjon nekünk.</h2>
-        <p class="text-white/75 text-sm md:text-base leading-relaxed max-w-xl">Töltse ki rövid igényfelmérő űrlapunkat, és 24 órán belül visszajelzünk pontos árajánlattal.</p>
+  <!-- ═══════════════════════════════════════
+       CTA SECTION
+  ═══════════════════════════════════════ -->
+  <section style="background:#cc2222;position:relative;overflow:hidden;">
+    <!-- Radial vignette -->
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 120% at 50% 50%, transparent 30%, rgba(0,0,0,0.35) 100%);pointer-events:none;"></div>
+    <!-- Bal felső sarokdísz -->
+    <div style="position:absolute;top:0;left:0;width:120px;height:3px;background:rgba(255,255,255,0.25);"></div>
+    <div style="position:absolute;top:0;left:0;width:3px;height:80px;background:rgba(255,255,255,0.25);"></div>
+    <div class="container" style="position:relative;z-index:1;padding-top:5rem;padding-bottom:5rem;">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+        <div>
+          <div class="flex items-center gap-3 mb-5">
+            <div style="width:28px;height:2px;background:rgba(255,255,255,0.55);"></div>
+            <span style="color:rgba(255,255,255,0.65);font-size:0.7rem;letter-spacing:0.22em;font-weight:600;text-transform:uppercase;font-family:inherit;">Lépjen kapcsolatba velünk</span>
+          </div>
+          <h2 class="font-heading font-semibold text-4xl md:text-6xl uppercase tracking-wide text-white leading-tight mb-3">
+            Kész az ajánlatra?<br>Írjon nekünk.
+          </h2>
+          <p class="text-white/70 text-sm md:text-base leading-relaxed max-w-lg">
+            Töltse ki rövid igényfelmérő űrlapunkat, és 24 órán belül visszajelzünk pontos árajánlattal. Prototípustól nagysorozatig.
+          </p>
+        </div>
+        <a href="../kapcsolat.html" class="btn-clipped flex-shrink-0 bg-white text-[#cc2222] font-heading font-semibold text-lg uppercase tracking-widest px-12 py-4 hover:bg-white/90 transition-colors whitespace-nowrap" style="position:relative;">
+          <span class="btn-label">Ajánlatot kérek</span><svg class="btn-arrow-icon" width="14" height="14" fill="none" stroke="#cc2222" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+        </a>
       </div>
-      <a href="../kapcsolat.html" class="btn-clipped flex-shrink-0 bg-white text-[#cc2222] font-heading font-black text-lg uppercase tracking-widest px-12 py-4 hover:bg-white/90 transition-colors whitespace-nowrap">Ajánlatot kérek →</a>
     </div>
   </section>
 
   <!-- FOOTER -->
-  <footer class="bg-[#060f1a] py-10 px-6 md:px-10 border-t border-white/8">
-    <div class="max-w-7xl mx-auto">
+  <footer class="bg-[#060f1a] py-10 border-t border-white/8">
+    <div class="container">
       <div class="flex flex-col md:flex-row items-start md:items-center justify-between gap-6 mb-8">
         <div>
           <div class="flex items-center gap-3 mb-2">
@@ -217,6 +315,7 @@
           <a href="../geppark.html" class="hover:text-white transition-colors">Géppark</a>
           <a href="../referenciak.html" class="hover:text-white transition-colors">Referenciák</a>
           <a href="../rolunk.html" class="hover:text-white transition-colors">Rólunk</a>
+          <a href="../gyik.html" class="hover:text-white transition-colors">GYIK</a>
           <a href="../kapcsolat.html" class="hover:text-white transition-colors">Kapcsolat</a>
         </nav>
       </div>

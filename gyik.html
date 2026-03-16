@@ -1,0 +1,447 @@
+<!DOCTYPE html>
+<html lang="hu">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>GYIK | Linardics Kft.</title>
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+  <meta name="description" content="Válaszok a lemezmegmunkálással kapcsolatos leggyakoribb kérdésekre: anyagok, toleranciák, határidők, ajánlatkérés menete. Linardics Kft. – Székesfehérvár.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://linardics.hu/gyik.html">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://linardics.hu/gyik.html">
+  <meta property="og:title" content="GYIK – Gyakran Ismételt Kérdések | Linardics Kft.">
+  <meta property="og:description" content="Válaszok a lemezmegmunkálással kapcsolatos leggyakoribb kérdésekre: anyagok, toleranciák, határidők, ajánlatkérés menete.">
+  <meta property="og:image" content="https://linardics.hu/assets/images/og-image.jpg">
+  <meta property="og:locale" content="hu_HU">
+  <meta property="og:site_name" content="Linardics Kft.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;700;800;900&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * { font-family: 'Inter', sans-serif; }
+    .font-heading, h1, h2, h3 { font-family: 'Barlow Condensed', sans-serif; }
+    .navbar-scrolled { background: rgba(6,15,26,0.97) !important; -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+    .container { width: min(90vw, 96.875rem); margin-left: auto; margin-right: auto; padding-left: max(1rem, env(safe-area-inset-left)); padding-right: max(1rem, env(safe-area-inset-right)); }
+    .btn-clipped { clip-path: polygon(0 0, calc(100% - 10px) 0, 100% 10px, 100% 100%, 10px 100%, 0 calc(100% - 10px)); }
+    .faq-answer { max-height: 0; overflow: hidden; transition: max-height 0.35s ease, padding 0.35s ease; }
+    .faq-item.open .faq-answer { max-height: 500px; }
+    .faq-item.open .faq-icon { transform: rotate(45deg); }
+    .faq-icon { transition: transform 0.3s ease; }
+
+    /* btn-clipped arrow hover animation */
+    .btn-clipped { position: relative; }
+    .btn-label { display: inline-block; transition: transform 0.25s ease; }
+    .btn-clipped:hover .btn-label { transform: translateX(-8px); }
+    .btn-arrow-icon {
+      position: absolute; right: -20px; top: 50%;
+      transform: translateY(-50%);
+      transition: right 0.25s ease, opacity 0.15s ease;
+      opacity: 0; pointer-events: none;
+    }
+    .btn-clipped:hover .btn-arrow-icon { right: 12px; opacity: 1; }
+  </style>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Milyen anyagokat tudnak megmunkálni?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Acélt (S235, S355), rozsdamentes acélt (304, 316), alumíniumot és egyéb fémlemezeket munkálunk meg. Anyagvastagság 0,5 mm-től 25 mm-ig, a technológiától függően."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Milyen pontossággal dolgoznak?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "CNC lézervágásnál ±0,1 mm, lemezhajlításnál ±0,2 mm, csőhajlításnál ±0,5° szögtoleranciával dolgozunk. ISO 9001 minőségirányítási rendszerünk garantálja a mérési dokumentációt."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Mennyi idő alatt kapok árajánlatot?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Normál esetben 24 munkanapon belül visszajelzünk. Ha rajzfájlt (DXF, STEP) is csatol az ajánlatkéréshez, még gyorsabb és pontosabb kalkulációt tudunk adni."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Van-e minimális rendelési mennyiség?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Nincs kötelező minimális rendelési mennyiség. Prototípustól nagysorozatig elvállalunk minden megrendelést – 1 darabtól több ezer darabig."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Milyen formátumban fogadnak műszaki rajzokat?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "DXF, DWG, STEP (STP), IGES formátumokat fogadunk el. PDF rajzot is elfogadunk, de az automatikus kalkulációhoz a vektoros formátumok (DXF, STEP) ajánlottak."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Vállalnak-e porfestést is, ha a lézervágást is önöknél rendelem?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Igen, komplex projekteket is elvállalunk: lézervágás, hajlítás, csőhajlítás és porfestés egy helyen intézhető. Ez csökkenti az átfutási időt és az adminisztrációs terhet."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Milyen szállítási határidőkkel dolgoznak?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Sürgős megrendeléseknél 1–2 héten belül, normál esetben 2–4 hét az átfutási idő. Rendszeres partnereknek JIT (just-in-time) szállítást is tudunk biztosítani."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "ISO tanúsítvánnyal rendelkeznek?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Igen, 2004 óta rendelkezünk ISO 9001 minőségirányítási rendszer tanúsítvánnyal. A tanúsítvány másolatát kérésre rendelkezésre bocsátjuk."
+            }
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "Főoldal", "item": "https://linardics.hu/" },
+          { "@type": "ListItem", "position": 2, "name": "GYIK", "item": "https://linardics.hu/gyik.html" }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+<body class="bg-[#060f1a] text-white">
+  <!-- PRELOADER -->
+  <div id="preloader" style="position:fixed;inset:0;z-index:9999;background:#060f1a;display:flex;align-items:center;justify-content:center;flex-direction:column;transition:opacity 0.5s ease, visibility 0.5s ease;">
+    <img src="assets/images/linardics-logo.png" alt="Linardics Kft." style="width:72px;height:72px;object-fit:contain;animation:preloader-pulse 1.4s ease-in-out infinite;">
+    <div style="margin-top:20px;width:48px;height:2px;background:rgba(255,255,255,0.1);overflow:hidden;position:relative;">
+      <div id="preloader-bar" style="position:absolute;left:-100%;top:0;width:100%;height:100%;background:#cc2222;animation:preloader-slide 1.2s ease-in-out infinite;"></div>
+    </div>
+  </div>
+  <style>
+    @keyframes preloader-pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:0.75;transform:scale(0.95)} }
+    @keyframes preloader-slide { 0%{left:-100%} 100%{left:100%} }
+    #preloader.hidden { opacity:0; visibility:hidden; }
+    body.preloading { overflow:hidden; }
+  </style>
+  <script>
+    document.body.classList.add('preloading');
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(function() {
+        var pl = document.getElementById('preloader');
+        pl.classList.add('hidden');
+        document.body.classList.remove('preloading');
+        setTimeout(function(){ pl.style.display='none'; }, 550);
+      }, 350);
+    });
+  </script>
+
+
+
+  <!-- NAVBAR -->
+  <nav id="navbar" class="fixed top-0 left-0 right-0 z-50 transition-all duration-300 py-5">
+    <div class="container flex items-center justify-between">
+    <a href="index.html" class="flex items-center gap-3 flex-shrink-0">
+      <img src="assets/images/linardics-logo.png" alt="Linardics Kft." class="h-9 w-auto" style="filter: brightness(0) invert(1);">
+      <span class="font-heading font-bold text-white text-base tracking-widest">LINARDICS KFT.</span>
+    </a>
+    <div class="hidden md:flex items-center gap-8 text-xs font-medium tracking-widest text-white/85">
+      <a href="szolgaltatasok/index.html" class="hover:text-white transition-colors uppercase">Szolgáltatásaink</a>
+      <a href="geppark.html" class="hover:text-white transition-colors uppercase">Géppark</a>
+      <a href="referenciak.html" class="hover:text-white transition-colors uppercase">Referenciák</a>
+      <a href="rolunk.html" class="hover:text-white transition-colors uppercase">Rólunk</a>
+      <a href="kapcsolat.html" class="hover:text-white transition-colors uppercase">Kapcsolat</a>
+    </div>
+    <div class="flex items-center gap-4 ml-auto md:ml-0">
+      <a href="kapcsolat.html" class="btn-clipped hidden sm:block bg-[#cc2222] hover:bg-[#a01818] text-white text-xs font-semibold px-5 py-2.5 tracking-wider uppercase transition-colors"><span class="btn-label">Ajánlatkérés</span><svg class="btn-arrow-icon" width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></a>
+      <button id="hamburger" class="md:hidden flex flex-col gap-1.5 p-2" onclick="toggleMenu()">
+        <span class="w-6 h-0.5 bg-white block"></span>
+        <span class="w-6 h-0.5 bg-white block"></span>
+        <span class="w-6 h-0.5 bg-white block"></span>
+      </button>
+    </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <div class="pt-28 pb-10 bg-[#060f1a]">
+    <div class="max-w-4xl mx-auto">
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-1 h-6 bg-[#cc2222]"></div>
+        <span class="font-heading font-semibold text-sm tracking-[0.25em] uppercase text-[#6a8fa8]">GYIK</span>
+      </div>
+      <h1 class="font-heading font-semibold text-5xl md:text-7xl uppercase tracking-wide text-white leading-none mb-4">
+        Gyakran Ismételt<br>Kérdések
+      </h1>
+      <p class="text-white/55 text-base leading-relaxed max-w-xl">
+        Összegyűjtöttük az ügyfeleinktől leggyakrabban érkező kérdéseket. Ha nem találja a választ, <a href="kapcsolat.html" class="text-[#cc2222] hover:underline">írjon nekünk</a>.
+      </p>
+    </div>
+  </div>
+
+  <!-- FAQ CONTENT -->
+  <div class="px-6 md:px-10 pb-20 bg-[#060f1a]">
+    <div class="max-w-4xl mx-auto grid grid-cols-1 lg:grid-cols-3 gap-10">
+
+      <!-- FAQ List -->
+      <div class="lg:col-span-2 space-y-2">
+
+        <!-- Category: Ajánlatkérés -->
+        <h2 class="font-heading font-bold text-xs uppercase tracking-[0.25em] text-[#cc2222] mb-4 mt-2">Ajánlatkérés & Folyamat</h2>
+
+        <div class="faq-item bg-[#0d1b2a] rounded-lg border border-white/8 overflow-hidden">
+          <button class="faq-trigger w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/3 transition-colors" onclick="toggleFaq(this)">
+            <span class="text-white font-medium text-sm leading-relaxed">Mennyi idő alatt kapok árajánlatot?</span>
+            <svg class="faq-icon w-5 h-5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p class="px-6 pb-5 text-white/55 text-sm leading-relaxed">Normál esetben <strong class="text-white/80">24 munkanapon belül</strong> visszajelzünk. Ha rajzfájlt (DXF, STEP) is csatol az ajánlatkéréshez, még gyorsabb és pontosabb kalkulációt tudunk adni.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-[#0d1b2a] rounded-lg border border-white/8 overflow-hidden">
+          <button class="faq-trigger w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/3 transition-colors" onclick="toggleFaq(this)">
+            <span class="text-white font-medium text-sm leading-relaxed">Milyen formátumban fogadnak műszaki rajzokat?</span>
+            <svg class="faq-icon w-5 h-5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p class="px-6 pb-5 text-white/55 text-sm leading-relaxed"><strong class="text-white/80">DXF, DWG, STEP (STP), IGES</strong> formátumokat fogadunk el. PDF rajzot is elfogadunk, de az automatikus kalkulációhoz a vektoros formátumok ajánlottak. Max. 20 MB fájlméret az ajánlatkérő űrlapon.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-[#0d1b2a] rounded-lg border border-white/8 overflow-hidden">
+          <button class="faq-trigger w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/3 transition-colors" onclick="toggleFaq(this)">
+            <span class="text-white font-medium text-sm leading-relaxed">Van-e minimális rendelési mennyiség?</span>
+            <svg class="faq-icon w-5 h-5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p class="px-6 pb-5 text-white/55 text-sm leading-relaxed">Nincs kötelező minimális rendelési mennyiség. <strong class="text-white/80">Prototípustól nagysorozatig</strong> elvállalunk minden megrendelést – 1 darabtól több ezer darabig.</p>
+          </div>
+        </div>
+
+        <!-- Category: Technológia -->
+        <h2 class="font-heading font-bold text-xs uppercase tracking-[0.25em] text-[#cc2222] mb-4 mt-8">Technológia & Minőség</h2>
+
+        <div class="faq-item bg-[#0d1b2a] rounded-lg border border-white/8 overflow-hidden">
+          <button class="faq-trigger w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/3 transition-colors" onclick="toggleFaq(this)">
+            <span class="text-white font-medium text-sm leading-relaxed">Milyen anyagokat tudnak megmunkálni?</span>
+            <svg class="faq-icon w-5 h-5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p class="px-6 pb-5 text-white/55 text-sm leading-relaxed">Dolgozunk <strong class="text-white/80">acéllal (S235, S355), rozsdamentes acéllal (304, 316) és alumíniummal</strong>. Anyagvastagság lézervágásnál 0,5–25 mm, hajlításnál 0,5–12 mm, a technológiától és anyagminőségtől függően.</p>
+          </div>
+        </div>
+
+        <div class="faq-item bg-[#0d1b2a] rounded-lg border border-white/8 overflow-hidden">
+          <button class="faq-trigger w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/3 transition-colors" onclick="toggleFaq(this)">
+            <span class="text-white font-medium text-sm leading-relaxed">Milyen pontossággal dolgoznak?</span>
+            <svg class="faq-icon w-5 h-5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-5 text-white/55 text-sm leading-relaxed space-y-1.5">
+              <p>CNC lézervágás: <strong class="text-white/80">±0,1 mm</strong></p>
+              <p>Lemezhajlítás: <strong class="text-white/80">±0,2 mm</strong></p>
+              <p>Csőhajlítás: <strong class="text-white/80">±0,5°</strong> szögtoleranciával</p>
+              <p class="pt-1">ISO 9001 minőségirányítási rendszerünk garantálja a mérési dokumentációt és a folyamatok nyomon követhetőségét.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-[#0d1b2a] rounded-lg border border-white/8 overflow-hidden">
+          <button class="faq-trigger w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/3 transition-colors" onclick="toggleFaq(this)">
+            <span class="text-white font-medium text-sm leading-relaxed">ISO tanúsítvánnyal rendelkeznek?</span>
+            <svg class="faq-icon w-5 h-5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p class="px-6 pb-5 text-white/55 text-sm leading-relaxed"><strong class="text-white/80">2004 óta rendelkezünk ISO 9001</strong> minőségirányítási rendszer tanúsítvánnyal. A tanúsítvány másolatát kérésre rendelkezésre bocsátjuk.</p>
+          </div>
+        </div>
+
+        <!-- Category: Szállítás & Projektek -->
+        <h2 class="font-heading font-bold text-xs uppercase tracking-[0.25em] text-[#cc2222] mb-4 mt-8">Szállítás & Komplex projektek</h2>
+
+        <div class="faq-item bg-[#0d1b2a] rounded-lg border border-white/8 overflow-hidden">
+          <button class="faq-trigger w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/3 transition-colors" onclick="toggleFaq(this)">
+            <span class="text-white font-medium text-sm leading-relaxed">Milyen szállítási határidőkkel dolgoznak?</span>
+            <svg class="faq-icon w-5 h-5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="faq-answer">
+            <div class="px-6 pb-5 text-white/55 text-sm leading-relaxed space-y-1.5">
+              <p>🔴 Sürgős: <strong class="text-white/80">1–2 hét</strong></p>
+              <p>🟡 Normál: <strong class="text-white/80">2–4 hét</strong></p>
+              <p>🟢 Rendszeres partnereknek: <strong class="text-white/80">JIT (just-in-time)</strong> szállítás is elérhető.</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-[#0d1b2a] rounded-lg border border-white/8 overflow-hidden">
+          <button class="faq-trigger w-full text-left px-6 py-5 flex items-center justify-between gap-4 hover:bg-white/3 transition-colors" onclick="toggleFaq(this)">
+            <span class="text-white font-medium text-sm leading-relaxed">Vállalnak porfestést is, ha a lézervágást is önöknél rendelem?</span>
+            <svg class="faq-icon w-5 h-5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"/></svg>
+          </button>
+          <div class="faq-answer">
+            <p class="px-6 pb-5 text-white/55 text-sm leading-relaxed">Igen. <strong class="text-white/80">Komplex projekteket</strong> is elvállalunk: lézervágás, hajlítás, csőhajlítás és porfestés egy helyen intézhető. Ez csökkenti az átfutási időt, a szállítási költséget és az adminisztrációs terhet.</p>
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Sidebar -->
+      <div class="space-y-5">
+        <!-- CTA -->
+        <div class="bg-[#cc2222]/10 border border-[#cc2222]/25 rounded-xl p-6">
+          <h3 class="font-heading font-bold text-lg uppercase tracking-widest text-white mb-2">Nem találta a választ?</h3>
+          <p class="text-white/50 text-sm mb-5">Írjon nekünk vagy hívjon fel – munkanapokon 8–16:30 között.</p>
+          <a href="kapcsolat.html" class="btn-clipped block w-full text-center bg-[#cc2222] hover:bg-[#a01818] text-white font-heading font-bold text-sm uppercase tracking-widest px-6 py-3.5 transition-colors mb-3">
+            Ajánlatkérés →
+          </a>
+          <a href="tel:+3622503865" class="block text-center text-white/60 hover:text-white text-sm transition-colors">
+            +36 22 503 865
+          </a>
+        </div>
+
+        <!-- Quick links -->
+        <div class="bg-[#0d1b2a] rounded-xl p-6 border border-white/8">
+          <h3 class="font-heading font-bold text-sm uppercase tracking-widest text-white/60 mb-4">Kapcsolódó oldalak</h3>
+          <div class="space-y-2">
+            <a href="szolgaltatasok/cnc-lemezmegmunkalas.html" class="flex items-center gap-2 text-white/55 hover:text-white text-sm transition-colors py-1">
+              <svg class="w-3.5 h-3.5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              CNC Lemezmegmunkálás
+            </a>
+            <a href="szolgaltatasok/lemezhajlitas.html" class="flex items-center gap-2 text-white/55 hover:text-white text-sm transition-colors py-1">
+              <svg class="w-3.5 h-3.5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              Lemezhajlítás & Élhajlítás
+            </a>
+            <a href="szolgaltatasok/porfestes.html" class="flex items-center gap-2 text-white/55 hover:text-white text-sm transition-colors py-1">
+              <svg class="w-3.5 h-3.5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              Porfestés
+            </a>
+            <a href="geppark.html" class="flex items-center gap-2 text-white/55 hover:text-white text-sm transition-colors py-1">
+              <svg class="w-3.5 h-3.5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              Géppark
+            </a>
+            <a href="rolunk.html" class="flex items-center gap-2 text-white/55 hover:text-white text-sm transition-colors py-1">
+              <svg class="w-3.5 h-3.5 text-[#cc2222] flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"/></svg>
+              Rólunk
+            </a>
+          </div>
+        </div>
+
+        <!-- Trust -->
+        <div class="bg-[#0d1b2a] rounded-xl p-6 border border-white/8 space-y-3">
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-[#cc2222] flex flex-col items-center justify-center flex-shrink-0">
+              <span class="text-white font-semibold text-xs leading-none">ISO</span>
+              <span class="text-white font-semibold text-xs leading-none">9001</span>
+            </div>
+            <span class="text-white/60 text-sm">Tanúsított 2004 óta</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-white/8 rounded flex items-center justify-center flex-shrink-0">
+              <span class="text-white font-semibold text-xs">30+</span>
+            </div>
+            <span class="text-white/60 text-sm">Év tapasztalat</span>
+          </div>
+          <div class="flex items-center gap-3">
+            <div class="w-8 h-8 bg-white/8 rounded flex items-center justify-center flex-shrink-0">
+              <span class="text-white font-semibold text-xs">24h</span>
+            </div>
+            <span class="text-white/60 text-sm">Visszajelzési garancia</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ═══════════════════════════════════════
+       CTA SECTION
+  ═══════════════════════════════════════ -->
+  <section style="background:#cc2222;position:relative;overflow:hidden;">
+    <div style="position:absolute;inset:0;background:radial-gradient(ellipse 80% 120% at 50% 50%, transparent 30%, rgba(0,0,0,0.35) 100%);pointer-events:none;"></div>
+    <div style="position:absolute;top:0;left:0;width:120px;height:3px;background:rgba(255,255,255,0.25);"></div>
+    <div style="position:absolute;top:0;left:0;width:3px;height:80px;background:rgba(255,255,255,0.25);"></div>
+    <div class="container" style="position:relative;z-index:1;padding-top:5rem;padding-bottom:5rem;">
+      <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
+        <div>
+          <div class="flex items-center gap-3 mb-5">
+            <div style="width:28px;height:2px;background:rgba(255,255,255,0.55);"></div>
+            <span style="color:rgba(255,255,255,0.65);font-size:0.7rem;letter-spacing:0.22em;font-weight:600;text-transform:uppercase;font-family:inherit;">Lépjen kapcsolatba velünk</span>
+          </div>
+          <h2 class="font-heading font-semibold text-4xl md:text-6xl uppercase tracking-wide text-white leading-tight mb-3">
+            Kész az ajánlatra?<br>Írjon nekünk.
+          </h2>
+          <p class="text-white/70 text-sm md:text-base leading-relaxed max-w-lg">
+            Töltse ki rövid igényfelmérő űrlapunkat, és 24 órán belül visszajelzünk pontos árajánlattal. Prototípustól nagysorozatig.
+          </p>
+        </div>
+        <a href="kapcsolat.html" class="btn-clipped flex-shrink-0 bg-white text-[#cc2222] font-heading font-semibold text-lg uppercase tracking-widest px-12 py-4 hover:bg-white/90 transition-colors whitespace-nowrap" style="position:relative;">
+          <span class="btn-label">Ajánlatot kérek</span><svg class="btn-arrow-icon" width="14" height="14" fill="none" stroke="#cc2222" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="bg-[#060f1a] py-8 border-t border-white/8">
+    <div class="container flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-white/25 text-xs">© 2026 Linardics Kft. – Minden jog fenntartva.</p>
+      <a href="index.html" class="text-white/40 hover:text-white text-xs tracking-widest uppercase transition-colors">← Vissza a főoldalra</a>
+    </div>
+  </footer>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="fixed top-0 left-0 right-0 bottom-0 z-40 bg-[#060f1a] flex-col items-center justify-center gap-8 text-center" style="display:none;">
+    <a href="szolgaltatasok/index.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Szolgáltatásaink</a>
+    <a href="geppark.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Géppark</a>
+    <a href="referenciak.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Referenciák</a>
+    <a href="rolunk.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Rólunk</a>
+    <a href="kapcsolat.html" class="font-heading font-bold text-3xl uppercase tracking-widest text-white hover:text-[#cc2222] transition-colors" onclick="toggleMenu()">Kapcsolat</a>
+    <a href="kapcsolat.html" class="mt-4 btn-clipped bg-[#cc2222] text-white font-heading font-bold text-xl uppercase tracking-widest px-10 py-4"><span class="btn-label">Ajánlatkérés</span><svg class="btn-arrow-icon" width="13" height="13" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg></a>
+  </div>
+
+  <script>
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+      if (window.scrollY > 50) {
+        navbar.classList.add('navbar-scrolled');
+        navbar.classList.remove('py-5');
+        navbar.classList.add('py-3');
+      } else {
+        navbar.classList.remove('navbar-scrolled');
+        navbar.classList.remove('py-3');
+        navbar.classList.add('py-5');
+      }
+    });
+    function toggleMenu() {
+      const menu = document.getElementById('mobile-menu');
+      const isOpen = menu.style.display === 'flex';
+      menu.style.display = isOpen ? 'none' : 'flex';
+      document.body.style.overflow = isOpen ? '' : 'hidden';
+    }
+    function toggleFaq(btn) {
+      const item = btn.closest('.faq-item');
+      const isOpen = item.classList.contains('open');
+      // Close all
+      document.querySelectorAll('.faq-item.open').forEach(i => i.classList.remove('open'));
+      if (!isOpen) item.classList.add('open');
+    }
+  </script>
+</body>
+</html>
