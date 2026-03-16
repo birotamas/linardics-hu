@@ -56,10 +56,16 @@
 
     /* Hero */
     .hero-section {
+      min-height: 100vh;
+      overflow: hidden;
+    }
+    #hero-parallax-bg {
+      position: absolute;
+      inset: -20% 0;
       background-image: url('assets/images/hero-building.webp');
       background-size: cover;
-      background-position: center 30%;
-      min-height: 100vh;
+      background-position: center 40%;
+      will-change: transform;
     }
     .hero-video {
       position: absolute;
@@ -89,6 +95,18 @@
 
     /* Smooth scroll */
     html { scroll-behavior: smooth; }
+
+    /* ── Scroll reveal ── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(56px);
+      transition: opacity 1.1s cubic-bezier(0.22, 1, 0.36, 1),
+                  transform 1.1s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .reveal.revealed {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* Mobile menu */
     #mobile-menu { display: none; }
@@ -339,6 +357,8 @@
        HERO SECTION
   ═══════════════════════════════════════ -->
   <section class="hero-section relative flex items-end">
+    <!-- Parallax háttér réteg -->
+    <div id="hero-parallax-bg"></div>
     <!-- Videó háttér – csak akkor tölt, ha látható -->
     <video id="hero-video" class="hero-video" muted loop playsinline preload="none" poster="assets/images/hero-building.webp">
       <source data-src="assets/videos/hero.mp4" type="video/mp4">
@@ -479,7 +499,7 @@
     <div class="container">
 
       <!-- Section header -->
-      <div class="mb-10">
+      <div class="mb-10 reveal">
         <div class="flex items-center gap-3 mb-3">
           <div class="w-1 h-6 bg-[#cc2222]"></div>
           <span class="font-heading font-semibold text-2xl uppercase tracking-[0.15em]" style="-webkit-text-stroke: 1.5px rgba(255,255,255,0.45); color: transparent;">Komplex megoldások</span>
@@ -488,7 +508,7 @@
       </div>
 
       <!-- Expanding panels -->
-      <div class="svc-panels hidden md:flex gap-2" style="height: 480px;">
+      <div class="svc-panels hidden md:flex gap-2 reveal" data-delay="0.15" style="height: 480px;">
 
         <!-- 1. CNC Lemezmegmunkálás -->
         <a href="szolgaltatasok/cnc-lemezmegmunkalas.html" class="svc-panel group relative overflow-hidden" style="border-radius:4px;">
@@ -568,7 +588,7 @@
       </div>
 
       <!-- Mobile: simple cards (md-nél kisebb képernyőn) -->
-      <div class="grid grid-cols-1 gap-3 md:hidden">
+      <div class="grid grid-cols-1 gap-3 md:hidden reveal" data-delay="0.15">
         <a href="szolgaltatasok/cnc-lemezmegmunkalas.html" class="relative overflow-hidden rounded flex items-end" style="height:140px;">
           <img loading="lazy" src="assets/images/laser-cutting.webp" alt="" class="absolute inset-0 w-full h-full object-cover opacity-60">
           <div class="absolute inset-0" style="background:linear-gradient(to top,rgba(6,15,26,0.95) 0%,transparent 70%);"></div>
@@ -722,7 +742,7 @@
 
     <div class="container" style="position:relative;z-index:1;padding-top:5rem;padding-bottom:5rem;">
       <div class="flex flex-col lg:flex-row items-start lg:items-center justify-between gap-10">
-        <div>
+        <div class="reveal">
           <!-- Eyebrow label -->
           <div class="flex items-center gap-3 mb-5">
             <div style="width:28px;height:2px;background:rgba(255,255,255,0.55);"></div>
@@ -737,7 +757,7 @@
           </p>
         </div>
         <!-- CTA gomb -->
-        <a href="kapcsolat.html" class="btn-clipped flex-shrink-0 bg-white text-[#cc2222] font-heading font-semibold text-lg uppercase tracking-widest px-12 py-4 hover:bg-white/90 transition-colors whitespace-nowrap" style="position:relative;">
+        <a href="kapcsolat.html" class="reveal btn-clipped flex-shrink-0 bg-white text-[#cc2222] font-heading font-semibold text-lg uppercase tracking-widest px-12 py-4 hover:bg-white/90 transition-colors whitespace-nowrap" style="position:relative;">
           <span class="btn-label">Ajánlatot kérek</span><svg class="btn-arrow-icon" width="14" height="14" fill="none" stroke="#cc2222" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M9 5l7 7-7 7"/></svg>
         </a>
       </div>
@@ -933,6 +953,39 @@
 
       observer.observe(section);
     })();
+
+    // ── Hero parallax ──
+    (function() {
+      const bg = document.getElementById('hero-parallax-bg');
+      if (!bg || window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      let ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            bg.style.transform = 'translateY(' + (window.scrollY * 0.45) + 'px)';
+            ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    })();
+
+    // ── Generic scroll reveal ──
+    (function() {
+      const els = document.querySelectorAll('.reveal');
+      if (!els.length) return;
+      const obs = new IntersectionObserver((entries) => {
+        entries.forEach(e => {
+          if (e.isIntersecting) {
+            const delay = parseFloat(e.target.dataset.delay || 0);
+            setTimeout(() => e.target.classList.add('revealed'), delay * 1000);
+            obs.unobserve(e.target);
+          }
+        });
+      }, { threshold: 0.08, rootMargin: '0px 0px -60px 0px' });
+      els.forEach(el => obs.observe(el));
+    })();
+
   </script>
 </body>
 </html>
