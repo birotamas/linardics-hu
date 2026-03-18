@@ -263,7 +263,7 @@ function machine_card(array $m, string $size = 'normal'): void {
   <?php
     $bg       = $bg_cycle[$bg_i % 2];
     $eyebrow  = $get("{$slug}_eyebrow");
-    $title    = !empty($s["{$slug}_title"]) ? htmlspecialchars($s["{$slug}_title"]) : htmlspecialchars(html_entity_decode($section_label, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
+    $title    = !empty($s["{$slug}_title"]) ? $get("{$slug}_title") : htmlspecialchars(html_entity_decode($section_label, ENT_QUOTES | ENT_HTML5, 'UTF-8'));
     $featured = array_values(array_filter($machines[$slug], fn($m) => $m['is_featured']));
     $regular  = array_values(array_filter($machines[$slug], fn($m) => !$m['is_featured']));
     $bg_i++;
