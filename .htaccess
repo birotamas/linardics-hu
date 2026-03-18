@@ -1,0 +1,4 @@
+Options -Indexes
+
+# Redirect static HTML to PHP equivalents
+Redirect 301 /geppark.html /geppark.php
