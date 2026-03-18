@@ -157,6 +157,8 @@ function machine_card(array $m, string $size = 'normal'): void {
     .btn-clipped:hover .btn-arrow-icon { right:12px; opacity:1; }
     .machine-card { transition: transform 0.2s, border-color 0.2s; }
     .machine-card:hover { transform: translateY(-2px); border-color: rgba(204,34,34,0.4)!important; }
+    .featured-img-wrap { width: 100%; }
+    @media(min-width:768px) { .featured-img-wrap { width: 300px; height: auto !important; min-height: 220px; } }
     .spec-table td, .spec-table th { padding: 0.5rem 1rem; }
     .spec-table tr:not(:last-child) { border-bottom: 1px solid rgba(255,255,255,0.06); }
     .spec-table th { color: rgba(255,255,255,0.4); font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; font-weight: 500; }
@@ -277,30 +279,38 @@ function machine_card(array $m, string $size = 'normal'): void {
       <h2 class="font-heading font-semibold text-4xl md:text-5xl uppercase tracking-wide text-white mb-10 leading-tight"><?= $title ?></h2>
 
       <?php foreach ($featured as $m): ?>
-      <div class="machine-card bg-[#122135] border border-[#cc2222]/20 p-6 mb-6">
-        <div class="flex flex-col md:flex-row gap-6">
-          <div class="flex-1">
-            <div class="flex items-center gap-3 mb-2">
-              <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase"><?= htmlspecialchars($m['category_label']) ?></div>
-              <div class="h-px flex-1 bg-[#cc2222]/20"></div>
-            </div>
-            <h3 class="font-heading font-semibold text-3xl uppercase tracking-wide text-white mb-3"><?= htmlspecialchars($m['name']) ?></h3>
-            <p class="text-white/45 text-sm leading-relaxed"><?= htmlspecialchars($m['short_description']) ?></p>
-          </div>
-          <?php if (!empty($m['specs'])): ?>
-          <div class="md:w-64 shrink-0">
-            <table class="spec-table w-full text-sm">
-              <tbody>
-                <?php foreach ($m['specs'] as $spec): ?>
-                <tr>
-                  <th class="text-left"><?= htmlspecialchars($spec['key']) ?></th>
-                  <td class="text-right text-white/70"><?= htmlspecialchars($spec['value']) ?></td>
-                </tr>
-                <?php endforeach; ?>
-              </tbody>
-            </table>
+      <div class="machine-card bg-[#122135] border border-[#cc2222]/20 mb-6 overflow-hidden" style="padding:0;">
+        <div class="flex flex-col md:flex-row">
+          <?php if (!empty($m['image'])): ?>
+          <div class="featured-img-wrap shrink-0 flex items-center justify-center bg-[#0d1a27]" style="height:220px;">
+            <img src="<?= htmlspecialchars($m['image']) ?>" alt="<?= htmlspecialchars($m['name']) ?>"
+              class="machine-img" loading="lazy">
           </div>
           <?php endif; ?>
+          <div class="flex-1 flex flex-col md:flex-row gap-6 p-6">
+            <div class="flex-1">
+              <div class="flex items-center gap-3 mb-2">
+                <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase"><?= htmlspecialchars($m['category_label']) ?></div>
+                <div class="h-px flex-1 bg-[#cc2222]/20"></div>
+              </div>
+              <h3 class="font-heading font-semibold text-3xl uppercase tracking-wide text-white mb-3"><?= htmlspecialchars($m['name']) ?></h3>
+              <p class="text-white/45 text-sm leading-relaxed"><?= htmlspecialchars($m['short_description']) ?></p>
+            </div>
+            <?php if (!empty($m['specs'])): ?>
+            <div class="md:w-64 shrink-0">
+              <table class="spec-table w-full text-sm">
+                <tbody>
+                  <?php foreach ($m['specs'] as $spec): ?>
+                  <tr>
+                    <th class="text-left"><?= htmlspecialchars($spec['key']) ?></th>
+                    <td class="text-right text-white/70"><?= htmlspecialchars($spec['value']) ?></td>
+                  </tr>
+                  <?php endforeach; ?>
+                </tbody>
+              </table>
+            </div>
+            <?php endif; ?>
+          </div>
         </div>
       </div>
       <?php endforeach; ?>
