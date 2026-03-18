@@ -70,13 +70,23 @@ $pdo->exec("
 
 $error_msg = '';
 
+function make_slug(string $str): string {
+    $str = mb_strtolower($str, 'UTF-8');
+    $map = ['á'=>'a','à'=>'a','â'=>'a','ä'=>'a','é'=>'e','è'=>'e','ê'=>'e','ë'=>'e',
+            'í'=>'i','ì'=>'i','î'=>'i','ï'=>'i','ó'=>'o','ö'=>'o','ő'=>'o','ô'=>'o',
+            'ú'=>'u','ü'=>'u','ű'=>'u','û'=>'u','ù'=>'u','ñ'=>'n','ç'=>'c','ß'=>'ss'];
+    $str = strtr($str, $map);
+    $str = preg_replace('/[^a-z0-9]+/', '-', $str);
+    return trim($str, '-');
+}
+
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $action = $_POST['action'] ?? '';
 
     // ── SECTIONS ────────────────────────────────────────────────────────────
     if ($action === 'add_section') {
-        $slug  = trim($_POST['slug'] ?? '');
         $label = trim($_POST['label'] ?? '');
+        $slug  = make_slug($label);
         if ($slug && $label) {
             $max = (int)$pdo->query("SELECT COALESCE(MAX(sort_order),0) FROM sections")->fetchColumn();
             $pdo->prepare("INSERT INTO sections (slug, label, sort_order) VALUES (?, ?, ?)")
@@ -87,8 +97,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'edit_section') {
         $id       = (int)($_POST['id'] ?? 0);
-        $new_slug = trim($_POST['slug'] ?? '');
         $label    = trim($_POST['label'] ?? '');
+        $new_slug = make_slug($label);
         if ($id && $new_slug && $label) {
             $old_slug = $pdo->prepare("SELECT slug FROM sections WHERE id = ?");
             $old_slug->execute([$id]);
@@ -126,8 +136,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     // ── CATEGORIES ──────────────────────────────────────────────────────────
     if ($action === 'add_category') {
-        $slug  = trim($_POST['slug'] ?? '');
         $label = trim($_POST['label'] ?? '');
+        $slug  = make_slug($label);
         if ($slug && $label) {
             $max = (int)$pdo->query("SELECT COALESCE(MAX(sort_order),0) FROM categories")->fetchColumn();
             $pdo->prepare("INSERT INTO categories (slug, label, sort_order) VALUES (?, ?, ?)")
@@ -138,8 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'edit_category') {
         $id       = (int)($_POST['id'] ?? 0);
-        $new_slug = trim($_POST['slug'] ?? '');
         $label    = trim($_POST['label'] ?? '');
+        $new_slug = make_slug($label);
         if ($id && $new_slug && $label) {
             $old_stmt = $pdo->prepare("SELECT slug FROM categories WHERE id = ?");
             $old_stmt->execute([$id]);
@@ -295,16 +305,15 @@ include __DIR__ . '/includes/header.php';
         <input type="hidden" name="id" value="<?= $es['id'] ?>">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Slug</label>
-            <input type="text" name="slug" value="<?= htmlspecialchars($es['slug']) ?>" required class="form-input" placeholder="pl. uj-szekció">
-          </div>
-          <div class="form-group">
             <label class="form-label">Megnevezés</label>
-            <input type="text" name="label" value="<?= htmlspecialchars($es['label']) ?>" required class="form-input" placeholder="Megnevezés">
+            <input type="text" name="label" value="<?= htmlspecialchars($es['label']) ?>" required class="form-input" placeholder="Megnevezés" oninput="previewSlug(this,'slug-preview-s-<?= $es['id'] ?>')">
           </div>
-          <div class="form-actions">
-            <button type="submit" class="btn-primary">Mentés</button>
-            <a href="lists.php" class="btn-secondary">Mégse</a>
+          <div class="form-actions" style="flex-direction:column;align-items:flex-start;gap:4px;">
+            <div style="font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-s-<?= $es['id'] ?>"><?= htmlspecialchars($es['slug']) ?></code></div>
+            <div style="display:flex;gap:8px;">
+              <button type="submit" class="btn-primary">Mentés</button>
+              <a href="lists.php" class="btn-secondary">Mégse</a>
+            </div>
           </div>
         </div>
       </form>
@@ -350,14 +359,11 @@ include __DIR__ . '/includes/header.php';
         <input type="hidden" name="action" value="add_section">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Slug</label>
-            <input type="text" name="slug" required class="form-input" placeholder="pl. uj-szekció">
-          </div>
-          <div class="form-group">
             <label class="form-label">Megnevezés</label>
-            <input type="text" name="label" required class="form-input" placeholder="Megnevezés">
+            <input type="text" name="label" required class="form-input" placeholder="pl. Új szekció" oninput="previewSlug(this,'slug-preview-add-s')">
           </div>
-          <div class="form-actions">
+          <div class="form-actions" style="flex-direction:column;align-items:flex-start;gap:4px;">
+            <div style="font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-add-s">–</code></div>
             <button type="submit" class="btn-primary">Hozzáadás</button>
           </div>
         </div>
@@ -382,16 +388,15 @@ include __DIR__ . '/includes/header.php';
         <input type="hidden" name="id" value="<?= $ec['id'] ?>">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Slug</label>
-            <input type="text" name="slug" value="<?= htmlspecialchars($ec['slug']) ?>" required class="form-input" placeholder="pl. uj-kategoria">
-          </div>
-          <div class="form-group">
             <label class="form-label">Megnevezés</label>
-            <input type="text" name="label" value="<?= htmlspecialchars($ec['label']) ?>" required class="form-input" placeholder="Megnevezés">
+            <input type="text" name="label" value="<?= htmlspecialchars($ec['label']) ?>" required class="form-input" placeholder="Megnevezés" oninput="previewSlug(this,'slug-preview-c-<?= $ec['id'] ?>')">
           </div>
-          <div class="form-actions">
-            <button type="submit" class="btn-primary">Mentés</button>
-            <a href="lists.php" class="btn-secondary">Mégse</a>
+          <div class="form-actions" style="flex-direction:column;align-items:flex-start;gap:4px;">
+            <div style="font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-c-<?= $ec['id'] ?>"><?= htmlspecialchars($ec['slug']) ?></code></div>
+            <div style="display:flex;gap:8px;">
+              <button type="submit" class="btn-primary">Mentés</button>
+              <a href="lists.php" class="btn-secondary">Mégse</a>
+            </div>
           </div>
         </div>
       </form>
@@ -437,14 +442,11 @@ include __DIR__ . '/includes/header.php';
         <input type="hidden" name="action" value="add_category">
         <div class="form-row">
           <div class="form-group">
-            <label class="form-label">Slug</label>
-            <input type="text" name="slug" required class="form-input" placeholder="pl. uj-kategoria">
-          </div>
-          <div class="form-group">
             <label class="form-label">Megnevezés</label>
-            <input type="text" name="label" required class="form-input" placeholder="Megnevezés">
+            <input type="text" name="label" required class="form-input" placeholder="pl. Új kategória" oninput="previewSlug(this,'slug-preview-add-c')">
           </div>
-          <div class="form-actions">
+          <div class="form-actions" style="flex-direction:column;align-items:flex-start;gap:4px;">
+            <div style="font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-add-c">–</code></div>
             <button type="submit" class="btn-primary">Hozzáadás</button>
           </div>
         </div>
@@ -530,5 +532,19 @@ include __DIR__ . '/includes/header.php';
   </div>
 
 </div><!-- /.lists-stack -->
+
+<script>
+function previewSlug(input, previewId) {
+  const map = {á:'a',à:'a',â:'a',ä:'a',é:'e',è:'e',ê:'e',ë:'e',
+               í:'i',ì:'i',î:'i',ï:'i',ó:'o',ö:'o',ő:'o',ô:'o',
+               ú:'u',ü:'u',ű:'u',û:'u',ù:'u',ñ:'n',ç:'c'};
+  const slug = input.value.toLowerCase()
+    .replace(/[áàâäéèêëíìîïóöőôúüűûùñç]/g, c => map[c] || c)
+    .replace(/[^a-z0-9]+/g, '-')
+    .replace(/^-+|-+$/g, '');
+  const el = document.getElementById(previewId);
+  if (el) el.textContent = slug || '–';
+}
+</script>
 
 <?php include __DIR__ . '/includes/footer.php'; ?>
