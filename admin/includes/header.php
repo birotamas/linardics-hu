@@ -153,7 +153,8 @@
       border-radius: 99px;
     }
 
-    #content { padding: 32px; flex: 1; }
+    #content { padding: 32px; flex: 1; animation: contentFadeIn 0.22s ease; }
+    @keyframes contentFadeIn { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
 
     /* ── FORM ELEMENTS ── */
     .form-label {
