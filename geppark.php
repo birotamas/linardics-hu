@@ -66,8 +66,8 @@ function machine_card(array $m, string $size = 'normal'): void {
     ?>
     <div class="machine-card bg-[#122135] border border-white/8 <?= $pad ?>">
       <?php if ($img): ?>
-      <div class="mb-4 overflow-hidden">
-        <img src="<?= $img ?>" alt="<?= $name ?>" class="w-full h-40 object-cover" loading="lazy">
+      <div class="mb-4 overflow-hidden flex items-center justify-center bg-[#0d1a27]" style="height:180px;">
+        <img src="<?= $img ?>" alt="<?= $name ?>" class="machine-img" loading="lazy">
       </div>
       <?php endif; ?>
       <div class="flex items-start justify-between mb-4">
@@ -409,6 +409,20 @@ function machine_card(array $m, string $size = 'normal'): void {
       menu.classList.toggle('open');
       document.body.style.overflow = menu.classList.contains('open') ? 'hidden' : '';
     }
+
+    // Auto object-fit: cover for landscape, contain for portrait images
+    document.querySelectorAll('.machine-img').forEach(img => {
+      const apply = () => {
+        const portrait = img.naturalHeight > img.naturalWidth * 0.9;
+        if (portrait) {
+          img.style.cssText = 'width:auto;height:100%;max-width:100%;object-fit:contain;padding:12px;';
+        } else {
+          img.style.cssText = 'width:100%;height:100%;object-fit:cover;';
+        }
+      };
+      if (img.complete && img.naturalWidth) apply();
+      else img.addEventListener('load', apply);
+    });
   </script>
 </body>
 </html>
