@@ -4,78 +4,53 @@ require_auth();
 
 $pdo = cms_db();
 
-// Toggle active
 if (isset($_GET['toggle']) && is_numeric($_GET['toggle'])) {
     $pdo->prepare("UPDATE machines SET is_active = 1 - is_active WHERE id = ?")->execute([(int)$_GET['toggle']]);
-    header('Location: machines.php?toggled=1');
-    exit;
+    header('Location: machines.php?toggled=1'); exit;
 }
-
-// Delete
 if (isset($_GET['delete']) && is_numeric($_GET['delete'])) {
     $pdo->prepare("DELETE FROM machines WHERE id = ?")->execute([(int)$_GET['delete']]);
-    header('Location: machines.php?deleted=1');
-    exit;
+    header('Location: machines.php?deleted=1'); exit;
 }
 
-// Filters
 $search    = trim($_GET['q']       ?? '');
 $f_section = trim($_GET['section'] ?? '');
 $f_active  = $_GET['active'] ?? '';
 
-$where  = [];
-$params = [];
+$where = []; $params = [];
+if ($search !== '')  { $where[] = '(name LIKE ? OR manufacturer LIKE ?)'; $params[] = "%$search%"; $params[] = "%$search%"; }
+if ($f_section !== '') { $where[] = 'section = ?'; $params[] = $f_section; }
+if ($f_active !== '')  { $where[] = 'is_active = ?'; $params[] = (int)$f_active; }
 
-if ($search !== '') {
-    $where[]  = '(m.name LIKE ? OR m.manufacturer LIKE ?)';
-    $params[] = "%{$search}%";
-    $params[] = "%{$search}%";
-}
-if ($f_section !== '') {
-    $where[]  = 'm.section = ?';
-    $params[] = $f_section;
-}
-if ($f_active !== '') {
-    $where[]  = 'm.is_active = ?';
-    $params[] = (int)$f_active;
-}
-
-$sql = "SELECT * FROM machines m" . ($where ? ' WHERE ' . implode(' AND ', $where) : '') . " ORDER BY m.sort_order, m.id";
-$stmt = $pdo->prepare($sql);
-$stmt->execute($params);
-$machines = $stmt->fetchAll();
-
+$sql  = "SELECT * FROM machines" . ($where ? ' WHERE ' . implode(' AND ', $where) : '') . " ORDER BY sort_order, id";
+$stmt = $pdo->prepare($sql); $stmt->execute($params);
+$machines  = $stmt->fetchAll();
 $total_all = $pdo->query("SELECT COUNT(*) FROM machines")->fetchColumn();
 
 $toast_msg = isset($_GET['saved'])   ? 'Gép sikeresen mentve!'  :
             (isset($_GET['toggled']) ? 'Láthatóság módosítva.'  :
             (isset($_GET['deleted']) ? 'Gép törölve.'           : ''));
 
-$sections = [
-    ''              => 'Minden szekció',
-    'trulaser'      => 'TRUMPF Lézervágók',
-    'trubend'       => 'TRUMPF Hajlítók',
-    'amada'         => 'AMADA Hajlítók',
-    'egyeb'         => 'Csőhajlítás + Egyéb',
-    'kotestechnika' => 'Kötéstechnika',
-];
+$sections = ['' => 'Minden szekció', 'trulaser' => 'TRUMPF Lézervágók', 'trubend' => 'TRUMPF Hajlítók',
+             'amada' => 'AMADA Hajlítók', 'egyeb' => 'Csőhajlítás + Egyéb', 'kotestechnika' => 'Kötéstechnika'];
+
+$no_filter = !$search && !$f_section && $f_active === '';
 
 $page_title = 'Gépek';
 include __DIR__ . '/includes/header.php';
 ?>
 
-<!-- Szűrősáv -->
-<form method="GET" class="flex flex-wrap gap-3 mb-6 items-end">
-  <div class="flex-1 min-w-48">
+<!-- Toolbar -->
+<form method="GET" style="display:flex;gap:10px;align-items:flex-end;flex-wrap:wrap;margin-bottom:20px;">
+  <div style="flex:1;min-width:200px;">
     <label class="form-label">Keresés</label>
-    <input type="text" name="q" value="<?= htmlspecialchars($search) ?>"
-      class="form-input" placeholder="Gép neve, gyártó...">
+    <input type="text" name="q" value="<?= htmlspecialchars($search) ?>" class="form-input" placeholder="Gép neve, gyártó…">
   </div>
   <div>
     <label class="form-label">Szekció</label>
-    <select name="section" class="form-input">
-      <?php foreach ($sections as $val => $label): ?>
-      <option value="<?= $val ?>" <?= $f_section === $val ? 'selected' : '' ?>><?= $label ?></option>
+    <select name="section" class="form-input" style="min-width:160px;">
+      <?php foreach ($sections as $v => $l): ?>
+      <option value="<?= $v ?>" <?= $f_section === $v ? 'selected' : '' ?>><?= $l ?></option>
       <?php endforeach; ?>
     </select>
   </div>
@@ -87,71 +62,77 @@ include __DIR__ . '/includes/header.php';
       <option value="0" <?= $f_active === '0' ? 'selected' : '' ?>>Inaktív</option>
     </select>
   </div>
-  <div class="flex gap-2">
-    <button type="submit" class="btn-primary">Szűrés</button>
-    <?php if ($search || $f_section || $f_active !== ''): ?>
+  <div style="display:flex;gap:8px;align-items:flex-end;">
+    <button type="submit" class="btn-primary">
+      <svg style="width:13px;height:13px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/></svg>
+      Szűrés
+    </button>
+    <?php if (!$no_filter): ?>
     <a href="machines.php" class="btn-secondary">Törlés</a>
     <?php endif; ?>
   </div>
-  <div class="ml-auto">
-    <a href="machine-edit.php" class="btn-primary">+ Új gép</a>
+  <div style="margin-left:auto;align-self:flex-end;">
+    <a href="machine-edit.php" class="btn-primary">
+      <svg style="width:13px;height:13px" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2.5" d="M12 4v16m8-8H4"/></svg>
+      Új gép
+    </a>
   </div>
 </form>
 
-<!-- Találat számláló -->
-<p class="text-white/35 text-xs mb-4">
-  <?= count($machines) ?> találat
-  <?php if ($search || $f_section || $f_active !== ''): ?>
-  <span class="text-white/20">/ <?= $total_all ?> összesen</span>
-  <?php endif; ?>
+<p style="font-size:12px;color:var(--muted);margin-bottom:14px;">
+  <?= count($machines) ?> találat<?php if (!$no_filter): ?> <span style="color:var(--subtle)">/ <?= $total_all ?> összesen</span><?php endif; ?>
+  <?php if ($no_filter): ?><span style="color:var(--subtle);margin-left:6px;">· húzd a sorokat az átrendezéshez</span><?php endif; ?>
 </p>
 
-<div class="bg-[#0d1b2a] border border-white/8 overflow-hidden">
+<div class="card">
   <?php if (empty($machines)): ?>
-  <div class="px-6 py-12 text-center text-white/30 text-sm">
-    Nincs találat a megadott feltételekre.
-  </div>
+  <div class="empty-state">Nincs találat a megadott feltételekre.</div>
   <?php else: ?>
-  <table class="w-full text-sm" id="machines-table">
+  <table class="data-table" id="machines-table">
     <thead>
-      <tr class="border-b border-white/8 text-left">
-        <th class="px-4 py-3 text-xs text-white/35 uppercase tracking-widest font-medium w-8"><?= (!$search && !$f_section && $f_active === '') ? '↕' : '#' ?></th>
-        <th class="px-4 py-3 text-xs text-white/35 uppercase tracking-widest font-medium">Gép neve</th>
-        <th class="px-4 py-3 text-xs text-white/35 uppercase tracking-widest font-medium hidden md:table-cell">Gyártó</th>
-        <th class="px-4 py-3 text-xs text-white/35 uppercase tracking-widest font-medium hidden lg:table-cell">Szekció</th>
-        <th class="px-4 py-3 text-xs text-white/35 uppercase tracking-widest font-medium text-center">Aktív</th>
-        <th class="px-4 py-3 text-xs text-white/35 uppercase tracking-widest font-medium text-right">Műveletek</th>
+      <tr>
+        <th style="width:36px;"></th>
+        <th>Gép neve</th>
+        <th>Gyártó</th>
+        <th>Szekció</th>
+        <th style="text-align:center;">Aktív</th>
+        <th style="text-align:right;">Műveletek</th>
       </tr>
     </thead>
     <tbody id="sortable-body">
       <?php foreach ($machines as $m): ?>
-      <tr class="border-b border-white/5 hover:bg-white/2 transition-colors" data-id="<?= $m['id'] ?>">
-        <td class="px-4 py-3 text-white/25 <?= (!$search && !$f_section && $f_active === '') ? 'cursor-grab active:cursor-grabbing' : '' ?>" title="<?= (!$search && !$f_section && $f_active === '') ? 'Húzd a sorrend módosításához' : '' ?>">
-          <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20"><path d="M7 2a2 2 0 10.001 4.001A2 2 0 007 2zm0 6a2 2 0 10.001 4.001A2 2 0 007 6zm0 6a2 2 0 10.001 4.001A2 2 0 007 12zm6-8a2 2 0 10-.001-4.001A2 2 0 0013 4zm0 6a2 2 0 10-.001-4.001A2 2 0 0013 10zm0 6a2 2 0 10-.001-4.001A2 2 0 0013 16z"/></svg>
+      <tr data-id="<?= $m['id'] ?>">
+        <td>
+          <div class="drag-handle" title="Húzd a sorrend módosításához">
+            <svg style="width:14px;height:14px" fill="currentColor" viewBox="0 0 20 20"><path d="M7 2a2 2 0 10.001 4.001A2 2 0 007 2zm0 6a2 2 0 10.001 4.001A2 2 0 007 6zm0 6a2 2 0 10.001 4.001A2 2 0 007 12zm6-8a2 2 0 10-.001-4.001A2 2 0 0013 4zm0 6a2 2 0 10-.001-4.001A2 2 0 0013 10zm0 6a2 2 0 10-.001-4.001A2 2 0 0013 16z"/></svg>
+          </div>
         </td>
-        <td class="px-4 py-3">
-          <div class="font-medium text-white"><?= htmlspecialchars($m['name']) ?></div>
+        <td>
+          <span style="font-weight:600;color:var(--text)"><?= htmlspecialchars($m['name']) ?></span>
           <?php if ($m['badge']): ?>
-          <span class="text-[10px] bg-[#cc2222]/10 border border-[#cc2222]/20 text-[#cc2222] px-1.5 py-0.5 font-bold tracking-wider"><?= htmlspecialchars($m['badge']) ?></span>
+          <span class="pill pill-red" style="margin-left:6px"><?= htmlspecialchars($m['badge']) ?></span>
+          <?php endif; ?>
+          <?php if ($m['is_featured']): ?>
+          <span class="pill pill-slate" style="margin-left:4px">Kiemelt</span>
           <?php endif; ?>
         </td>
-        <td class="px-4 py-3 text-white/50 hidden md:table-cell"><?= htmlspecialchars($m['manufacturer']) ?></td>
-        <td class="px-4 py-3 hidden lg:table-cell">
-          <span class="text-[10px] bg-[#122135] border border-white/10 text-white/50 px-2 py-0.5 uppercase tracking-widest"><?= htmlspecialchars($m['section']) ?></span>
-        </td>
-        <td class="px-4 py-3 text-center">
+        <td><?= htmlspecialchars($m['manufacturer']) ?></td>
+        <td><span class="pill pill-slate"><?= htmlspecialchars($m['section']) ?></span></td>
+        <td style="text-align:center;">
           <a href="machines.php?toggle=<?= $m['id'] ?><?= $search ? '&q='.urlencode($search) : '' ?><?= $f_section ? '&section='.urlencode($f_section) : '' ?><?= $f_active !== '' ? '&active='.$f_active : '' ?>"
-             class="inline-block w-10 h-5 rounded-full relative transition-colors <?= $m['is_active'] ? 'bg-[#cc2222]' : 'bg-white/15' ?>"
-             title="<?= $m['is_active'] ? 'Inaktiválás' : 'Aktiválás' ?>">
-            <span class="absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all <?= $m['is_active'] ? 'left-5' : 'left-0.5' ?>"></span>
+             title="<?= $m['is_active'] ? 'Kattints az inaktiváláshoz' : 'Kattints az aktiváláshoz' ?>">
+            <label class="toggle" onclick="event.preventDefault();this.closest('a').click()">
+              <input type="checkbox" <?= $m['is_active'] ? 'checked' : '' ?> readonly>
+              <span class="toggle-slider"></span>
+            </label>
           </a>
         </td>
-        <td class="px-4 py-3 text-right">
-          <div class="flex items-center gap-2 justify-end">
-            <a href="machine-edit.php?id=<?= $m['id'] ?>" class="text-xs text-white/50 hover:text-white border border-white/10 hover:border-white/30 px-3 py-1.5 transition-colors">Szerkesztés</a>
+        <td style="text-align:right;">
+          <div style="display:flex;gap:6px;justify-content:flex-end;">
+            <a href="machine-edit.php?id=<?= $m['id'] ?>" class="btn-ghost">Szerkesztés</a>
             <a href="machines.php?delete=<?= $m['id'] ?>"
                onclick="return confirm('Biztosan törlöd: <?= htmlspecialchars(addslashes($m['name'])) ?>?')"
-               class="text-xs text-[#cc2222]/60 hover:text-[#cc2222] border border-[#cc2222]/15 hover:border-[#cc2222]/40 px-3 py-1.5 transition-colors">Törlés</a>
+               class="btn-danger-ghost">Törlés</a>
           </div>
         </td>
       </tr>
@@ -163,19 +144,14 @@ include __DIR__ . '/includes/header.php';
 
 <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.0/Sortable.min.js"></script>
 <script>
-// Drag-and-drop csak szűrő nélküli nézetben aktív
-<?php if (!$search && !$f_section && $f_active === ''): ?>
+<?php if ($no_filter): ?>
 Sortable.create(document.getElementById('sortable-body'), {
   animation: 150,
-  handle: 'td:first-child',
+  handle: '.drag-handle',
   ghostClass: 'opacity-30',
-  onEnd: function() {
+  onEnd() {
     const ids = [...document.querySelectorAll('#sortable-body tr[data-id]')].map(r => r.dataset.id);
-    fetch('reorder.php', {
-      method: 'POST',
-      headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({ids})
-    });
+    fetch('reorder.php', { method:'POST', headers:{'Content-Type':'application/json'}, body: JSON.stringify({ids}) });
   }
 });
 <?php endif; ?>

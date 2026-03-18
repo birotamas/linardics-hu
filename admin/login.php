@@ -36,45 +36,150 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Bejelentkezés – Linardics CMS</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
-  <style>* { font-family: 'Inter', sans-serif; } .font-heading { font-family: 'Barlow Condensed', sans-serif; }</style>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #080d16; --surface: #0e1623; --elevated: #151f30;
+      --border: rgba(255,255,255,0.08); --border-md: rgba(255,255,255,0.13);
+      --red: #dc2626; --red-dim: rgba(220,38,38,0.1); --red-border: rgba(220,38,38,0.22);
+      --text: #f1f5f9; --muted: rgba(241,245,249,0.5); --subtle: rgba(241,245,249,0.28);
+    }
+    html { font-family: 'Inter', system-ui, sans-serif; font-size: 14px; }
+    body {
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+    }
+
+    /* Subtle grid background */
+    body::before {
+      content: '';
+      position: fixed; inset: 0; z-index: 0;
+      background-image:
+        linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+      background-size: 48px 48px;
+      pointer-events: none;
+    }
+
+    .login-wrap { position: relative; z-index: 1; width: 100%; max-width: 380px; }
+
+    .login-header { text-align: center; margin-bottom: 32px; }
+    .login-logo {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 52px; height: 52px;
+      background: var(--red-dim);
+      border: 1px solid var(--red-border);
+      border-radius: 14px;
+      margin-bottom: 18px;
+    }
+    .login-logo img { width: 30px; height: 30px; object-fit: contain; filter: brightness(0) invert(1); }
+    .login-title { font-size: 22px; font-weight: 700; color: var(--text); margin-bottom: 4px; }
+    .login-sub   { font-size: 13px; color: var(--muted); }
+
+    .login-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 28px;
+    }
+
+    .form-group { margin-bottom: 16px; }
+    label {
+      display: block;
+      font-size: 12px; font-weight: 500;
+      color: var(--muted);
+      margin-bottom: 6px;
+    }
+    input {
+      width: 100%;
+      background: var(--elevated);
+      border: 1px solid var(--border-md);
+      border-radius: 8px;
+      color: var(--text);
+      padding: 10px 13px;
+      font-size: 14px;
+      font-family: inherit;
+      outline: none;
+      transition: border-color 0.15s, box-shadow 0.15s;
+    }
+    input:focus {
+      border-color: var(--red);
+      box-shadow: 0 0 0 3px rgba(220,38,38,0.12);
+    }
+    input::placeholder { color: var(--subtle); }
+
+    .error-box {
+      display: flex; align-items: center; gap: 8px;
+      background: rgba(220,38,38,0.08);
+      border: 1px solid rgba(220,38,38,0.2);
+      border-radius: 8px;
+      padding: 10px 13px;
+      margin-bottom: 18px;
+      font-size: 13px;
+      color: #f87171;
+    }
+    .error-box svg { width: 15px; height: 15px; flex-shrink: 0; }
+
+    .submit-btn {
+      width: 100%; margin-top: 8px;
+      background: var(--red);
+      color: #fff;
+      border: none; border-radius: 8px;
+      padding: 11px;
+      font-size: 14px; font-weight: 600;
+      font-family: inherit;
+      cursor: pointer;
+      transition: background 0.15s, box-shadow 0.15s;
+    }
+    .submit-btn:hover { background: #b91c1c; box-shadow: 0 4px 16px rgba(220,38,38,0.3); }
+
+    .login-footer { text-align: center; margin-top: 20px; font-size: 11px; color: var(--subtle); }
+  </style>
 </head>
-<body class="bg-[#060f1a] text-white min-h-screen flex items-center justify-center px-4">
+<body>
 
-<div class="w-full max-w-sm">
-  <div class="text-center mb-8">
-    <img src="../assets/images/linardics-logo.png" alt="Linardics" class="h-10 w-auto mx-auto mb-4" style="filter:brightness(0) invert(1);">
-    <h1 class="font-heading font-bold text-3xl uppercase tracking-widest text-white">CMS Admin</h1>
-    <p class="text-white/35 text-sm mt-1">Linardics Kft.</p>
+<div class="login-wrap">
+  <div class="login-header">
+    <div class="login-logo">
+      <img src="../assets/images/linardics-logo.png" alt="Linardics">
+    </div>
+    <div class="login-title">Linardics CMS</div>
+    <div class="login-sub">Adminisztrációs felület</div>
   </div>
 
-  <?php if ($error): ?>
-  <div class="bg-red-900/20 border border-red-500/30 px-4 py-3 mb-5 text-red-300 text-sm flex items-center gap-2">
-    <svg class="w-4 h-4 shrink-0" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7 4a1 1 0 11-2 0 1 1 0 012 0zm-1-9a1 1 0 00-1 1v4a1 1 0 102 0V6a1 1 0 00-1-1z" clip-rule="evenodd"/></svg>
-    <?= htmlspecialchars($error) ?>
-  </div>
-  <?php endif; ?>
+  <div class="login-card">
+    <?php if ($error): ?>
+    <div class="error-box">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+      <?= htmlspecialchars($error) ?>
+    </div>
+    <?php endif; ?>
 
-  <form method="POST" class="bg-[#0d1b2a] border border-white/8 p-6 space-y-4">
-    <div>
-      <label class="block text-xs text-white/40 uppercase tracking-widest mb-1.5">E-mail cím</label>
-      <input type="email" name="email" value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
-        required autofocus
-        class="w-full bg-[#060f1a] border border-white/10 focus:border-[#cc2222] outline-none px-4 py-2.5 text-sm text-white"
-        placeholder="admin@linardics.hu">
-    </div>
-    <div>
-      <label class="block text-xs text-white/40 uppercase tracking-widest mb-1.5">Jelszó</label>
-      <input type="password" name="password" required
-        class="w-full bg-[#060f1a] border border-white/10 focus:border-[#cc2222] outline-none px-4 py-2.5 text-sm text-white"
-        placeholder="••••••••">
-    </div>
-    <button type="submit"
-      class="w-full bg-[#cc2222] hover:bg-[#a01818] text-white font-heading font-bold text-base uppercase tracking-widest py-3 transition-colors mt-2">
-      Bejelentkezés
-    </button>
-  </form>
+    <form method="POST">
+      <div class="form-group">
+        <label for="email">E-mail cím</label>
+        <input type="email" id="email" name="email"
+          value="<?= htmlspecialchars($_POST['email'] ?? '') ?>"
+          placeholder="admin@linardics.hu"
+          required autofocus>
+      </div>
+      <div class="form-group">
+        <label for="password">Jelszó</label>
+        <input type="password" id="password" name="password"
+          placeholder="••••••••"
+          required>
+      </div>
+      <button type="submit" class="submit-btn">Bejelentkezés</button>
+    </form>
+  </div>
+
+  <div class="login-footer">Linardics Kft. · Géppark CMS v1.0</div>
 </div>
 
 </body>

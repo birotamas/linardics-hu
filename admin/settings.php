@@ -56,17 +56,19 @@ $groups = [
 ];
 ?>
 
-<form method="POST" class="space-y-6 max-w-2xl">
+<form method="POST" style="max-width:640px;">
   <?php foreach ($groups as $group_name => $fields): ?>
-  <div class="bg-[#0d1b2a] border border-white/8 p-6">
-    <h2 class="font-heading font-bold text-base uppercase tracking-widest text-white/50 mb-5"><?= htmlspecialchars($group_name) ?></h2>
-    <div class="space-y-4">
+  <div class="card" style="margin-bottom:16px;">
+    <div class="card-header">
+      <span class="card-title"><?= htmlspecialchars($group_name) ?></span>
+    </div>
+    <div class="card-body" style="display:flex;flex-direction:column;gap:14px;">
       <?php foreach ($fields as $key => $label): ?>
       <?php $val = $s[$key]['setting_value'] ?? ''; $type = $s[$key]['setting_type'] ?? 'text'; ?>
       <div>
         <label class="form-label"><?= htmlspecialchars($label) ?></label>
         <?php if ($type === 'textarea'): ?>
-        <textarea name="<?= $key ?>" rows="3" class="form-input resize-none"><?= htmlspecialchars($val) ?></textarea>
+        <textarea name="<?= $key ?>" rows="3" class="form-input"><?= htmlspecialchars($val) ?></textarea>
         <?php else: ?>
         <input type="text" name="<?= $key ?>" value="<?= htmlspecialchars($val) ?>" class="form-input">
         <?php endif; ?>
@@ -76,9 +78,9 @@ $groups = [
   </div>
   <?php endforeach; ?>
 
-  <div class="flex items-center gap-3">
-    <button type="submit" class="btn-primary px-8 py-3 text-base">Beállítások mentése</button>
-    <a href="../geppark.php" target="_blank" class="btn-secondary px-6 py-3">Előnézet →</a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <button type="submit" class="btn-primary">Beállítások mentése</button>
+    <a href="../geppark.php" target="_blank" class="btn-secondary">Előnézet →</a>
   </div>
 </form>
 

@@ -8,7 +8,7 @@ $machine = null;
 $specs   = [];
 
 if ($id) {
-    $machine = $pdo->prepare("SELECT * FROM machines WHERE id = ?")->execute([$id]) ? null : null;
+    $machine = $pdo->prepare("SELECT * FROM machines WHERE id = ?") ? null : null;
     $stmt = $pdo->prepare("SELECT * FROM machines WHERE id = ?");
     $stmt->execute([$id]);
     $machine = $stmt->fetch();
@@ -132,138 +132,181 @@ $categories = [
 $manufacturers = ['TRUMPF','AMADA','SOCO','Gema','Wagner','STEELINE','VS','SOYER','PEMSERTER','Egyéb'];
 ?>
 
+<style>
+  .edit-form { max-width: 760px; }
+  .edit-form .card { margin-bottom: 16px; }
+  .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+  .form-grid-2 .col-span-2 { grid-column: span 2; }
+  .form-checks { display: flex; align-items: center; gap: 20px; margin-top: 4px; }
+  .form-check  { display: flex; align-items: center; gap: 8px; cursor: pointer; font-size: 13px; color: var(--muted); }
+  .file-input {
+    width: 100%; font-size: 13px; color: var(--muted);
+    background: var(--elevated); border: 1px solid var(--border-md);
+    border-radius: 7px; padding: 8px 12px; cursor: pointer;
+  }
+  .file-input::file-selector-button {
+    background: var(--red); color: #fff; border: none;
+    padding: 5px 12px; border-radius: 5px; cursor: pointer;
+    font-size: 12px; font-weight: 600; margin-right: 10px;
+    transition: background 0.15s;
+  }
+  .file-input::file-selector-button:hover { background: #b91c1c; }
+  .img-preview { width: 128px; height: 88px; object-fit: cover; border: 1px solid var(--border-md); border-radius: 7px; }
+  .error-banner {
+    background: rgba(220,38,38,0.08); border: 1px solid rgba(220,38,38,0.22);
+    border-radius: 8px; padding: 12px 16px; margin-bottom: 20px;
+  }
+  .error-banner p { font-size: 13px; color: #f87171; margin-bottom: 4px; }
+  .error-banner p:last-child { margin-bottom: 0; }
+</style>
+
 <?php if (!empty($errors)): ?>
-<div class="bg-red-900/20 border border-red-500/30 px-4 py-3 mb-6 space-y-1">
+<div class="error-banner">
   <?php foreach ($errors as $e): ?>
-  <p class="text-red-300 text-sm"><?= htmlspecialchars($e) ?></p>
+  <p><?= htmlspecialchars($e) ?></p>
   <?php endforeach; ?>
 </div>
 <?php endif; ?>
 
-<form method="POST" enctype="multipart/form-data" class="space-y-6 max-w-3xl">
+<form method="POST" enctype="multipart/form-data" class="edit-form">
 
   <!-- Alapadatok -->
-  <div class="bg-[#0d1b2a] border border-white/8 p-6">
-    <h2 class="font-heading font-bold text-lg uppercase tracking-widest text-white/60 mb-5">Alapadatok</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Alapadatok</span>
+    </div>
+    <div class="card-body">
+      <div class="form-grid-2">
 
-      <div class="md:col-span-2">
-        <label class="form-label">Gép neve *</label>
-        <input type="text" name="name" value="<?= htmlspecialchars($machine['name'] ?? '') ?>"
-          required class="form-input" placeholder="pl. TruLaser 3030 Fiber">
+        <div class="col-span-2">
+          <label class="form-label">Gép neve *</label>
+          <input type="text" name="name" value="<?= htmlspecialchars($machine['name'] ?? '') ?>"
+            required class="form-input" placeholder="pl. TruLaser 3030 Fiber">
+        </div>
+
+        <div>
+          <label class="form-label">Gyártó</label>
+          <select name="manufacturer" class="form-input">
+            <?php foreach ($manufacturers as $m): ?>
+            <option value="<?= $m ?>" <?= ($machine['manufacturer'] ?? '') === $m ? 'selected' : '' ?>><?= $m ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <div>
+          <label class="form-label">Szekció</label>
+          <select name="section" class="form-input">
+            <?php foreach ($sections as $val => $label): ?>
+            <option value="<?= $val ?>" <?= ($machine['section'] ?? '') === $val ? 'selected' : '' ?>><?= $label ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <div>
+          <label class="form-label">Kategória</label>
+          <select name="category" class="form-input">
+            <?php foreach ($categories as $val => $label): ?>
+            <option value="<?= $val ?>" <?= ($machine['category'] ?? '') === $val ? 'selected' : '' ?>><?= $label ?></option>
+            <?php endforeach; ?>
+          </select>
+        </div>
+
+        <div>
+          <label class="form-label">Kategória felirat <span style="font-weight:400;color:var(--subtle)">(pl. "Fiber lézer")</span></label>
+          <input type="text" name="category_label" value="<?= htmlspecialchars($machine['category_label'] ?? '') ?>"
+            class="form-input" placeholder="pl. CO₂ lézer">
+        </div>
+
+        <div>
+          <label class="form-label">Badge szöveg <span style="font-weight:400;color:var(--subtle)">(pl. "5 kW", "×2")</span></label>
+          <input type="text" name="badge" value="<?= htmlspecialchars($machine['badge'] ?? '') ?>"
+            class="form-input" placeholder="pl. 5 kW">
+        </div>
+
+        <div class="col-span-2">
+          <div class="form-checks">
+            <label class="form-check">
+              <input type="checkbox" name="is_active" value="1" <?= ($machine['is_active'] ?? 1) ? 'checked' : '' ?>>
+              Aktív (látható a weboldalon)
+            </label>
+            <label class="form-check">
+              <input type="checkbox" name="is_featured" value="1" <?= !empty($machine['is_featured']) ? 'checked' : '' ?>>
+              Kiemelt gép
+            </label>
+          </div>
+        </div>
+
       </div>
-
-      <div>
-        <label class="form-label">Gyártó</label>
-        <select name="manufacturer" class="form-input">
-          <?php foreach ($manufacturers as $m): ?>
-          <option value="<?= $m ?>" <?= ($machine['manufacturer'] ?? '') === $m ? 'selected' : '' ?>><?= $m ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-
-      <div>
-        <label class="form-label">Szekció</label>
-        <select name="section" class="form-input">
-          <?php foreach ($sections as $val => $label): ?>
-          <option value="<?= $val ?>" <?= ($machine['section'] ?? '') === $val ? 'selected' : '' ?>><?= $label ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-
-      <div>
-        <label class="form-label">Kategória</label>
-        <select name="category" class="form-input">
-          <?php foreach ($categories as $val => $label): ?>
-          <option value="<?= $val ?>" <?= ($machine['category'] ?? '') === $val ? 'selected' : '' ?>><?= $label ?></option>
-          <?php endforeach; ?>
-        </select>
-      </div>
-
-      <div>
-        <label class="form-label">Kategória felirat <span class="normal-case text-white/20">(pl. "Fő gép · Fiber lézer")</span></label>
-        <input type="text" name="category_label" value="<?= htmlspecialchars($machine['category_label'] ?? '') ?>"
-          class="form-input" placeholder="pl. CO₂ lézer">
-      </div>
-
-      <div>
-        <label class="form-label">Badge szöveg <span class="normal-case text-white/20">(pl. "5 kW", "×2")</span></label>
-        <input type="text" name="badge" value="<?= htmlspecialchars($machine['badge'] ?? '') ?>"
-          class="form-input" placeholder="pl. 5 kW">
-      </div>
-
-      <div class="flex items-center gap-6 mt-2">
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" name="is_active" value="1" <?= ($machine['is_active'] ?? 1) ? 'checked' : '' ?> class="w-4 h-4 accent-[#cc2222]">
-          <span class="text-sm text-white/60">Aktív (látható a weboldalon)</span>
-        </label>
-        <label class="flex items-center gap-2 cursor-pointer">
-          <input type="checkbox" name="is_featured" value="1" <?= !empty($machine['is_featured']) ? 'checked' : '' ?> class="w-4 h-4 accent-[#cc2222]">
-          <span class="text-sm text-white/60">Kiemelt gép</span>
-        </label>
-      </div>
-
     </div>
   </div>
 
   <!-- Leírás -->
-  <div class="bg-[#0d1b2a] border border-white/8 p-6">
-    <h2 class="font-heading font-bold text-lg uppercase tracking-widest text-white/60 mb-5">Leírás</h2>
-    <label class="form-label">Rövid leírás</label>
-    <textarea name="short_description" rows="3" class="form-input resize-none"
-      placeholder="2-4 mondat a gépről..."><?= htmlspecialchars($machine['short_description'] ?? '') ?></textarea>
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Leírás</span>
+    </div>
+    <div class="card-body">
+      <label class="form-label">Rövid leírás</label>
+      <textarea name="short_description" rows="3" class="form-input"
+        placeholder="2-4 mondat a gépről..."><?= htmlspecialchars($machine['short_description'] ?? '') ?></textarea>
+    </div>
   </div>
 
   <!-- Műszaki adatok -->
-  <div class="bg-[#0d1b2a] border border-white/8 p-6">
-    <div class="flex items-center justify-between mb-5">
-      <h2 class="font-heading font-bold text-lg uppercase tracking-widest text-white/60">Műszaki adatok</h2>
-      <button type="button" onclick="addSpec()" class="btn-secondary text-xs py-1.5 px-3">+ Sor hozzáadása</button>
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Műszaki adatok</span>
+      <button type="button" onclick="addSpec()" class="btn-secondary" style="padding:6px 12px;font-size:12px;">+ Sor hozzáadása</button>
     </div>
-    <div id="specs-container" class="space-y-2">
-      <?php if (empty($specs)): ?>
-      <div class="spec-row flex gap-2 items-center">
-        <input type="text" name="spec_key[]" class="form-input flex-1" placeholder="Tulajdonság neve (pl. Munkaterület)">
-        <input type="text" name="spec_val[]" class="form-input flex-1" placeholder="Érték (pl. 3000 × 1500 mm)">
-        <button type="button" onclick="this.closest('.spec-row').remove()" class="text-white/25 hover:text-[#cc2222] transition-colors p-1 shrink-0">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
+    <div class="card-body">
+      <div id="specs-container">
+        <?php if (empty($specs)): ?>
+        <div class="spec-row">
+          <input type="text" name="spec_key[]" class="form-input" placeholder="Tulajdonság (pl. Munkaterület)">
+          <input type="text" name="spec_val[]" class="form-input" placeholder="Érték (pl. 3000 × 1500 mm)">
+          <button type="button" onclick="this.closest('.spec-row').remove()" class="spec-remove">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <?php else: ?>
+        <?php foreach ($specs as $spec): ?>
+        <div class="spec-row">
+          <input type="text" name="spec_key[]" value="<?= htmlspecialchars($spec['spec_key']) ?>" class="form-input" placeholder="Tulajdonság neve">
+          <input type="text" name="spec_val[]" value="<?= htmlspecialchars($spec['spec_value']) ?>" class="form-input" placeholder="Érték">
+          <button type="button" onclick="this.closest('.spec-row').remove()" class="spec-remove">
+            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+          </button>
+        </div>
+        <?php endforeach; ?>
+        <?php endif; ?>
       </div>
-      <?php else: ?>
-      <?php foreach ($specs as $spec): ?>
-      <div class="spec-row flex gap-2 items-center">
-        <input type="text" name="spec_key[]" value="<?= htmlspecialchars($spec['spec_key']) ?>" class="form-input flex-1" placeholder="Tulajdonság neve">
-        <input type="text" name="spec_val[]" value="<?= htmlspecialchars($spec['spec_value']) ?>" class="form-input flex-1" placeholder="Érték">
-        <button type="button" onclick="this.closest('.spec-row').remove()" class="text-white/25 hover:text-[#cc2222] transition-colors p-1 shrink-0">
-          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
-        </button>
-      </div>
-      <?php endforeach; ?>
-      <?php endif; ?>
     </div>
   </div>
 
   <!-- Kép -->
-  <div class="bg-[#0d1b2a] border border-white/8 p-6">
-    <h2 class="font-heading font-bold text-lg uppercase tracking-widest text-white/60 mb-5">Kép</h2>
-    <?php if (!empty($machine['image'])): ?>
-    <div class="mb-4 flex items-start gap-4">
-      <img src="../<?= htmlspecialchars($machine['image']) ?>" alt="" class="w-32 h-24 object-cover border border-white/10">
-      <label class="flex items-center gap-2 cursor-pointer mt-2">
-        <input type="checkbox" name="delete_image" value="1" class="w-4 h-4 accent-[#cc2222]">
-        <span class="text-sm text-[#cc2222]/70">Kép törlése</span>
-      </label>
+  <div class="card">
+    <div class="card-header">
+      <span class="card-title">Kép</span>
     </div>
-    <?php endif; ?>
-    <label class="form-label">Kép feltöltése <span class="normal-case text-white/20">(JPG, PNG, WebP – max. 3 MB)</span></label>
-    <input type="file" name="image" accept="image/jpeg,image/png,image/webp"
-      class="w-full text-sm text-white/50 file:mr-3 file:py-2 file:px-4 file:border-0 file:bg-[#cc2222] file:text-white file:text-xs file:font-semibold file:uppercase file:tracking-wide file:cursor-pointer hover:file:bg-[#a01818]">
+    <div class="card-body">
+      <?php if (!empty($machine['image'])): ?>
+      <div style="display:flex;align-items:flex-start;gap:16px;margin-bottom:16px;">
+        <img src="../<?= htmlspecialchars($machine['image']) ?>" alt="" class="img-preview">
+        <label class="form-check" style="margin-top:6px;color:rgba(248,113,113,0.7);">
+          <input type="checkbox" name="delete_image" value="1">
+          Kép törlése
+        </label>
+      </div>
+      <?php endif; ?>
+      <label class="form-label">Kép feltöltése <span style="font-weight:400;color:var(--subtle)">(JPG, PNG, WebP – max. 3 MB)</span></label>
+      <input type="file" name="image" accept="image/jpeg,image/png,image/webp" class="file-input">
+    </div>
   </div>
 
   <!-- Submit -->
-  <div class="flex items-center gap-3">
-    <button type="submit" class="btn-primary px-8 py-3 text-base">Mentés</button>
-    <a href="machines.php" class="btn-secondary px-6 py-3">Mégsem</a>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <button type="submit" class="btn-primary">Mentés</button>
+    <a href="machines.php" class="btn-secondary">Mégsem</a>
   </div>
 
 </form>
@@ -272,12 +315,12 @@ $manufacturers = ['TRUMPF','AMADA','SOCO','Gema','Wagner','STEELINE','VS','SOYER
 function addSpec() {
   const container = document.getElementById('specs-container');
   const row = document.createElement('div');
-  row.className = 'spec-row flex gap-2 items-center';
+  row.className = 'spec-row';
   row.innerHTML = `
-    <input type="text" name="spec_key[]" class="form-input flex-1" placeholder="Tulajdonság neve">
-    <input type="text" name="spec_val[]" class="form-input flex-1" placeholder="Érték">
-    <button type="button" onclick="this.closest('.spec-row').remove()" class="text-white/25 hover:text-[#cc2222] transition-colors p-1 shrink-0">
-      <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    <input type="text" name="spec_key[]" class="form-input" placeholder="Tulajdonság neve">
+    <input type="text" name="spec_val[]" class="form-input" placeholder="Érték">
+    <button type="button" onclick="this.closest('.spec-row').remove()" class="spec-remove">
+      <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
     </button>`;
   container.appendChild(row);
   row.querySelector('input').focus();
