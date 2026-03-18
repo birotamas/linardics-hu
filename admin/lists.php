@@ -307,13 +307,13 @@ include __DIR__ . '/includes/header.php';
           <div class="form-group">
             <label class="form-label">Megnevezés</label>
             <input type="text" name="label" value="<?= htmlspecialchars($es['label']) ?>" required class="form-input" placeholder="Megnevezés" oninput="previewSlug(this,'slug-preview-s-<?= $es['id'] ?>')">
-            <div style="margin-top:5px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-s-<?= $es['id'] ?>"><?= htmlspecialchars($es['slug']) ?></code></div>
           </div>
           <div class="form-actions">
             <button type="submit" class="btn-primary">Mentés</button>
             <a href="lists.php" class="btn-secondary">Mégse</a>
           </div>
         </div>
+        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-s-<?= $es['id'] ?>"><?= htmlspecialchars($es['slug']) ?></code></div>
       </form>
     </div>
     <?php endif; ?>
@@ -359,12 +359,12 @@ include __DIR__ . '/includes/header.php';
           <div class="form-group">
             <label class="form-label">Megnevezés</label>
             <input type="text" name="label" required class="form-input" placeholder="pl. Új szekció" oninput="previewSlug(this,'slug-preview-add-s')">
-            <div style="margin-top:5px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-add-s">–</code></div>
           </div>
           <div class="form-actions">
             <button type="submit" class="btn-primary">Hozzáadás</button>
           </div>
         </div>
+        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-add-s">–</code></div>
       </form>
     </div>
   </div>
@@ -388,13 +388,13 @@ include __DIR__ . '/includes/header.php';
           <div class="form-group">
             <label class="form-label">Megnevezés</label>
             <input type="text" name="label" value="<?= htmlspecialchars($ec['label']) ?>" required class="form-input" placeholder="Megnevezés" oninput="previewSlug(this,'slug-preview-c-<?= $ec['id'] ?>')">
-            <div style="margin-top:5px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-c-<?= $ec['id'] ?>"><?= htmlspecialchars($ec['slug']) ?></code></div>
           </div>
           <div class="form-actions">
             <button type="submit" class="btn-primary">Mentés</button>
             <a href="lists.php" class="btn-secondary">Mégse</a>
           </div>
         </div>
+        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-c-<?= $ec['id'] ?>"><?= htmlspecialchars($ec['slug']) ?></code></div>
       </form>
     </div>
     <?php endif; ?>
@@ -440,12 +440,12 @@ include __DIR__ . '/includes/header.php';
           <div class="form-group">
             <label class="form-label">Megnevezés</label>
             <input type="text" name="label" required class="form-input" placeholder="pl. Új kategória" oninput="previewSlug(this,'slug-preview-add-c')">
-            <div style="margin-top:5px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-add-c">–</code></div>
           </div>
           <div class="form-actions">
             <button type="submit" class="btn-primary">Hozzáadás</button>
           </div>
         </div>
+        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-add-c">–</code></div>
       </form>
     </div>
   </div>
