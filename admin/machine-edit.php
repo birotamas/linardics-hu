@@ -115,21 +115,27 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 $page_title = $id ? 'Gép szerkesztése' : 'Új gép';
 include __DIR__ . '/includes/header.php';
 
-$sections = [
-    'trulaser'     => 'TRUMPF Lézervágók',
-    'trubend'      => 'TRUMPF Hajlítók',
-    'amada'        => 'AMADA Hajlítók',
-    'egyeb'        => 'Csőhajlítás + Egyéb',
-    'kotestechnika'=> 'Kötéstechnika',
-];
-$categories = [
-    'lezervago'    => 'Lézervágó',
-    'hajlito'      => 'Hajlító',
-    'csohajlito'   => 'Csőhajlító',
-    'porfesto'     => 'Porfestő',
-    'kotestechnika'=> 'Kötéstechnika',
-];
-$manufacturers = ['TRUMPF','AMADA','SOCO','Gema','Wagner','STEELINE','VS','SOYER','PEMSERTER','Egyéb'];
+try {
+    $sections_rows = $pdo->query("SELECT slug, label FROM sections ORDER BY sort_order, id")->fetchAll();
+    $sections = [];
+    foreach ($sections_rows as $r) $sections[$r['slug']] = $r['label'];
+} catch (Exception $e) {
+    $sections = [];
+}
+
+try {
+    $categories_rows = $pdo->query("SELECT slug, label FROM categories ORDER BY sort_order, id")->fetchAll();
+    $categories = [];
+    foreach ($categories_rows as $r) $categories[$r['slug']] = $r['label'];
+} catch (Exception $e) {
+    $categories = [];
+}
+
+try {
+    $manufacturers = $pdo->query("SELECT name FROM manufacturers ORDER BY sort_order, name")->fetchAll(PDO::FETCH_COLUMN);
+} catch (Exception $e) {
+    $manufacturers = [];
+}
 ?>
 
 <style>

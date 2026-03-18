@@ -31,8 +31,13 @@ $toast_msg = isset($_GET['saved'])   ? 'Gép sikeresen mentve!'  :
             (isset($_GET['toggled']) ? 'Láthatóság módosítva.'  :
             (isset($_GET['deleted']) ? 'Gép törölve.'           : ''));
 
-$sections = ['' => 'Minden szekció', 'trulaser' => 'TRUMPF Lézervágók', 'trubend' => 'TRUMPF Hajlítók',
-             'amada' => 'AMADA Hajlítók', 'egyeb' => 'Csőhajlítás + Egyéb', 'kotestechnika' => 'Kötéstechnika'];
+try {
+    $sections_rows = $pdo->query("SELECT slug, label FROM sections ORDER BY sort_order, id")->fetchAll();
+    $sections = ['' => 'Minden szekció'];
+    foreach ($sections_rows as $r) $sections[$r['slug']] = $r['label'];
+} catch (Exception $e) {
+    $sections = ['' => 'Minden szekció'];
+}
 
 $no_filter = !$search && !$f_section && $f_active === '';
 
