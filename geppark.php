@@ -34,6 +34,16 @@ foreach ($machines_raw as $row) {
     $machines[$row['section']][] = $row;
 }
 
+// Szekciók sorrendben (DB-ből, fallback: $machines kulcsai)
+$ordered_sections = [];
+try {
+    $sl = $pdo->query("SELECT slug, label FROM sections ORDER BY sort_order, id")->fetchAll();
+    foreach ($sl as $r) $ordered_sections[$r['slug']] = $r['label'];
+} catch (Exception $e) {}
+foreach (array_keys($machines) as $slug) {
+    if (!isset($ordered_sections[$slug])) $ordered_sections[$slug] = $slug;
+}
+
 // Oldal-beállítások
 $settings_raw = $pdo->query("SELECT setting_key, setting_value FROM page_settings WHERE setting_group = 'geppark'")->fetchAll();
 $s = [];
@@ -244,44 +254,29 @@ function machine_card(array $m, string $size = 'normal'): void {
     </div>
   </div>
 
-  <!-- TRUMPF LÉZERVÁGÓK -->
-  <?php if (!empty($machines['trulaser'])): ?>
-  <section class="bg-[#0d1b2a] py-16 px-6 md:px-12" id="trulaser">
-    <div class="container">
-      <div class="flex items-center gap-3 mb-2">
-        <div class="w-1 h-6 bg-[#cc2222]"></div>
-        <span class="font-heading font-semibold text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke:1.5px rgba(255,255,255,0.45);color:transparent;"><?= $get('trulaser_eyebrow', 'Lézervágás') ?></span>
-      </div>
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-        <h2 class="font-heading font-semibold text-4xl md:text-5xl uppercase tracking-wide text-white leading-tight"><?= $get('trulaser_title', 'TRUMPF Lézervágók') ?></h2>
-        <a href="szolgaltatasok/cnc-lemezmegmunkalas.html" class="text-[#cc2222] text-xs font-medium tracking-widest uppercase hover:text-white transition-colors whitespace-nowrap">CNC szolgáltatás →</a>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <?php foreach ($machines['trulaser'] as $m): machine_card($m); endforeach; ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
-
-  <!-- TRUMPF HAJLÍTÓK -->
-  <?php if (!empty($machines['trubend'])): ?>
+  <!-- SZEKCIÓK – dinamikusan DB-ből -->
+  <?php $bg_cycle = ['#0d1b2a', '#060f1a']; $bg_i = 0; ?>
+  <?php foreach ($ordered_sections as $slug => $section_label): ?>
+  <?php if (empty($machines[$slug])) { $bg_i++; continue; } ?>
   <?php
-    $featured = array_values(array_filter($machines['trubend'], fn($m) => $m['is_featured']));
-    $regular  = array_values(array_filter($machines['trubend'], fn($m) => !$m['is_featured']));
+    $bg       = $bg_cycle[$bg_i % 2];
+    $eyebrow  = $get("{$slug}_eyebrow");
+    $title    = !empty($s["{$slug}_title"]) ? htmlspecialchars($s["{$slug}_title"]) : htmlspecialchars($section_label);
+    $featured = array_values(array_filter($machines[$slug], fn($m) => $m['is_featured']));
+    $regular  = array_values(array_filter($machines[$slug], fn($m) => !$m['is_featured']));
+    $bg_i++;
   ?>
-  <section class="bg-[#060f1a] py-16 px-6 md:px-12" id="trubend">
+  <section style="background:<?= $bg ?>;" class="py-16 px-6 md:px-12" id="<?= htmlspecialchars($slug) ?>">
     <div class="container">
+      <?php if ($eyebrow): ?>
       <div class="flex items-center gap-3 mb-2">
         <div class="w-1 h-6 bg-[#cc2222]"></div>
-        <span class="font-heading font-semibold text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke:1.5px rgba(255,255,255,0.45);color:transparent;"><?= $get('trubend_eyebrow', 'Lemezhajlítás') ?></span>
+        <span class="font-heading font-semibold text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke:1.5px rgba(255,255,255,0.45);color:transparent;"><?= $eyebrow ?></span>
       </div>
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-        <h2 class="font-heading font-semibold text-4xl md:text-5xl uppercase tracking-wide text-white leading-tight"><?= $get('trubend_title', 'TRUMPF Hajlítók') ?></h2>
-        <a href="szolgaltatasok/lemezhajlitas.html" class="text-[#cc2222] text-xs font-medium tracking-widest uppercase hover:text-white transition-colors whitespace-nowrap">Lemezhajlítás →</a>
-      </div>
+      <?php endif; ?>
+      <h2 class="font-heading font-semibold text-4xl md:text-5xl uppercase tracking-wide text-white mb-10 leading-tight"><?= $title ?></h2>
 
       <?php foreach ($featured as $m): ?>
-      <!-- Kiemelt gép -->
       <div class="machine-card bg-[#122135] border border-[#cc2222]/20 p-6 mb-6">
         <div class="flex flex-col md:flex-row gap-6">
           <div class="flex-1">
@@ -311,66 +306,13 @@ function machine_card(array $m, string $size = 'normal'): void {
       <?php endforeach; ?>
 
       <?php if (!empty($regular)): ?>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        <?php foreach ($regular as $m): machine_card($m, 'small'); endforeach; ?>
+      <div class="grid grid-cols-1 md:grid-cols-2 <?= count($regular) > 2 ? 'lg:grid-cols-3' : '' ?> gap-6">
+        <?php foreach ($regular as $m): machine_card($m); endforeach; ?>
       </div>
       <?php endif; ?>
     </div>
   </section>
-  <?php endif; ?>
-
-  <!-- AMADA HAJLÍTÓK -->
-  <?php if (!empty($machines['amada'])): ?>
-  <section class="bg-[#0d1b2a] py-16 px-6 md:px-12" id="amada">
-    <div class="container">
-      <div class="flex items-center gap-3 mb-2">
-        <div class="w-1 h-6 bg-[#cc2222]"></div>
-        <span class="font-heading font-semibold text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke:1.5px rgba(255,255,255,0.45);color:transparent;"><?= $get('amada_eyebrow', 'Élhajlítás') ?></span>
-      </div>
-      <div class="flex flex-col md:flex-row md:items-end justify-between gap-4 mb-10">
-        <h2 class="font-heading font-semibold text-4xl md:text-5xl uppercase tracking-wide text-white leading-tight"><?= $get('amada_title', 'AMADA Hajlítók') ?></h2>
-        <a href="szolgaltatasok/lemezhajlitas.html" class="text-[#cc2222] text-xs font-medium tracking-widest uppercase hover:text-white transition-colors whitespace-nowrap">Lemezhajlítás →</a>
-      </div>
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <?php foreach ($machines['amada'] as $m): machine_card($m); endforeach; ?>
-      </div>
-    </div>
-  </section>
-  <?php endif; ?>
-
-  <!-- CSŐHAJLÍTÁS + EGYÉB -->
-  <?php if (!empty($machines['egyeb']) || !empty($machines['kotestechnika'])): ?>
-  <section class="bg-[#060f1a] py-16 px-6 md:px-12" id="egyeb">
-    <div class="container">
-      <div class="flex items-center gap-3 mb-2">
-        <div class="w-1 h-6 bg-[#cc2222]"></div>
-        <span class="font-heading font-semibold text-xl uppercase tracking-[0.15em]" style="-webkit-text-stroke:1.5px rgba(255,255,255,0.45);color:transparent;"><?= $get('egyeb_eyebrow', 'Kiegészítő technológiák') ?></span>
-      </div>
-      <h2 class="font-heading font-semibold text-4xl md:text-5xl uppercase tracking-wide text-white mb-10 leading-tight"><?= htmlspecialchars(html_entity_decode($s['egyeb_title'] ?? 'Csőhajlítás &amp; Felületkezelés')) ?></h2>
-
-      <?php if (!empty($machines['egyeb'])): ?>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        <?php foreach ($machines['egyeb'] as $m): machine_card($m); endforeach; ?>
-      </div>
-      <?php endif; ?>
-
-      <?php if (!empty($machines['kotestechnika'])): ?>
-      <div class="mt-6">
-        <h3 class="font-heading font-bold text-lg uppercase tracking-widest text-white/55 mb-4">Kötéstechnika &amp; Szerelés</h3>
-        <div class="grid grid-cols-2 md:grid-cols-4 gap-4">
-          <?php foreach ($machines['kotestechnika'] as $m): ?>
-          <div class="bg-[#122135] border border-white/8 p-4">
-            <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1"><?= htmlspecialchars($m['category_label']) ?></div>
-            <div class="font-heading font-bold text-base text-white uppercase"><?= htmlspecialchars($m['name']) ?></div>
-            <div class="text-white/40 text-xs mt-1"><?= htmlspecialchars($m['short_description']) ?></div>
-          </div>
-          <?php endforeach; ?>
-        </div>
-      </div>
-      <?php endif; ?>
-    </div>
-  </section>
-  <?php endif; ?>
+  <?php endforeach; ?>
 
   <!-- WHY SECTION -->
   <section class="bg-[#0d1b2a] py-16 px-6 md:px-12">
