@@ -2,3 +2,6 @@
 .claude/
 resources/
 *.zip
+
+# CMS – éles DB konfiguráció (soha ne commitold!)
+cms/config.php
