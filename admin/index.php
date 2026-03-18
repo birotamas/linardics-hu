@@ -9,7 +9,7 @@ $active   = $pdo->query("SELECT COUNT(*) FROM machines WHERE is_active=1")->fetc
 $trulaser = $pdo->query("SELECT COUNT(*) FROM machines WHERE section='trulaser'")->fetchColumn();
 $hajlito  = $pdo->query("SELECT COUNT(*) FROM machines WHERE section IN ('trubend','amada')")->fetchColumn();
 
-$page_title = 'Dashboard';
+$page_title = 'Vezérlőpult';
 include __DIR__ . '/includes/header.php';
 ?>
 

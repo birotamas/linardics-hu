@@ -27,30 +27,30 @@ include __DIR__ . '/includes/header.php';
 
 $groups = [
     'Géppark fejléc' => [
-        'geppark_eyebrow' => 'Eyebrow szöveg',
+        'geppark_eyebrow' => 'Felső sor',
         'geppark_title'   => 'Főcím (H1)',
         'geppark_intro'   => 'Bevezető szöveg',
     ],
-    'Summary badge-ek' => [
-        'geppark_badge_1' => 'Badge 1',
-        'geppark_badge_2' => 'Badge 2',
-        'geppark_badge_3' => 'Badge 3',
-        'geppark_badge_4' => 'Badge 4',
+    'Összefoglaló jelölők' => [
+        'geppark_badge_1' => 'Jelölő 1',
+        'geppark_badge_2' => 'Jelölő 2',
+        'geppark_badge_3' => 'Jelölő 3',
+        'geppark_badge_4' => 'Jelölő 4',
     ],
     'TRUMPF Lézervágók szekció' => [
-        'trulaser_eyebrow' => 'Eyebrow',
+        'trulaser_eyebrow' => 'Felső sor',
         'trulaser_title'   => 'Szekció cím',
     ],
     'TRUMPF Hajlítók szekció' => [
-        'trubend_eyebrow' => 'Eyebrow',
+        'trubend_eyebrow' => 'Felső sor',
         'trubend_title'   => 'Szekció cím',
     ],
     'AMADA Hajlítók szekció' => [
-        'amada_eyebrow' => 'Eyebrow',
+        'amada_eyebrow' => 'Felső sor',
         'amada_title'   => 'Szekció cím',
     ],
     'Csőhajlítás & Egyéb szekció' => [
-        'egyeb_eyebrow' => 'Eyebrow',
+        'egyeb_eyebrow' => 'Felső sor',
         'egyeb_title'   => 'Szekció cím',
     ],
 ];

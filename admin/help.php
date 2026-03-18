@@ -139,7 +139,7 @@ include __DIR__ . '/includes/header.php';
           <div class="step-num">1</div>
           <div class="step-body">
             <div class="step-title">Nyisd meg az "Új gép" oldalt</div>
-            <div class="step-desc">A bal oldali menüből kattints a <strong>Gépek</strong> menüpontra, majd a jobb felső sarokban az <strong>Új gép</strong> gombra. Vagy a Dashboard-ról az "Új gép hozzáadása" gyorsgombra.</div>
+            <div class="step-desc">A bal oldali menüből kattints a <strong>Gépek</strong> menüpontra, majd a jobb felső sarokban az <strong>Új gép</strong> gombra. Vagy a Vezérlőpult-ról az "Új gép hozzáadása" gyorsgombra.</div>
           </div>
         </div>
         <div class="step">
@@ -198,7 +198,7 @@ include __DIR__ . '/includes/header.php';
             <code>manufacturer</code>
           </div>
           <div class="field-desc">
-            A gép gyártójának neve. A weboldalon <strong>szürke badge-ként</strong> jelenik meg a kártya jobb felső sarkában, a piros badge alatt.<br>
+            A gép gyártójának neve. A weboldalon <strong>szürke jelölőként</strong> jelenik meg a kártya jobb felső sarkában, a piros jelölő alatt.<br>
             <span class="example">pl. TRUMPF, AMADA, SOCO</span>
           </div>
         </div>
@@ -238,11 +238,11 @@ include __DIR__ . '/includes/header.php';
 
         <div class="field-row">
           <div class="field-name">
-            Badge szöveg
+            Jelölő szöveg
             <code>badge</code>
           </div>
           <div class="field-desc">
-            Kis <strong>piros badge</strong> a kártya jobb felső sarkában. Rövid, figyelemfelkeltő adat — jellemzően a gép fő teljesítménymutója vagy darabszáma.<br>
+            Kis <strong>piros jelölő</strong> a kártya jobb felső sarkában. Rövid, figyelemfelkeltő adat — jellemzően a gép fő teljesítménymutója vagy darabszáma.<br>
             <span class="example">pl. 5 kW &nbsp;·&nbsp; ×2 &nbsp;·&nbsp; 6 kW &nbsp;·&nbsp; 320T</span>
           </div>
         </div>
@@ -345,7 +345,7 @@ include __DIR__ . '/includes/header.php';
         <div class="tip-box">
           <svg fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
           <div>
-            A szekció neve alapján automatikusan generálódik egy <strong>belső azonosító (slug)</strong>, pl. "TRUMPF Lézervágók" → <code style="font-family:monospace;font-size:11px;">trumpf-lezervagok</code>. Ha egy szekció nevét módosítod, az összes hozzá tartozó gép automatikusan az új névhez kapcsolódik — nem kell külön frissíteni a gépeket.
+            A szekció neve alapján automatikusan generálódik egy <strong>belső azonosító</strong>, pl. "TRUMPF Lézervágók" → <code style="font-family:monospace;font-size:11px;">trumpf-lezervagok</code>. Ha egy szekció nevét módosítod, az összes hozzá tartozó gép automatikusan az új névhez kapcsolódik — nem kell külön frissíteni a gépeket.
           </div>
         </div>
         <div class="warn-box">
@@ -373,7 +373,7 @@ include __DIR__ . '/includes/header.php';
         <span class="card-title">Gyártók kezelése</span>
       </div>
       <div class="card-body">
-        <p class="field-desc">A gyártók listája határozza meg, hogy a gép szerkesztő felületén milyen gyártók választhatók. Ha egy új gyártó gépet veszel fel, először add hozzá a gyártót a <strong>Listák</strong> menüpontban. A gyártó neve <strong>szürke badge-ként</strong> jelenik meg a weboldalon minden gépen.</p>
+        <p class="field-desc">A gyártók listája határozza meg, hogy a gép szerkesztő felületén milyen gyártók választhatók. Ha egy új gyártó gépet veszel fel, először add hozzá a gyártót a <strong>Listák</strong> menüpontban. A gyártó neve <strong>szürke jelölőként</strong> jelenik meg a weboldalon minden gépen.</p>
       </div>
     </div>
 

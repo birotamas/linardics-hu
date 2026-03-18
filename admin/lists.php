@@ -313,7 +313,7 @@ include __DIR__ . '/includes/header.php';
             <a href="lists.php" class="btn-secondary">Mégse</a>
           </div>
         </div>
-        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-s-<?= $es['id'] ?>"><?= htmlspecialchars($es['slug']) ?></code></div>
+        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Azonosító: <code class="code-slug" id="slug-preview-s-<?= $es['id'] ?>"><?= htmlspecialchars($es['slug']) ?></code></div>
       </form>
     </div>
     <?php endif; ?>
@@ -325,7 +325,7 @@ include __DIR__ . '/includes/header.php';
     <table class="data-table">
       <thead>
         <tr>
-          <th>Slug</th>
+          <th>Azonosító</th>
           <th>Megnevezés</th>
           <th style="text-align:right;">Műveletek</th>
         </tr>
@@ -364,7 +364,7 @@ include __DIR__ . '/includes/header.php';
             <button type="submit" class="btn-primary">Hozzáadás</button>
           </div>
         </div>
-        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-add-s">–</code></div>
+        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Azonosító: <code class="code-slug" id="slug-preview-add-s">–</code></div>
       </form>
     </div>
   </div>
@@ -394,7 +394,7 @@ include __DIR__ . '/includes/header.php';
             <a href="lists.php" class="btn-secondary">Mégse</a>
           </div>
         </div>
-        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-c-<?= $ec['id'] ?>"><?= htmlspecialchars($ec['slug']) ?></code></div>
+        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Azonosító: <code class="code-slug" id="slug-preview-c-<?= $ec['id'] ?>"><?= htmlspecialchars($ec['slug']) ?></code></div>
       </form>
     </div>
     <?php endif; ?>
@@ -406,7 +406,7 @@ include __DIR__ . '/includes/header.php';
     <table class="data-table">
       <thead>
         <tr>
-          <th>Slug</th>
+          <th>Azonosító</th>
           <th>Megnevezés</th>
           <th style="text-align:right;">Műveletek</th>
         </tr>
@@ -445,7 +445,7 @@ include __DIR__ . '/includes/header.php';
             <button type="submit" class="btn-primary">Hozzáadás</button>
           </div>
         </div>
-        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Slug: <code class="code-slug" id="slug-preview-add-c">–</code></div>
+        <div style="margin-top:6px;font-size:11px;color:var(--subtle);">Azonosító: <code class="code-slug" id="slug-preview-add-c">–</code></div>
       </form>
     </div>
   </div>

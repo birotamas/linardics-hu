@@ -224,7 +224,7 @@ try {
         </div>
 
         <div>
-          <label class="form-label">Badge szöveg <span style="font-weight:400;color:var(--subtle)">(pl. "5 kW", "×2")</span></label>
+          <label class="form-label">Jelölő szöveg <span style="font-weight:400;color:var(--subtle)">(pl. "5 kW", "×2")</span></label>
           <input type="text" name="badge" value="<?= htmlspecialchars($machine['badge'] ?? '') ?>"
             class="form-input" placeholder="pl. 5 kW">
         </div>
