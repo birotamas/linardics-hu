@@ -46,6 +46,7 @@ function machine_card(array $m, string $size = 'normal'): void {
     $name  = htmlspecialchars($m['name']);
     $label = htmlspecialchars($m['category_label']);
     $badge = htmlspecialchars($m['badge']);
+    $mfr   = htmlspecialchars($m['manufacturer']);
     $desc  = htmlspecialchars($m['short_description']);
     $img   = $m['image'] ? htmlspecialchars($m['image']) : '';
     $pad   = $size === 'small' ? 'p-5' : 'p-6';
@@ -64,9 +65,18 @@ function machine_card(array $m, string $size = 'normal'): void {
           <div class="text-[#cc2222] text-xs font-medium tracking-widest uppercase mb-1"><?= $label ?></div>
           <h3 class="font-heading font-semibold <?= $h ?> uppercase tracking-wide text-white"><?= $name ?></h3>
         </div>
-        <?php if ($badge): ?>
-        <div class="bg-[#cc2222]/10 border border-[#cc2222]/30 px-2 py-1 shrink-0 ml-2">
-          <span class="text-[#cc2222] text-xs font-bold tracking-wider"><?= $badge ?></span>
+        <?php if ($badge || $mfr): ?>
+        <div class="flex flex-col items-end gap-1 shrink-0 ml-2">
+          <?php if ($badge): ?>
+          <div class="bg-[#cc2222]/10 border border-[#cc2222]/30 px-2 py-1">
+            <span class="text-[#cc2222] text-xs font-bold tracking-wider"><?= $badge ?></span>
+          </div>
+          <?php endif; ?>
+          <?php if ($mfr): ?>
+          <div class="bg-white/5 border border-white/10 px-2 py-1">
+            <span class="text-white/40 text-xs font-semibold tracking-wider"><?= $mfr ?></span>
+          </div>
+          <?php endif; ?>
         </div>
         <?php endif; ?>
       </div>
